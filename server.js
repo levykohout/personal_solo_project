@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const login = require('./routes/login');
-const register = require('./routes/register');
 const auth = require('./auth/setup');
 const passport = require('passport');
 const session = require('express-session');
 
+const login = require('./routes/login');
+const register = require('./routes/register');
+const itemRouter = require('./routes/items');
 
 auth.setup();
 
@@ -35,6 +36,7 @@ app.use(passport.session());
 
 app.use('/login', login);
 app.use('/register', register);
+app.use('/items', itemRouter);
 
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, 'public/views/index.html'));

@@ -8,7 +8,8 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
         templateUrl:'views/register.html',
         controller: 'RegisterController as register'
     }).when('/add', {
-        templateUrl:'views/add.html'
+        templateUrl:'views/add.html',
+        controller:'AddProductController as add'
     }).when('/receipt', {
         templateUrl:'views/receipt.html'
     }).when('/receipt', {
