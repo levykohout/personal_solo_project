@@ -14,7 +14,7 @@ The user of this app will have the ability to:
 - A choice to upload picture of receipt or fill a form to add pantry items into the inventory database.
 - See a list of the items in the inventory.
 - Update/Delete quantity, description, expiration date of individual inventory items.
-- 3 - 5 days prior to an items expiration date, user will receive a notification of items expiring.
+- 3 - 5 days prior to an item's expiration date, user will receive a notification of items expiring.
 - Suggestions of recipes using that specific item will be sent out in the same notification.
 - User will have an option to add the recipe that looks delicious to the Meal Planner Calendar.
 - User will also have an option to add recipes they like to the Favorite Recipe List.

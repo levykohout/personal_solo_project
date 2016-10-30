@@ -1,8 +1,8 @@
-<form ng-controller="AddProductController as add"class="form-horizontal col-xs-12 col-md-6 col-md-offset-3 custom-form" ng-submit="add.newItemAdd(add.category,add.skuNum,add.productName,add.quantity,add.dateBought,add.expirationDate)">
+<form ng-controller="ProductController as product"class="form-horizontal col-xs-12 col-md-6 col-md-offset-3 custom-form" ng-submit="product.newItemAdd(product.category,product.skuNum,product.productName,product.quantity,product.dateBought,product.expirationDate)">
     <div class="form-group row">
         <label for="category" class="control-label col-xs-3">Product Category</label>
         <div class="col-md-8">
-            <select class="form-control"  ng-model="add.category">
+            <select class="form-control"  ng-model="product.category">
             <option value="Category1">Category 1</option>
             <option value="Category2">category 2</option>
             <option value="Category3">category 3</option>
@@ -14,31 +14,31 @@
 
         <label for="sku-num" class="control-label col-xs-3">SKU Number: </label>
         <div class="col-md-8">
-            <input class="form-control" type="number" name="sku-num" value="" ng-model="add.skuNum">
+            <input class="form-control" type="number" name="sku-num" value="" ng-model="product.skuNum">
         </div>
     </div>
     <div class="form-group row">
         <label for="product-name" class="control-label  col-xs-3">Product Name: </label>
         <div class="col-md-8">
-            <input class="form-control" type="text" name="product-name" value="" ng-model="add.productName">
+            <input class="form-control" type="text" name="product-name" value="" ng-model="product.productName">
         </div>
     </div>
     <div class="form-group row">
         <label for="quantity" class="control-label  col-xs-3">Quantity: </label>
         <div class="col-md-8">
-            <input class="form-control" type="number" name="quantity" value="" ng-model="add.quantity">
+            <input class="form-control" type="number" name="quantity" value="" ng-model="product.quantity">
         </div>
     </div>
     <div class="form-group row">
         <label for="date-bought" class="control-label  col-xs-3">Date Bought: </label>
         <div class="col-xs-8">
-            <input class="form-control" type="date" name="date-bought" value="" ng-model="add.dateBought">
+            <input class="form-control" type="date" name="date-bought" value="" ng-model="product.dateBought">
         </div>
     </div>
     <div class="form-group row">
         <label for="expiration-date" class="control-label  col-xs-3">Expiration Date: </label>
         <div class="col-xs-8">
-            <input class="form-control" type=date name="expiration-date" value="" ng-model="add.expirationDate">
+            <input class="form-control" type=date name="expiration-date" value="" ng-model="product.expirationDate">
         </div>
     </div>
     <div class="col-xs-offset-4 col-xs-10">

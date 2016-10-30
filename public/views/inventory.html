@@ -1,0 +1,22 @@
+
+<table class="table table-striped">
+    <thead>
+        <th>Category</th>
+        <th>SKU</th>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Date Bought</th>
+        <th>Expiration Date</th>
+    </thead>
+    <tr ng-repeat="item in product.itemsArray">
+        <td ng-model="item.updateCategory[item.id]" >{{item.category}}</td>
+        <td ng-model="item.updateSku[item.id]" >{{item.sku_number}}</td>
+        <td>{{item.product_name}}</td>
+        <td><input type="number" class="form-control" ng-model="item.updateQuantity[item.id]" placeholder="{{item.quantity}}" /></td>
+        <td ng-model="item.updateBuyDate[item.id]">{{item.date_bought| date:'MM/dd/yyyy'}}</td>
+        <td ng-model="item.updateExpDate[item.id]">{{item.expiration_date| date:'MM/dd/yyyy'}}</td>
+        <td><button type="button" ng-click="product.updateItem(item.category,item.sku_number,item.product_name,item.updateQuantity[item.id],item.date_bought,item.expiration_date,item.id)">Update</button></td>
+        <td><button type="button" ng-click="product.deleteItem(item.id)">Remove</button></td>
+
+    </tr>
+</table>

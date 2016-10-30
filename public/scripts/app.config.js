@@ -9,13 +9,14 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
         controller: 'RegisterController as register'
     }).when('/add', {
         templateUrl:'views/add.html',
-        controller:'AddProductController as add'
+        controller:'ProductController as product'
     }).when('/receipt', {
         templateUrl:'views/receipt.html'
     }).when('/receipt', {
         templateUrl:'views/receipt.html'
     }).when('/inventory', {
-        templateUrl:'views/inventory.html'
+        templateUrl:'views/inventory.html',
+        controller:'ProductController as product'
     }).when('/favorites', {
         templateUrl:'views/favorites.html'
     }).when('/recipes', {
