@@ -10,8 +10,8 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
     }).when('/add', {
         templateUrl:'views/add.html',
         controller:'ProductController as product'
-    }).when('/receipt', {
-        templateUrl:'views/receipt.html'
+    }).when('/calendar', {
+        templateUrl:'views/calendar.html'
     }).when('/receipt', {
         templateUrl:'views/receipt.html'
     }).when('/inventory', {
