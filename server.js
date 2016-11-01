@@ -5,9 +5,13 @@ const auth = require('./auth/setup');
 const passport = require('passport');
 const session = require('express-session');
 
-const login = require('./routes/login');
-const register = require('./routes/register');
-const itemRouter = require('./routes/items');
+var isLoggedIn = require('./auth/login');
+
+// const login = require('./routes/private/login');
+// const itemRouter = require('./routes/private/items');
+const googleAuth = require('./routes/googleauth');
+// const googleCalendar = require('./routes/calendar');
+const private = require('./routes/private/login');
 
 auth.setup();
 
@@ -22,41 +26,35 @@ const sessionConfig = {
   }
 };
 
-
-// auth.setup();
-
 const app = express();
 
 
 app.use(session(sessionConfig));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/login', login);
-app.use('/register', register);
-app.use('/items', itemRouter);
+// app.use('/login', login);
+app.use('/auth', googleAuth);
+// app.use('/calendar', googleCalendar);
+app.use('/private',isLoggedIn, private);
 
-app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, 'public/views/index.html'));
-});
+// everything beyond this point must be authenticat
 
-// everything beyond this point must be authenticated
-app.use(ensureAuthenticated);
-
-
-app.get('/*', function(req, res){
-  res.sendFile(path.join(__dirname, 'public/views/index.html'));
-});
-
-function ensureAuthenticated(req, res, next) {
+// app.use('/', function (req, res) {
+//   res.sendFile(path.join(__dirname, './public/views/index.html'));
+// });
+app.get('/*', function (req, res) {
   if (req.isAuthenticated()) {
-    next();
+    res.sendFile(path.join(__dirname, 'public/views/index.html'));
   } else {
-    res.sendStatus(401);
+    res.redirect('/auth/google');
   }
-}
+
+});
+
 
 var server = app.listen(3000, function() {
   console.log('Listening on port', server.address().port);

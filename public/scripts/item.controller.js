@@ -12,7 +12,7 @@ function ProductController($http) {
   add.newItemAdd = function(category, sku, name, quantity, buyDate, expirationDate) {
     console.log('Adding new item');
     console.log(category, sku, name, quantity, buyDate, expirationDate);
-    $http.post('/items', {
+    $http.post('/private/items', {
         category: category,
         sku:sku,
         name:name,
@@ -28,7 +28,7 @@ function ProductController($http) {
 
   add.getItems = function(){
       console.log('Getting items');
-      $http.get('/items').then(function(response){
+      $http.get('/private/items').then(function(response){
           console.log(response);
           add.itemsArray = response.data;
           console.log(add.itemsArray);
@@ -50,7 +50,7 @@ function ProductController($http) {
           expirationDate:expirationDate
  };
  console.log(data);
-      $http.put('/items/'+ id,data).then(function(response){
+      $http.put('/private/items/'+ id,data).then(function(response){
         add.getItems();
        }, function(error) {
         console.log('error updating item', error);
@@ -59,7 +59,7 @@ function ProductController($http) {
 
  add.deleteItem = function(id){
      console.log(id);
-     $http.delete('/items/'+ id).then(function(response){
+     $http.delete('/private/items/'+ id).then(function(response){
        add.getItems();
       }, function(error) {
        console.log('error deleting item', error);
