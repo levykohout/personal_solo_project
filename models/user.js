@@ -28,30 +28,31 @@ function findById(googleID, accessToken, refreshToken) {
   });
 }
 
+function updateTokens(googleID, accessToken, refreshToken){
+    console.log('This is a refreshToken',refreshToken);
+    console.log('This is a accessToken',accessToken);
+    return new Promise(function(resolve, reject){
+    pool.connect(function(err, client, done){
+      if (err) {
+        done();
+        return reject(err);
+      }
 
-//
-// // find by id
-// function findById(id) {
-//   return new Promise(function(resolve, reject){
-//     pool.connect(function(err, client, done){
-//       if (err) {
-//         done();
-//         return reject(err);
-//       }
-//
-//       client.query('SELECT * FROM users WHERE id=$1',
-//       [id],
-//       function(err, result){
-//         done();
-//         if (err) {
-//           reject(err);
-//         }
-//
-//         resolve(result.rows[0]);
-//       });
-//     });
-//   });
-// }
+      client.query('UPDATE users SET accesstoken=$1, refreshtoken=$2 WHERE googleid=$3 RETURNING *',
+      [accessToken, refreshToken, googleID],
+      function(err, result){
+        done();
+        if (err) {
+          reject(err);
+        }
+        resolve(200);
+      });
+    });
+    });
+}
+
+
+
 
 // create
 function create(googleID, accessToken, refreshToken) {
@@ -79,21 +80,9 @@ function create(googleID, accessToken, refreshToken) {
   });
 }
 
-// // compare password
-// function comparePassword(user, passwordToCompare) {
-//   return new Promise(function(resolve){
-//     bcrypt.compare(passwordToCompare, user.password, function(err, match){
-//       if (err) {
-//         console.log('Error comparing password', err);
-//         return resolve(false);
-//       }
-//
-//       resolve(match);
-//     });
-//   });
-// }
 
 module.exports = {
   findById: findById,
   create: create,
+  updateTokens:updateTokens
 };

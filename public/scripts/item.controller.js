@@ -70,4 +70,33 @@ function ProductController($http) {
 
   add.getItems();
 
+
+  //expiration notification
+  // add.sendMail = function(recipient, imageURL){
+
+  add.sendMail = function(){
+
+      //go through the database and check look at expiration date
+
+
+      //if expiration date is 3 days before today, call node mailer
+
+   // var objectToSend = {
+   //   recipient: recipient,
+   //   imageURL: imageURL
+   // };
+
+  $http.post('/private/mailReminder'
+    //  data: objectToSend
+).then(function(results){
+     console.log(results);
+   }); // end http call
+ }; // end sendMail
+
+ // return {
+ //   sendMail: sendMail
+ // };
+
+
+
 }

@@ -24,8 +24,8 @@ exports.setup = function () {
   passport.use(new GoogleStrategy({
     authorizationURL: 'https://accounts.google.com/o/oauth2/auth',
     tokenURL: 'https://accounts.google.com/o/oauth2/token',
-    clientID: '530635405123-sn61sh55b6teigfga5jp6teik77gnroi.apps.googleusercontent.com',
-    clientSecret: 'A4VB82woLQEL4KITfT6UyzNv',
+    clientID: '907193122888-0cjobnsgokbtstp1bpfdcrluutu2geri.apps.googleusercontent.com',
+    clientSecret: 'KNdAuOCAkfEO--VblecevBbX',
     callbackURL: 'http://localhost:3000/auth/google/callback',
   },
 
@@ -48,7 +48,12 @@ function findOrCreate(googleID, accessToken, refreshToken, done) {
     User.findById(googleID, accessToken, refreshToken).then(function (user) {
       console.log('user', user);
       if (user) {
-        return done(null, user);
+          // update access and refresh token
+          User.updateTokens(googleID, accessToken, refreshToken);
+            console.log('update user', user);
+                  return done(null, user);
+        
+
       }
 
       if (!user) {

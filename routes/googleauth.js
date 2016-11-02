@@ -4,10 +4,12 @@ const passport = require('passport');
 router.get('/google',
   passport.authenticate('google', { scope:
     ['https://www.googleapis.com/auth/plus.login',
-    'https://www.googleapis.com/auth/plus.profile.emails.read',
-    'https://www.googleapis.com/auth/calendar'],
-    prompt:'select_account',
-    accessType: 'offline'
+    // 'https://www.googleapis.com/auth/plus.profile.emails.read',
+    'https://www.googleapis.com/auth/calendar',
+    'https://mail.google.com'],
+    // approvalPrompt:'force',
+    // accessType: 'offline'
+    // approval_prompt:'force'
     }
   ));
 
