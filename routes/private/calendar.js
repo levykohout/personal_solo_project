@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const passport = require('passport');
 
+    var gcal = require('google-calendar');
+    // var google_calendar = new gcal.GoogleCalendar(accessToken);
+
 var google = require('googleapis');
 var plus = google.plus('v1');
 var OAuth2 = google.auth.OAuth2;
@@ -8,8 +11,8 @@ var OAuth2 = google.auth.OAuth2;
 // const auth = require('../db/connection');
 
 var oauth2Client = new OAuth2(
-  '530635405123-sn61sh55b6teigfga5jp6teik77gnroi.apps.googleusercontent.com',
-  'A4VB82woLQEL4KITfT6UyzNv',
+  '907193122888-0cjobnsgokbtstp1bpfdcrluutu2geri.apps.googleusercontent.com',
+  'KNdAuOCAkfEO--VblecevBbX',
   'http://localhost:3000/auth/google/callback'
 );
 
@@ -22,7 +25,7 @@ function getCalendarEvents(req, res) {
     refresh_token: req.user.refreshtoken,
   });
   console.log('oauth2Client', oauth2Client);
-  var OMGEVENTS = listEvents(oauth2Client);
+  var OMGEVENTS = listEvents(oauth2Client.refresh_token);
   res.send(OMGEVENTS);
 };
 

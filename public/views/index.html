@@ -12,7 +12,9 @@
 
     <script src="scripts/app.module.js" charset="utf-8"></script>
     <script src="scripts/login.controller.js" charset="utf-8"></script>
-    <script src="scripts/register.controller.js" charset="utf-8"></script>
+    <script src="scripts/navController.js" charset="utf-8"></script>
+    <script src="scripts/authFactory.js" charset="utf-8"></script>
+    <script src="scripts/calendar.controller.js" charset="utf-8"></script>
     <script src="scripts/item.controller.js" charset="utf-8"></script>
     <script src="scripts/app.config.js" charset="utf-8"></script>
 
@@ -21,29 +23,37 @@
 
 <body class="well">
     <h1 class="text-center">Pantry Inventory Tracker and Meal Planner</h1>
-    <header>
+
+        <header ng-controller="NavController as nav">
+
+                <!-- Show a helpful message when needed -->
+
+
+
         <nav class="navbar  bg-primary">
             <div class="container">
                 <!--Create Links-->
                 <ul class="nav navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="#calendar">Calendar</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
+                        <li class="nav-item" ng-show="nav.displayLogout">Hi {{nav.username}}! | <a href="#" ng-click="nav.logout()">Logout</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>
                     </li>
                 </ul>
+
+                <section id="message" class="nav.message.type" ng-show="nav.message.text">
+                  {{nav.message.text}}
+                </section>
                 <!--Create Search form-->
-                <form class="form-inline pull-right text-center">
+                <!-- <form class="form-inline pull-right text-center">
                     <input class="form-control" type="text" placeholder="Search">
                     <button class="btn" type="submit">Search</button>
-                </form>
+                </form> -->
         </nav>
     </header>
     <main>

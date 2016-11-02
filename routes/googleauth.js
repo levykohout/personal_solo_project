@@ -6,7 +6,9 @@ router.get('/google',
     ['https://www.googleapis.com/auth/plus.login',
     'https://www.googleapis.com/auth/plus.profile.emails.read',
     'https://www.googleapis.com/auth/calendar'],
-    prompt:'select_account',}
+    prompt:'select_account',
+    accessType: 'offline'
+    }
   ));
 
 router.get('/google/callback',
@@ -28,5 +30,11 @@ router.get('/logout', function (req, res) {
   req.logout();
   res.sendStatus(200); // they made it!
 });
+
+exports.module=router;
+
+
+
+
 
 module.exports = router;
