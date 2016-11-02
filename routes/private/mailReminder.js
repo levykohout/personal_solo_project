@@ -11,40 +11,6 @@ var xoauth2 = require('xoauth2');
 router.use(urlencodedparser);
 router.use(bodyParser.json());
 
-// listen for token updates (if refreshToken is set)
-// you probably want to store these to a db
-//
-// generator.on('token', function(token){
-//     console.log('New token for %s: %s', token.user, token.accessToken);
-// });
-
-// exports.mailReminder=function(){
-
-// create reusable transporter object using the default SMTP transport
-// var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
-
-// setup e-mail data with unicode symbols
-// var mailOptions = {
-//     from: '"Fred Foo 👥" <foo@blurdybloop.com>', // sender address
-//     to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
-//     subject: 'Hello ✔', // Subject line
-//     text: 'Hello world 🐴', // plaintext body
-//     html: '<b>Hello world 🐴</b>' // html body
-// };
-//
-// // send mail with defined transport object
-// transporter.sendMail(mailOptions, function(error, info){
-//     if(error){
-//         return console.log(error);
-//     }
-//     console.log('Message sent: ' + info.response);
-// });
-//
-// }
-
-
-
-
 
 // post router
 router.post('/', function(req, res){
@@ -70,15 +36,15 @@ router.post('/', function(req, res){
       xoauth2: xoauth2.createXOAuth2Generator(authConfig)
     }
   });
-  // var recipient = req.body.recipient;
-  // var text = req.body.text;
+
 
   var mailOptions = {
    from: credentials.mail.user,
    // to: req.body.recipient,
-   to:'bennyjon12@gmail.com',
+   to:req.user.email,
    subject: 'Product Expiring',
-   // html: '<img src=' + '"' + req.body.imageURL + '"' + '</>'
+   text: 'Warning! You have products expiring in 3 days. Click link below for ideas on what you can use them for.',
+   html: '<a href="http://localhost:3000/recipes">Click Here </a>'
   };
 
   transporter.sendMail(mailOptions, function(error, info){

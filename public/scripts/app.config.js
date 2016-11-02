@@ -21,7 +21,8 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
     }).when('/favorites', {
         templateUrl:'views/favorites.html'
     }).when('/recipes', {
-        templateUrl:'views/recipes.html'
+        templateUrl:'views/recipes.html',
+        controller: 'RecipeController as recipe'
     }).otherwise({
     templateUrl: 'views/login.html',
     controller: 'LoginController as login'
