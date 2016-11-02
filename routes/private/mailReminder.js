@@ -49,7 +49,7 @@ router.use(bodyParser.json());
 // post router
 router.post('/', function(req, res){
   console.log('in mail get');
-  console.log(req.body);
+  console.log('email', req.user.email);
 
 
   var authConfig = {

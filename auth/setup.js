@@ -32,6 +32,7 @@ exports.setup = function () {
   function (accessToken, refreshToken, profile, cb) {
     console.log('accessToken', accessToken);
     console.log('refreshToken', refreshToken);
+    console.log('profile',profile);
     findOrCreate(profile.id, accessToken, refreshToken, function (err, user) {
       return cb(err, user);
     });
@@ -52,7 +53,7 @@ function findOrCreate(googleID, accessToken, refreshToken, done) {
           User.updateTokens(googleID, accessToken, refreshToken);
             console.log('update user', user);
                   return done(null, user);
-        
+
 
       }
 
