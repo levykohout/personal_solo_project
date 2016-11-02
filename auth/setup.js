@@ -5,21 +5,7 @@ const GoogleStrategy = require('passport-google-oauth2');
 const User = require('../models/user');
 
 exports.setup = function () {
-  // used to serialize the user for the session
-  passport.serializeUser(function (user, done) {
-    console.log('serialize:', user);
-    done(null, user.googleid);
 
-  });
-
-  // used to deserialize the user
-  passport.deserializeUser(function (id, done) {
-    User.findById(id).then(function (user) {
-      return done(null, user);
-    }).catch(function (err) {
-      done(err);
-    });
-  });
 
   passport.use(new GoogleStrategy({
     authorizationURL: 'https://accounts.google.com/o/oauth2/auth',
@@ -32,25 +18,43 @@ exports.setup = function () {
   function (accessToken, refreshToken, profile, cb) {
     console.log('accessToken', accessToken);
     console.log('refreshToken', refreshToken);
-    console.log('profile',profile);
-    findOrCreate(profile.id, accessToken, refreshToken, function (err, user) {
+    console.log('profile email',profile.email);
+    findOrCreate(profile.id, profile.email, accessToken, refreshToken, function (err, user) {
       return cb(err, user);
     });
   }
+
+
 ));
+
+// used to serialize the user for the session
+passport.serializeUser(function (user, done) {
+  console.log('serialize:', user);
+  done(null, user.googleid);
+
+});
+
+// used to deserialize the user
+passport.deserializeUser(function (id, done) {
+  User.findById(id).then(function (user) {
+    return done(null, user);
+  }).catch(function (err) {
+    done(err);
+  });
+});
 
 };
 
 // @TODO: is the return done right?
-function findOrCreate(googleID, accessToken, refreshToken, done) {
+function findOrCreate(googleID, googleEmail, accessToken, refreshToken, done) {
   // return new Promise(function (resolve, reject) {
     console.log('googleID', googleID);
 
-    User.findById(googleID, accessToken, refreshToken).then(function (user) {
+    User.findById(googleID, googleEmail, accessToken, refreshToken).then(function (user) {
       console.log('user', user);
       if (user) {
           // update access and refresh token
-          User.updateTokens(googleID, accessToken, refreshToken);
+          User.updateTokens(googleID, googleEmail, accessToken, refreshToken);
             console.log('update user', user);
                   return done(null, user);
 
@@ -59,7 +63,7 @@ function findOrCreate(googleID, accessToken, refreshToken, done) {
 
       if (!user) {
         console.log('inside!user');
-        User.create(googleID, accessToken, refreshToken).then(function (user) {
+        User.create(googleID, googleEmail, accessToken, refreshToken).then(function (user) {
           console.log('create user', user);
           return done(null, user);
         });

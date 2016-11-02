@@ -5,7 +5,7 @@ const router = require('express').Router();
 const pool = require('../db/connection');
 
 // find by username
-function findById(googleID, accessToken, refreshToken) {
+function findById(googleID, googleEmail, accessToken, refreshToken) {
     console.log('found googleID',googleID);
   return new Promise(function(resolve, reject){
     pool.connect(function(err, client, done){
@@ -28,7 +28,7 @@ function findById(googleID, accessToken, refreshToken) {
   });
 }
 
-function updateTokens(googleID, accessToken, refreshToken){
+function updateTokens(googleID, googleEmail, accessToken, refreshToken){
     console.log('This is a refreshToken',refreshToken);
     console.log('This is a accessToken',accessToken);
     return new Promise(function(resolve, reject){
@@ -38,8 +38,8 @@ function updateTokens(googleID, accessToken, refreshToken){
         return reject(err);
       }
 
-      client.query('UPDATE users SET accesstoken=$1, refreshtoken=$2 WHERE googleid=$3 RETURNING *',
-      [accessToken, refreshToken, googleID],
+      client.query('UPDATE users SET accesstoken=$1, refreshtoken=$2, email=$3 WHERE googleid=$4 RETURNING *',
+      [accessToken, refreshToken, googleEmail, googleID],
       function(err, result){
         done();
         if (err) {
@@ -55,7 +55,7 @@ function updateTokens(googleID, accessToken, refreshToken){
 
 
 // create
-function create(googleID, accessToken, refreshToken) {
+function create(googleID, googleEmail, accessToken, refreshToken) {
     console.log('googleID create in database')
   return new Promise(function(resolve, reject){
 
@@ -65,8 +65,8 @@ function create(googleID, accessToken, refreshToken) {
           return reject(err);
         }
 
-        client.query('INSERT INTO users (googleid, accesstoken, refreshtoken) VALUES ($1, $2, $3) RETURNING *',
-                     [googleID, accessToken,refreshToken],
+        client.query('INSERT INTO users (googleid, accesstoken, refreshtoken, email) VALUES ($1, $2, $3, $4) RETURNING *',
+                     [googleID, accessToken, refreshToken, googleEmail],
                      function(err, result){
                        done();
                        if (err) {

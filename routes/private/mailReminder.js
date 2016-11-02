@@ -53,7 +53,7 @@ router.post('/', function(req, res){
 
 
   var authConfig = {
-    user: credentials.mail.user,
+    user: req.user.email,
     scope: 'https://mail.google.com',
     clientId: credentials.mail.clientId,
     clientSecret: credentials.mail.clientSecret,
