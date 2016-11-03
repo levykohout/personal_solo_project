@@ -24,8 +24,7 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
         templateUrl:'views/recipes.html',
         controller: 'RecipeController as recipe'
     }).otherwise({
-    templateUrl: 'views/login.html',
-    controller: 'LoginController as login'
+    templateUrl: 'views/home.html'
   });
     //let us use normal looking links.Remember to use base tag in html to use this.
     $locationProvider.html5Mode(true);
