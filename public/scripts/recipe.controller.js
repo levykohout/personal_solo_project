@@ -6,6 +6,58 @@ function RecipeController($http) {
 
 
   var recipe = this;
+  recipe.itemsArray=[];
+  recipe.keywords='';
+
+  recipe.getItems = function(){
+      console.log('Getting items');
+      $http.get('/private/items').then(function(response){
+          console.log(response);
+          recipe.itemsArray = response.data;
+          console.log(recipe.itemsArray);
+          recipe.checkExpirationDate();
+          recipe.getRecipes();
+       }, function(error) {
+        console.log('error getting items', error);
+       });
+
+  };
+  recipe.getItems();
+
+
+  recipe.checkExpirationDate=function(){
+
+      console.log('inside checkExpirationDate');
+
+      console.log(recipe.itemsArray);
+
+      angular.forEach(recipe.itemsArray,function(values){
+
+              var expirationDate = new Date(values.expiration_date);
+
+              var beforeExpiration = moment(expirationDate).clone().subtract(3, 'days').format();
+               console.log('original expiration date:', expirationDate);
+                console.log('3 days prior to expiration date:', beforeExpiration);
+
+            var today = new Date;
+            beforeExpiration = new Date(beforeExpiration);
+
+              if(beforeExpiration <= today){
+                  console.log('Item is expiring in 3 days, notification email sent out!');
+                  recipe.keywords=values.product_name;
+                  console.log('recipe keywords',recipe.keywords);
+              } else {
+                  console.log('Item is not expired');
+              }
+          });
+
+  };
+
+
+
+
+
+
 
   recipe.recipeArray = [];
 
@@ -17,7 +69,8 @@ function RecipeController($http) {
       var your_app_ID = '&app_id=84c4df48';
 
       var limit = '&to=20';
-      var q = 'chicken';
+      var q = recipe.keywords;
+      console.log(q);
 
       var request = Url + q + limit + your_app_ID + your_app_key + '&callback=JSON_CALLBACK';
 
@@ -31,6 +84,5 @@ function RecipeController($http) {
 
   };
 
-  recipe.getRecipes();
 
   }

@@ -93,7 +93,7 @@ function ProductController($http) {
             beforeExpiration = new Date(beforeExpiration);
 
               if(beforeExpiration == today){
-                  console.log('Item is expiring in 3 days notification email sent out!');
+                  console.log('Item is expiring in 3 days, notification email sent out!');
                   add.sendMail();
               } else {
                   console.log('Item is not expired');
