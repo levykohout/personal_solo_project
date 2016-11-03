@@ -95,5 +95,20 @@ function RecipeController($http) {
       });
   };
 
+  recipe.addToCalendar = function(date, startTime, endTime, eventName){
+      console.log('inside add to calendar' ,date ,startTime, endTime, eventName);
+      var data = {
+          date:date,
+          startTime:startTime,
+          endTime: endTime,
+          eventName:eventName
+      };
 
-  }
+      $http.post('/private/calendar' , data).then(function(response){
+          console.log(response);
+      });
+
+  };
+
+
+  }//End of Controller Function

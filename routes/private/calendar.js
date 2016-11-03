@@ -8,38 +8,68 @@ var google = require('googleapis');
 var plus = google.plus('v1');
 var OAuth2 = google.auth.OAuth2;
 
-// const auth = require('../db/connection');
 
-var oauth2Client = new OAuth2(
-  '907193122888-0cjobnsgokbtstp1bpfdcrluutu2geri.apps.googleusercontent.com',
-  'KNdAuOCAkfEO--VblecevBbX',
-  'http://localhost:3000/auth/google/callback'
-);
 
 router.get('/', getCalendarEvents);
 
 function getCalendarEvents(req, res) {
     var accessToken=req.user.accesstoken;
     var user=req.user.email;
- var google_calendar = new gcal.GoogleCalendar(accessToken);
-var events=[];
+    var google_calendar = new gcal.GoogleCalendar(accessToken);
 
-google_calendar.events.list(req.user.email, function(err, calendarList) {
-
-    if (err) {
-          console.log('The API returned an error: ' + err);
-          return;
-        }
-
-        events = calendarList.items;
-console.log('events',events);
-            //  res.send(events);
              res.send(user);
 
-});
-
-
 };
+router.post('/' , addCalendarEvent);
+
+function addCalendarEvent(req, res) {
+    console.log(req.body);
+    console.log(req.user);
+    var accessToken=req.user.accesstoken;
+    var user=req.user.email;
+    var google_calendar = new gcal.GoogleCalendar(accessToken);
+
+    var event = {
+      'summary': 'Google I/O 2015',
+      'location': '800 Howard St., San Francisco, CA 94103',
+      'description': 'A chance to hear more about Google\'s developer products.',
+      'start': {
+        'dateTime': '2015-05-28T09:00:00-07:00',
+        'timeZone': 'America/Los_Angeles',
+      },
+      'end': {
+        'dateTime': '2015-05-28T17:00:00-07:00',
+        'timeZone': 'America/Los_Angeles',
+      },
+      'recurrence': [
+        'RRULE:FREQ=DAILY;COUNT=2'
+      ],
+      'attendees': [
+        {'email': 'lpage@example.com'},
+        {'email': 'sbrin@example.com'},
+      ],
+      'reminders': {
+        'useDefault': false,
+        'overrides': [
+          {'method': 'email', 'minutes': 24 * 60},
+          {'method': 'popup', 'minutes': 10},
+        ],
+      },
+    };
+
+    google_calendar.events.insert(user, event, function(err, event) {
+      if (err) {
+        console.log('There was an error contacting the Calendar service: ' + err);
+        return;
+      }
+      console.log('Event created: %s', event.htmlLink);
+    });
+
+
+
+
+
+}
 
 
 module.exports = router;
