@@ -1,1 +1,9 @@
-<h1>Favorite Recipes Goes Here</h1>
+<h1 class="text-center">Favorite Recipes Goes Here</h1>
+<div class="container text-center">
+<div class=" fullwidth col-md-4 pull-left" ng-repeat="recipe in favorite.favoriteArray">
+    <img ng-src="{{recipe.image_url}}" />
+    <div>
+        <h4>{{recipe.recipe_name}}</h4>
+    </div>
+</div>
+</div>

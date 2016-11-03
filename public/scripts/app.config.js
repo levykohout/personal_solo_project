@@ -19,7 +19,8 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
         templateUrl:'views/inventory.html',
         controller:'ProductController as product'
     }).when('/favorites', {
-        templateUrl:'views/favorites.html'
+        templateUrl:'views/favorites.html',
+        controller: 'FavoriteController as favorite'
     }).when('/recipes', {
         templateUrl:'views/recipes.html',
         controller: 'RecipeController as recipe'

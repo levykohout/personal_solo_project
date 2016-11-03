@@ -1,8 +1,16 @@
 <h1 class="text-center">Recipe Suggestions Goes Here!</h1>
 <div class="container text-center">
-<div class=" fullwidth col-md-4" ng-repeat="image in recipe.recipeArray">
-    <img ng-src="{{image.recipe.image}}" />
+<div class=" fullwidth col-md-4 pull-left" ng-repeat="image in recipe.recipeArray">
+    <img ng-click="ingredientShow = !ingredientShow" ng-src="{{image.recipe.image}}" />
+    <div>
+        <h4>{{image.recipe.label}}</h4>
+    </div>
+    <div  ng-show="ingredientShow" ng-repeat="ingredient in image.recipe.ingredients">
+        <p >
+            {{ingredient.text}}
+        </p>
+    </div>
     <button>Add to Calendar</button>
-    <button>Add to Favorites</button>
+    <button ng-click="recipe.addToFavorites(image.recipe.label, image.recipe.image, image.recipe.url)">Add to Favorites</button>
 </div>
 </div>

@@ -55,10 +55,6 @@ function RecipeController($http) {
 
 
 
-
-
-
-
   recipe.recipeArray = [];
 
   recipe.getRecipes = function(){
@@ -78,10 +74,25 @@ function RecipeController($http) {
           console.log(response);
           recipe.recipeArray = response.data.hits;
           console.log(recipe.recipeArray);
+
        }, function(error) {
         console.log('error getting items', error);
        });
 
+  };
+
+
+  recipe.addToFavorites=function(recipeName, imageUrl, recipeUrl){
+
+      var data = {
+          recipeName : recipeName,
+          imageUrl : imageUrl,
+          recipeUrl : recipeUrl
+      };
+      console.log(data);
+      $http.post('/private/favorites', data ).then(function(response){
+          console.log(response);
+      });
   };
 
 
