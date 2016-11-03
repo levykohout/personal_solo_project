@@ -2,7 +2,7 @@ const router = require('express').Router();
 const passport = require('passport');
 
     var gcal = require('google-calendar');
-    // var google_calendar = new gcal.GoogleCalendar(accessToken);
+
 
 var google = require('googleapis');
 var plus = google.plus('v1');
@@ -19,45 +19,27 @@ var oauth2Client = new OAuth2(
 router.get('/', getCalendarEvents);
 
 function getCalendarEvents(req, res) {
-  console.log('req.user', req.user);
-  oauth2Client.setCredentials({
-    access_token: req.user.accesstoken,
-    refresh_token: req.user.refreshtoken,
-  });
-  console.log('oauth2Client', oauth2Client);
-  var OMGEVENTS = listEvents(oauth2Client.refresh_token);
-  res.send(OMGEVENTS);
+    var accessToken=req.user.accesstoken;
+    var user=req.user.email;
+ var google_calendar = new gcal.GoogleCalendar(accessToken);
+var events=[];
+
+google_calendar.events.list(req.user.email, function(err, calendarList) {
+
+    if (err) {
+          console.log('The API returned an error: ' + err);
+          return;
+        }
+
+        events = calendarList.items;
+console.log('events',events);
+            //  res.send(events);
+             res.send(user);
+
+});
+
+
 };
 
-function listEvents(auth) {
-  var calendar = google.calendar('v3');
-  calendar.events.list({
-    auth: auth,
-    calendarId: 'primary',
-    timeMin: (new Date()).toISOString(),
-    maxResults: 10,
-    singleEvents: true,
-    orderBy: 'startTime',
-  }, function (err, response) {
-    if (err) {
-      console.log('The API returned an error: ' + err);
-      return;
-    }
-
-    var events = response.items;
-
-    return events;
-    if (events.length == 0) {
-      console.log('No upcoming events found.');
-    } else {
-      console.log('Upcoming 10 events:');
-      for (var i = 0; i < events.length; i++) {
-        var event = events[i];
-        var start = event.start.dateTime || event.start.date;
-        console.log('%s - %s', start, event.summary);
-      }
-    }
-  });
-}
 
 module.exports = router;

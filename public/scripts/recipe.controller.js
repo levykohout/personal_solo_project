@@ -68,7 +68,7 @@ function RecipeController($http) {
       var your_app_key = '&app_key=6d84ea800f46d8ee5c73a0ec0e7bb354';
       var your_app_ID = '&app_id=84c4df48';
 
-      var limit = '&to=20';
+      var limit = '&to=21';
       var q = recipe.keywords;
       console.log(q);
 

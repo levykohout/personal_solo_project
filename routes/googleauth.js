@@ -33,7 +33,7 @@ router.get('/logout', function (req, res) {
   res.sendStatus(200); // they made it!
 });
 
-exports.module=router;
+// exports.module=router;
 
 
 
