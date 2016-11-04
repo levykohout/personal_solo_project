@@ -27,27 +27,29 @@ function addCalendarEvent(req, res) {
     console.log(req.user);
     var accessToken=req.user.accesstoken;
     var user=req.user.email;
+
+
     var google_calendar = new gcal.GoogleCalendar(accessToken);
 
     var event = {
-      'summary': 'Google I/O 2015',
-      'location': '800 Howard St., San Francisco, CA 94103',
-      'description': 'A chance to hear more about Google\'s developer products.',
+      'summary': req.body.eventName,
+    //   'location': '800 Howard St., San Francisco, CA 94103',
+      'description': req.body.eventName,
       'start': {
-        'dateTime': '2015-05-28T09:00:00-07:00',
-        'timeZone': 'America/Los_Angeles',
+        'dateTime': req.body.startTime,
+        // 'timeZone': 'America/Los_Angeles',
       },
       'end': {
-        'dateTime': '2015-05-28T17:00:00-07:00',
-        'timeZone': 'America/Los_Angeles',
+        'dateTime': req.body.endTime,
+        // 'timeZone': 'America/Los_Angeles',
       },
-      'recurrence': [
-        'RRULE:FREQ=DAILY;COUNT=2'
-      ],
-      'attendees': [
-        {'email': 'lpage@example.com'},
-        {'email': 'sbrin@example.com'},
-      ],
+    //   'recurrence': [
+    //     'RRULE:FREQ=DAILY;COUNT=2'
+    //   ],
+    //   'attendees': [
+    //     {'email': 'lpage@example.com'},
+    //     {'email': 'sbrin@example.com'},
+    //   ],
       'reminders': {
         'useDefault': false,
         'overrides': [

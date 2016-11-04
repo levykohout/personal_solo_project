@@ -28,11 +28,10 @@
                 <p class="text-warning"><small></small></p>
             </div>
             <div class="modal-footer">
-                <input type="date" class="form-control" ng-model="recipe.date" >
-                <input type="time" class="form-control" ng-model="recipe.startTime" >
-                <input type="time" class="form-control" ng-model="recipe.endTime" >
+                <input type="datetime-local" class="form-control" ng-model="recipe.startTime" >
+                <input type="datetime-local" class="form-control" ng-model="recipe.endTime" >
                 <input type="text" class="form-control" ng-model="recipe.event" placeholder="Event Name&hellip;">
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="recipe.addToCalendar(recipe.date, recipe.startTime, recipe.endTime, recipe.event)">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="recipe.addToCalendar(recipe.startTime, recipe.endTime, recipe.event)">Add</button>
             </div>
         </div>
     </div>
