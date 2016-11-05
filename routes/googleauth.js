@@ -22,6 +22,7 @@ router.get('/google/callback',
   router.get('/', function (req, res) {
   if (req.isAuthenticated()) {
     res.json({ status: true, name: req.user.googleName });
+    console.log('user info when logged in', req.user);
   } else {
     res.json({ status: false });
   }

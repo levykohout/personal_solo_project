@@ -1,3 +1,33 @@
+<!-- <label for="receiptImage">Upload a receipt</label>
+
+
+
+<!- Upload on form submit or button click -->
+<!-- <form name="form"> -->
+  <!-- Single Image with validations -->
+  <!-- <button class="button" ngf-select ng-model="receipt.file" name="receipt.file" ngf-pattern="'image/*'"
+    ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100"
+    ngf-resize="{width: 100, height: 100}">Select</button> -->
+  <!-- Multiple files -->
+  <!-- <div class="button" ngf-select ng-model="receipt.files" ngf-multiple="true">Select</div>
+  Drop files: <div ngf-drop ng-model="receipt.files" class="drop-box">Drop</div> -->
+  <!-- <button type="submit" ng-click="receipt.submit(receipt.file)">submit</button>
+</form> -->
+
+
+<!-- Upload right away after file selection: -->
+<!-- <div class="button" ngf-select="receipt.upload($file)">Upload on file select</div>
+<div class="button" ngf-select="receipt.uploadFiles($files)" multiple="multiple">Upload on file select</div>
+  Drop File:
+<div ngf-drop="receipt.uploadFiles($files)" class="drop-box"
+  ngf-drag-over-class="'dragover'" ngf-multiple="true"
+  ngf-pattern="'image/*,application/pdf'">Drop Images or PDFs files here</div>
+<div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div> -->
+
+<!-- Image thumbnail: <img ngf-thumbnail="receipt.file || '/thumb.jpg'">
+Audio preview: <audio controls ngf-src="receipt.file"></audio>
+Video preview: <video controls ngf-src="receipt.file"></video> -->
+
 <!-- <div ng-app="myapp" ng-controller="mainController">
     <div class="alert alert-error ng-scope" ng-show="webcamError" style="">
 <span>Webcam could not be started. Did you give access to it?</span>
@@ -9,3 +39,38 @@
     <button ng-click="makeSnapshot()">take picture</button>
     <canvas id="snapshot" width="300" height="300"></canvas>
 </div> -->
+<div ng-controller="ReceiptController">
+
+<form ng-submit="uploadFile('myFile')">
+
+
+
+
+
+        <input type="file" file-model="{{'myFile'}}"/>
+        <button type="submit">upload me</button>
+</form>
+
+
+
+
+<!-- <form ng-submit="uploadFile()">
+   <div class="row">
+         <div class="col-md-12">
+                  <input type="file" ng-file-select="onFileSelect($files)">
+                  <div class="progress" style="margin-top: 20px;">
+                    <div class="progress-bar" progress-bar="uploadProgress" role="progressbar">
+                      <span ng-bind="uploadProgress"></span>
+                      <span>%</span>
+                    </div>
+                  </div>
+
+                  <button button type="submit" class="btn btn-default btn-lg">
+                    <i class="fa fa-cloud-upload"></i>
+                    &nbsp;
+                    <span>Upload File</span>
+                  </button>
+                </div>
+              </div>
+            </form> -->
+        </div>

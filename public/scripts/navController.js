@@ -9,7 +9,7 @@ angular.module('myApp').controller('NavController', function (AuthFactory, $wind
 
   authFactory.isLoggedIn()
   .then(function (response) {
-      console.log('nav controller response', response);
+      console.log('nav controller response ', response);
     if (response.data.status) {
       _this.displayLogout = true;
       authFactory.setLoggedIn(true);

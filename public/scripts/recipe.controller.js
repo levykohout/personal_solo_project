@@ -41,11 +41,17 @@ function RecipeController($http) {
 
             var today = new Date;
             beforeExpiration = new Date(beforeExpiration);
+            var newToday = moment(today).startOf('day');
 
-              if(beforeExpiration <= today){
-                  console.log('Item is expiring in 3 days, notification email sent out!');
+            console.log('This is the new today format', newToday._d);
+            console.log('This is the before expiration date are they equal', beforeExpiration);
+
+              if(beforeExpiration.getTime() == newToday._d.getTime()){
+                  console.log('Item is expiring in 3 days, suggested recipes here!');
                   recipe.keywords=values.product_name;
                   console.log('recipe keywords',recipe.keywords);
+                  recipe.getRecipes();
+
               } else {
                   console.log('Item is not expired');
               }
@@ -66,6 +72,7 @@ function RecipeController($http) {
 
       var limit = '&to=21';
       var q = recipe.keywords;
+
       console.log(q);
 
       var request = Url + q + limit + your_app_ID + your_app_key + '&callback=JSON_CALLBACK';
@@ -99,7 +106,7 @@ function RecipeController($http) {
       console.log('inside add to calendar', startTime, endTime, eventName);
 
 
-     
+
       var data = {
           startTime:startTime,
           endTime: endTime,

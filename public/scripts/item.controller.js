@@ -89,10 +89,15 @@ function ProductController($http) {
                console.log('original expiration date:', expirationDate);
                 console.log('3 days prior to expiration date:', beforeExpiration);
 
-            var today = new Date;
-            beforeExpiration = new Date(beforeExpiration);
+                var today = new Date;
+                beforeExpiration = new Date(beforeExpiration);
+                var newToday = moment(today).startOf('day');
 
-              if(beforeExpiration == today){
+                console.log('This is the new today format', newToday._d);
+                console.log('This is the before expiration date are they equal', beforeExpiration);
+                console.log('Are the two dates equal?', beforeExpiration.getTime() == newToday._d.getTime());
+
+              if(beforeExpiration.getTime() == newToday._d.getTime()){
                   console.log('Item is expiring in 3 days, notification email sent out!');
                   add.sendMail();
               } else {

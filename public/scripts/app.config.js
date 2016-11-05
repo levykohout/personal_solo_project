@@ -14,7 +14,8 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
         templateUrl:'views/calendar.html',
         controller:'CalendarController as calendar'
     }).when('/receipt', {
-        templateUrl:'views/receipt.html'
+        templateUrl:'views/receipt.html',
+        controller : 'ReceiptController as receipt'
     }).when('/inventory', {
         templateUrl:'views/inventory.html',
         controller:'ProductController as product'

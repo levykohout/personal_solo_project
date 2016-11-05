@@ -4,9 +4,9 @@ const passport = require('passport');
     var gcal = require('google-calendar');
 
 
-var google = require('googleapis');
-var plus = google.plus('v1');
-var OAuth2 = google.auth.OAuth2;
+// var google = require('googleapis');
+// var plus = google.plus('v1');
+// var OAuth2 = google.auth.OAuth2;
 
 
 
