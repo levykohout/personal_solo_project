@@ -1,10 +1,7 @@
 
-<div ng-controller="ReceiptController">
+<form  name="form" ng-submit="receipt.uploadFile()">
 
-<form  method="post" enctype="multipart/form-data" ng-submit="uploadFile('myFile')">
+  <input type="file" ngf-select ng-model="receipt.file" >Select</input>
 
-        <input type="file" name="myFile" file-model="{{'myFile'}}"/>
-        <button type="submit">upload me</button>
+  <button type="submit">upload me</button>
 </form>
-
-</div>

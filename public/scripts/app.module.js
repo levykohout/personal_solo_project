@@ -1,1 +1,1 @@
-angular.module('myApp',['ngRoute','ngSanitize','ngFileUpload']);
+angular.module('myApp',['ngRoute','ngSanitize','ngFileUpload','ui.bootstrap']);

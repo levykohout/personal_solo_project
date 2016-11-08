@@ -19,7 +19,8 @@ exports.setup = function () {
     console.log('accessToken', accessToken);
     console.log('refreshToken', refreshToken);
     console.log('profile email',profile.email);
-    findOrCreate(profile.id, profile.email, accessToken, refreshToken, function (err, user) {
+    console.log('profile is',profile.displayName);
+    findOrCreate(profile.id, profile.email, profile.displayName, accessToken, refreshToken, function (err, user) {
       return cb(err, user);
     });
   }
@@ -46,15 +47,15 @@ passport.deserializeUser(function (id, done) {
 };
 
 // @TODO: is the return done right?
-function findOrCreate(googleID, googleEmail, accessToken, refreshToken, done) {
+function findOrCreate(googleID, googleEmail, googleName, accessToken, refreshToken, done) {
   // return new Promise(function (resolve, reject) {
     console.log('googleID', googleID);
 
-    User.findById(googleID, googleEmail, accessToken, refreshToken).then(function (user) {
+    User.findById(googleID, googleEmail, googleName, accessToken, refreshToken).then(function (user) {
       console.log('user', user);
       if (user) {
           // update access and refresh token
-          User.updateTokens(googleID, googleEmail, accessToken, refreshToken);
+          User.updateTokens(googleID, googleEmail, googleName, accessToken, refreshToken);
             console.log('update user', user);
                   return done(null, user);
 
@@ -63,7 +64,7 @@ function findOrCreate(googleID, googleEmail, accessToken, refreshToken, done) {
 
       if (!user) {
         console.log('inside!user');
-        User.create(googleID, googleEmail, accessToken, refreshToken).then(function (user) {
+        User.create(googleID, googleEmail, googleName, accessToken, refreshToken).then(function (user) {
           console.log('create user', user);
           return done(null, user);
         });

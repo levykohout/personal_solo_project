@@ -5,5 +5,52 @@
 
 img {
     width:100%;
-    height:280px;
+    height:250px;
 }
+.recipe-holder {
+    width: 100%;
+    overflow : hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+.label-holder{
+        text-overflow: ellipsis !important;
+}
+
+main {
+    margin-bottom: 30px !important;
+    padding-bottom: 50px;
+}
+
+footer {
+    margin-top: 30px !important;
+}
+
+.expiring {
+    color: orange;
+}
+.expired {
+    color: red;
+}
+
+.custom-header {
+    background-color: lightblue !important;
+}
+
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+  }
+  .partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
+  }
+
+  .modal-background-color {
+      background-color: gray;
+      padding:20px;
+      color: white;
+      font-size: 1.5em !important;
+  }

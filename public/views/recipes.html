@@ -1,18 +1,19 @@
 <h1 class="text-center">Here are the suggested recipes for the day!</h1>
 <div class="container text-center">
-<div class=" fullwidth col-md-4 pull-left" ng-repeat="image in recipe.recipeArray">
-    <img ng-click="ingredientShow = !ingredientShow" ng-src="{{image.recipe.image}}" />
-    <div>
-        <h4>{{image.recipe.label}}</h4>
+    <div class=" fullwidth col-md-4 pull-left " ng-repeat="image in recipe.recipeArray">
+        <img ng-click="ingredientShow = !ingredientShow" ng-src="{{image.recipe.image}}" />
+        <div >
+            <h4 class="label-holder recipe-holder">{{image.recipe.label}}</h4>
+        </div>
+        <div ng-if="ingredientShow" ng-repeat="ingredient in image.recipe.ingredients">
+            <p>
+                {{ingredient.text}}
+            </p>
+        
+        </div>
+        <button type="button" href="#myModalAdd" data-toggle="modal">Add to Calendar</button>
+        <button href="#myModalFavorites" data-toggle="modal" ng-click="recipe.addToFavorites(image.recipe.label, image.recipe.image, image.recipe.url)">Add to Favorites</button>
     </div>
-    <div  ng-show="ingredientShow" ng-repeat="ingredient in image.recipe.ingredients">
-        <p >
-            {{ingredient.text}}
-        </p>
-    </div>
-    <button type="button" href="#myModalAdd" data-toggle="modal" >Add to Calendar</button>
-    <button ng-click="recipe.addToFavorites(image.recipe.label, image.recipe.image, image.recipe.url)">Add to Favorites</button>
-</div>
 </div>
 
 <!-- Modal HTML Bootstrap for add to calendar-->
@@ -23,16 +24,62 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Confirmation</h4>
             </div>
-            <div class="modal-body">
-                <p>Please add calendar details</p>
+            <div class="modal-body modal-background-color text-center">
+                <p>Please add calendar details!</p>
                 <p class="text-warning"><small></small></p>
             </div>
             <div class="modal-footer">
-                <input type="datetime-local" class="form-control" ng-model="recipe.startTime" >
-                <input type="datetime-local" class="form-control" ng-model="recipe.endTime" >
-                <input type="text" class="form-control" ng-model="recipe.event" placeholder="Event Name&hellip;">
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="recipe.addToCalendar(recipe.startTime, recipe.endTime, recipe.event)">Add</button>
+                <form class="form-horizontal">
+
+
+                    <div class="form-group">
+                        <label for="startTime" class="control-label col-xs-4"><span class=" glyphicon glyphicon-calendar"></span> Start Date and Time:</label>
+                        <div class="col-xs-8">
+                            <input type="datetime-local" class="form-control" ng-model="recipe.startTime">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="endTime" class="control-label col-xs-4"><span class=" glyphicon glyphicon-calendar"></span> End Date and Time:</label>
+                        <div class="col-xs-8">
+                            <input type="datetime-local" class="form-control glyphicon glyphicon-calendar" ng-model="recipe.endTime">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventName" class="control-label col-xs-4"><span class="glyphicon glyphicon-comment"></span> Name of Event:</label>
+
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control glyphicon glyphicon-comment" ng-model="recipe.event" placeholder="Event Name&hellip;">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-2 pull-right">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="recipe.addToCalendar(recipe.startTime, recipe.endTime, recipe.event)">Add</button>
+                    </div>
+                </form>
+
             </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal HTML Bootstrap for add to favorites-->
+<div id="myModalFavorites" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body modal-background-color text-center">
+                <p>Item is now added to the favorites list!</p>
+                <p class="text-warning"><small></small></p>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-warning" data-dismiss="modal"> OK! </button>
+
+            </div>
+
         </div>
     </div>
 </div>

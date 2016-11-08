@@ -22,9 +22,18 @@ function ProductController($http) {
         expirationDate:expirationDate
     }).then(function(response){
      add.getItems();
+     add.category = '';
+     add.skuNum = '';
+     add.productName = '';
+     add.quantity = '';
+     add.dateBought = '';
+     add.expirationDate = '';
+    //  add.addItemForm.$setPristine();//clears form
+    //  add.addItemForm.$setUntouched();
      }, function(error) {
       console.log('error adding items', error);
      });
+
   };
 
   add.getItems = function(){
@@ -79,32 +88,41 @@ function ProductController($http) {
       console.log('inside checkExpirationDate');
 
       console.log(add.itemsArray);
-
+        add.expirationStatus = false;
+              var i=0;
       angular.forEach(add.itemsArray,function(values){
-          console.log(values);
-              console.log(values.expiration_date);
+
               var expirationDate = new Date(values.expiration_date);
 
+
               var beforeExpiration = moment(expirationDate).clone().subtract(3, 'days').format();
-               console.log('original expiration date:', expirationDate);
-                console.log('3 days prior to expiration date:', beforeExpiration);
 
                 var today = new Date;
                 beforeExpiration = new Date(beforeExpiration);
                 var newToday = moment(today).startOf('day');
 
-                console.log('This is the new today format', newToday._d);
-                console.log('This is the before expiration date are they equal', beforeExpiration);
-                console.log('Are the two dates equal?', beforeExpiration.getTime() == newToday._d.getTime());
+                console.log('Is the item expiring today?', beforeExpiration.getTime() == newToday._d.getTime());
 
               if(beforeExpiration.getTime() == newToday._d.getTime()){
                   console.log('Item is expiring in 3 days, notification email sent out!');
                   add.sendMail();
-              } else {
-                  console.log('Item is not expired');
+                  add.itemsArray[i].expirationStatus = 'expiring';
+                  console.log(add.itemsArray[i]);
+                  i++;
+                //   add.expirationStatus=true;
+              } else if(beforeExpiration.getTime() <= newToday._d.getTime()) {
+                 add.itemsArray[i].expirationStatus = 'expired';
+                  console.log('Item is past expiration expired');
+                  i++;
+              } else{
+                   add.itemsArray[i].expirationStatus = 'not expired';
+                   console.log('Item is not expiring yet');
+                   i++;
               }
-          });
 
+
+          });
+  console.log(add.itemsArray);
   };
 
 

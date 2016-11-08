@@ -42,9 +42,9 @@ router.post('/', function(req, res){
    from: credentials.mail.user,
    // to: req.body.recipient,
    to:req.user.email,
-   subject: 'Product Expiring',
+   subject: 'Product expiring in 3 days',
    text: 'Warning! You have products expiring in 3 days. Click link below for ideas on what you can use them for.',
-   html: '<a href="http://localhost:3000/recipes">Click Here </a>'
+   html: '<div><p>You have a product expiring in 3 days! Click link below for recipe ideas for this item </p></div><div> <a href="http://localhost:3000/recipes">Click Here </a></div>'
   };
 
   transporter.sendMail(mailOptions, function(error, info){

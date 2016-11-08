@@ -1,7 +1,7 @@
 angular.module('myApp')
 .controller('RecipeController', RecipeController);
 
-function RecipeController($http) {
+function RecipeController($http , $scope) {
   console.log('RecipeController loaded');
 
 
@@ -21,7 +21,7 @@ function RecipeController($http) {
         console.log('error getting items', error);
        });
 
-  };
+  }; //End of getItems function
   recipe.getItems();
 
 
@@ -57,7 +57,7 @@ function RecipeController($http) {
               }
           });
 
-  };
+  };//End of checkExpirationDate function
 
 
 
@@ -86,7 +86,7 @@ function RecipeController($http) {
         console.log('error getting items', error);
        });
 
-  };
+  };//End of getRecipes function
 
 
   recipe.addToFavorites=function(recipeName, imageUrl, recipeUrl){
@@ -100,7 +100,7 @@ function RecipeController($http) {
       $http.post('/private/favorites', data ).then(function(response){
           console.log(response);
       });
-  };
+  };//End of addToFavorites function
 
   recipe.addToCalendar = function(startTime, endTime, eventName){
       console.log('inside add to calendar', startTime, endTime, eventName);
@@ -117,7 +117,8 @@ function RecipeController($http) {
           console.log(response);
       });
 
-  };
+  }; //End of addTo Calendar function
+
 
 
   }//End of Controller Function

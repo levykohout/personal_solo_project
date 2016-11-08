@@ -1,10 +1,21 @@
-<form ng-controller="ProductController as product"class="form-horizontal col-xs-12 col-md-6 col-md-offset-3 custom-form" ng-submit="product.newItemAdd(product.category,product.skuNum,product.productName,product.quantity,product.dateBought,product.expirationDate)">
+
+<div class="col-xs-12 col-md-6">
+
+    <h4>Add new item into inventory</h4>
+</div>
+
+<form name="product.addItemForm" ng-controller="ProductController as product"class="well form-horizontal col-xs-12 col-md-6 col-md-offset-3 custom-form" ng-submit="product.newItemAdd(product.category,product.skuNum,product.productName,product.quantity,product.dateBought,product.expirationDate)">
+<div class="form-group row">
+
+
+<h4 class="text-center">Product Information</h4>
+</div>
     <div class="form-group row">
         <label for="category" class="control-label col-xs-3">Product Category</label>
         <div class="col-md-8">
             <select class="form-control"  ng-model="product.category">
-            <option value="Category1">Category 1</option>
-            <option value="Category2">category 2</option>
+            <option value="Category1">Canned Goods</option>
+            <option value="Category2">Fresh Produce</option>
             <option value="Category3">category 3</option>
             <option value="Category4">category 4</option>
         </select>
@@ -42,7 +53,56 @@
         </div>
     </div>
     <div class="col-xs-offset-4 col-xs-10">
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-primary col-md-offset-2 ">Add</button>
     </div>
 
 </form>
+
+<table class="table table-striped">
+<caption>
+    <h3>Product Inventory List</h3>
+</caption>
+
+    <thead class="custom-header ">
+        <th class="text-center">Category</th>
+        <th class="text-center">SKU</th>
+        <th class="text-center">Product Name</th>
+        <th class="text-center">Quantity</th>
+        <th class="text-center">Date Bought</th>
+        <th class="text-center">Expiration Date</th>
+        <th></th>
+        <th></th>
+    </thead>
+
+    <tr  class="text-center" ng-repeat="item in product.itemsArray | orderBy: item.expirationStatus ">
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateCategory[item.id]" >{{item.category}}</td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateSku[item.id]" >{{item.sku_number}}</td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }">{{item.product_name}}</td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }"><input type="number" class="form-control" ng-model="item.updateQuantity[item.id]" placeholder="{{item.quantity}}" /></td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateBuyDate[item.id]">{{item.date_bought| date:'MM/dd/yyyy'}}</td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateExpDate[item.id]">{{item.expiration_date| date:'MM/dd/yyyy'}}</td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ><button type="button" ng-click="product.updateItem(item.category,item.sku_number,item.product_name,item.updateQuantity[item.id],item.date_bought,item.expiration_date,item.id)"><span class="glyphicon glyphicon-edit"></span> Update</button></td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ><button type="button" ng-click="product.deleteItem(item.id)"><span class="glyphicon glyphicon-trash"></span>Remove</button></td>
+
+    </tr>
+
+</table>
+
+<div id="myModalAdd" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <p>You successfully added an item to your inventory!</p>
+                <p class="text-warning"><small></small></p>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" data-dismiss="modal" >Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
