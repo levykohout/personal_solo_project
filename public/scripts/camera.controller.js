@@ -1,38 +1,39 @@
 angular.module('myApp')
 .controller('cameraController', function($scope) {
+    var camera =this;
     var _video = null,
         patData = null;
 
-    $scope.patOpts = {x: 0, y: 0, w: 35, h: 35};
+    camera.patOpts = {x: 0, y: 0, w: 300, h: 300};
 
     // Setup a channel to receive a video property
     // with a reference to the video element
     // See the HTML binding in camera.html
-    $scope.channel = {};
+    camera.channel = {};
 
-    $scope.webcamError = false;
-    $scope.onError = function (err) {
-        $scope.$apply(
+    camera.webcamError = false;
+    camera.onError = function (err) {
+        camera.$apply(
             function() {
-                $scope.webcamError = err;
+                camera.webcamError = err;
             }
         );
     };
 
-    $scope.onSuccess = function () {
+    camera.onSuccess = function () {
         // The video element contains the captured camera data
-        _video = $scope.channel.video;
-        $scope.$apply(function() {
-            $scope.patOpts.w = _video.width;
-            $scope.patOpts.h = _video.height;
+        _video = camera.channel.video;
+        camera.$apply(function() {
+            camera.patOpts.w = _video.width;
+            camera.patOpts.h = _video.height;
             //$scope.showDemos = true;
         });
     };
-    $scope.onStream = function (stream) {
+    camera.onStream = function (stream) {
            // You could do something manually with the stream.
        };
 
-   	$scope.makeSnapshot = function() {
+   	camera.makeSnapshot = function() {
            if (_video) {
                var patCanvas = document.querySelector('#snapshot');
                if (!patCanvas) return;
@@ -41,7 +42,7 @@ angular.module('myApp')
                patCanvas.height = _video.height;
                var ctxPat = patCanvas.getContext('2d');
 
-               var idata = getVideoData($scope.patOpts.x, $scope.patOpts.y, $scope.patOpts.w, $scope.patOpts.h);
+               var idata = getVideoData(camera.patOpts.x, camera.patOpts.y, camera.patOpts.w, camera.patOpts.h);
                ctxPat.putImageData(idata, 0, 0);
 
                sendSnapshotToServer(patCanvas.toDataURL());
@@ -53,7 +54,7 @@ angular.module('myApp')
        /*** Redirect the browser to the URL given.
      * Used to download the image by passing a dataURL string
      */
-    $scope.downloadSnapshot = function downloadSnapshot(dataURL) {
+    camera.downloadSnapshot = function downloadSnapshot(dataURL) {
         window.location.href = dataURL;
     };
 
@@ -72,6 +73,6 @@ angular.module('myApp')
      *
      * In this example, we simply store it in the scope for display.
      */var sendSnapshotToServer = function sendSnapshotToServer(imgBase64) {
-        $scope.snapshotData = imgBase64;
+        camera.snapshotData = imgBase64;
     };
 });

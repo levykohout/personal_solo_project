@@ -1,14 +1,20 @@
 <div class="container">
     <div class="col-md-4"></div>
-    <div class="col-md-8">
+    <div class="col-md-4 text-center">
         <h1>My Camera</h1>
         <div ng-controller="cameraController">
-            <div class="alert alert-error ng-scope" ng-show="webcamError" style="">
+            <div class="alert alert-error ng-scope" ng-show="camera.webcamError" style="">
                 <span>Webcam could not be started. Did you give access to it?</span>
             </div>
-            <webcam channel="channel" on-streaming="onSuccess()" on-error="onError(err)" on-stream="onStream(stream)"></webcam>
-            <button ng-click="makeSnapshot()">take picture</button>
+
+            <webcam channel="camera.channel" on-streaming="camera.onSuccess()" on-error="camera.onError(err)" on-stream="camera.onStream(stream)"></webcam>
+
+
+            <button ng-click="camera.makeSnapshot()"><span class="glyphicon glyphicon-camera" ></span> Take a Snapshot!</button>
+
             <canvas id="snapshot" width="300" height="300"></canvas>
+
         </div>
     </div>
+    <div class="col-md-4 text-center">
 </div>
