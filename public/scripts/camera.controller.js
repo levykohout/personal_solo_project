@@ -1,13 +1,13 @@
-angular.module('myApp', ['webcam'])
-.controller('mainController', function($scope) {
+angular.module('myApp')
+.controller('cameraController', function($scope) {
     var _video = null,
         patData = null;
 
-    $scope.patOpts = {x: 0, y: 0, w: 25, h: 25};
+    $scope.patOpts = {x: 0, y: 0, w: 35, h: 35};
 
     // Setup a channel to receive a video property
     // with a reference to the video element
-    // See the HTML binding in main.html
+    // See the HTML binding in camera.html
     $scope.channel = {};
 
     $scope.webcamError = false;
