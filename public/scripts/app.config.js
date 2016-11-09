@@ -25,6 +25,9 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
     }).when('/recipes', {
         templateUrl:'views/recipes.html',
         controller: 'RecipeController as recipe'
+    }).when('/camera', {
+        templateUrl:'views/camera.html',
+        controller: 'RecipeController as recipe'
     }).otherwise({
     templateUrl: 'views/home.html'
   });

@@ -1,7 +1,30 @@
 
+<div class="container">
+<div class="col-md-4"></div>
+<div class="col-md-4 text-center"  >
+
+<div class="row text-center"  >
 <form  name="form" ng-submit="receipt.uploadFile()">
 
-  <input type="file" ngf-select ng-model="receipt.file" >Select</input>
+<span class="btn btn-file">
 
-  <button type="submit">upload me</button>
-</form>
+    <input type="file" ngf-select ng-model="receipt.file"  name="file" id="file" class="inputfile" />
+<label class="btn" for="file"><span class="glyphicon glyphicon-open"></span>Choose a file</label>
+     </span>
+  <button class ="btn btn-warning" type="submit">Upload</button>
+  </form>
+  </div>
+<div class="row text-center"  >
+     <h5>
+         Image Preview:
+     </h5>
+     <img ngf-thumbnail="receipt.file || '/thumb.jpg'">
+</div>
+<div class="row text-center"  >
+    <h4>OR</h4>
+    <a type="button" href="/camera" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-camera"></span></a>
+</div>
+
+</div>
+<div class="col-md-4 text-center"  ></div>
+</div>
