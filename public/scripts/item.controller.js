@@ -3,44 +3,19 @@ angular.module('myApp')
 
 
 
-function ProductController($http) {
+function ProductController($route, ProductService) {
   console.log('ProductController loaded');
 
   var add = this;
   add.itemsArray=[];
 
 
-  add.newItemAdd = function(category, sku, name, quantity, buyDate, expirationDate) {
-    console.log('Adding new item');
-    console.log(category, sku, name, quantity, buyDate, expirationDate);
-    $http.post('/private/items', {
-        category: category,
-        sku:sku,
-        name:name,
-        quantity:quantity,
-        buyDate:buyDate,
-        expirationDate:expirationDate
-    }).then(function(response){
-     add.getItems();
-     add.category = '';
-     add.skuNum = '';
-     add.productName = '';
-     add.quantity = '';
-     add.dateBought = '';
-     add.expirationDate = '';
-    //  add.addItemForm.$setPristine();//clears form
-    //  add.addItemForm.$setUntouched();
-     }, function(error) {
-      console.log('error adding items', error);
-     });
-
-  };
-
   add.getItems = function(){
       console.log('Getting items');
-      $http.get('/private/items').then(function(response){
-          console.log(response);
+      ProductService.getItems().then(function(response){
+          add.itemsArray.length=0;
           add.itemsArray = response.data;
+
           console.log(add.itemsArray);
           add.checkExpirationDate();
        }, function(error) {
@@ -49,6 +24,38 @@ function ProductController($http) {
 
   };
   add.getItems();
+
+  add.newItemAdd = function(category, sku, name, quantity, buyDate, expirationDate) {
+    console.log('Adding new item');
+    var data = {
+        category: category,
+        sku:sku,
+        name:name,
+        quantity:quantity,
+        buyDate:buyDate,
+        expirationDate:expirationDate
+    };
+    console.log(data);
+    ProductService.newItemAdd(data).then(function(response){
+        console.log(response);
+    add.getItems();
+    $route.reload(); //shortcut solution for not displaying added item in DOM
+
+    //  clear form
+     add.category = '';
+     add.skuNum = '';
+     add.productName = '';
+     add.quantity = '';
+     add.dateBought = '';
+     add.expirationDate = '';
+    //  add.addItemForm.$setPristine();//clears form
+    //  add.addItemForm.$setUntouched();
+}, function(error) {
+      console.log('error adding items', error);
+     });
+
+  };
+
 
 
   add.updateItem=function(category, sku, name, quantity, buyDate, expirationDate,id){
@@ -63,7 +70,7 @@ function ProductController($http) {
           expirationDate:expirationDate
  };
  console.log(data);
-      $http.put('/private/items/'+ id,data).then(function(response){
+      ProductService.updateItem(id ,data).then(function(response){
         add.getItems();
        }, function(error) {
         console.log('error updating item', error);
@@ -72,7 +79,7 @@ function ProductController($http) {
 
  add.deleteItem = function(id){
      console.log(id);
-     $http.delete('/private/items/'+ id).then(function(response){
+     ProductService.deleteItem(id).then(function(response){
        add.getItems();
       }, function(error) {
        console.log('error deleting item', error);
@@ -126,27 +133,24 @@ function ProductController($http) {
   };
 
 
-  //expiration notification
-  // add.sendMail = function(recipient, imageURL){
-
   add.sendMail = function(){
 
-      //go through the database and check look at expiration date
-
-
-      //if expiration date is 3 days before today, call node mailer
-
-   // var objectToSend = {
-   //   recipient: recipient,
-   //   imageURL: imageURL
-   // };
-
-  $http.post('/private/mailReminder'
-    //  data: objectToSend
-).then(function(results){
+      ProductService.sendMail().then(function(results){
      console.log(results);
-   }); // end http call
+   });
  }; // end sendMail
+
+//
+// //twilio text notification
+// add.sendText = function(){
+//     $http.post('/private/textReminder'
+//       //  data: objectToSend
+//   ).then(function(results){
+//        console.log(results);
+//      }); // end http call
+//    };
+//
+// }; //End of sendText function
 
 
 }

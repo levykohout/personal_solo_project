@@ -47,9 +47,10 @@ app.use('/private',isLoggedIn, private);
 //   res.sendFile(path.join(__dirname, './public/views/index.html'));
 // });
 app.get('/*', function (req, res) {
-  if (req.isAuthenticated()) {
+ if (req.isAuthenticated()) {
     res.sendFile(path.join(__dirname, 'public/views/index.html'));
-  } else {
+} else {
+
     res.redirect('/auth/google');
   }
 

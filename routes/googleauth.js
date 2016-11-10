@@ -7,9 +7,6 @@ router.get('/google',
     'https://www.googleapis.com/auth/plus.profile.emails.read',
     'https://www.googleapis.com/auth/calendar',
     'https://mail.google.com'],
-    // approvalPrompt:'force',
-    // accessType: 'offline'
-    // approval_prompt:'force'
     }
   ));
 
@@ -22,7 +19,6 @@ router.get('/google/callback',
   router.get('/', function (req, res) {
   if (req.isAuthenticated()) {
     res.json({ status: true, name: req.user.google_name });
-    console.log('user info when logged in', req.user.google_name);
   } else {
     res.json({ status: false });
   }
@@ -33,8 +29,6 @@ router.get('/logout', function (req, res) {
   req.logout();
   res.sendStatus(200); // they made it!
 });
-
-// exports.module=router;
 
 
 

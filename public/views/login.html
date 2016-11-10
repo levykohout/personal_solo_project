@@ -1,27 +1,15 @@
+<h2>Login Page</h2>
+<!-- Shown for users that are NOT logged in -->
+<section ng-hide="auth.loggedIn">
+  <!-- I got this button image from Googles sign-in button brand guidelines page -->
+  <a href= "/auth/google"><img src="/public/assets/btn_google_signin_dark_normal_web.png" /></a>
+</section>
+<!-- Shown for users that are logged in -->
+<section ng-show="auth.loggedIn">
+  <p>
+    You are logged in!
+  </p>
+</section>
 
-<!-- <form class="form-horizontal col-xs-12 col-md-6 col-md-offset-3 custom-form" ng-submit="login.login()">
-    <div class="form-group row">
-        <label class="control-label col-xs-offset-1 col-xs-2">Username:</label>
-        <div class="col-xs-8">
-            <input class="form-control" type="text" ng-model="login.username">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="control-label col-xs-offset-1 col-xs-2">Password:</label>
-        <div class="col-xs-8">
-            <input class="form-control" type="password" ng-model="login.password">
-        </div>
-    </div>
-    <div class="col-xs-offset-3 col-xs-10">
-        <button type="submit" class="btn btn-primary">Login</button>
-    </div>
-    <div class="form-group row">
-        <div class="col-xs-8 col-xs-offset-1">
-            Not a member yet?
-            <a href="/register">Register</a>
-        </div>
-    </div>
-</form> -->
 
-<button href="/auth/google">Login with Google</button>
-<button href="/calendar">Check calendar</button>
+<button ng-click="auth.isLoggedIn()" type="btn btn-primary" href="/auth/google">Login with Google</a>

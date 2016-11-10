@@ -44,16 +44,18 @@ function ReceiptController(Upload){
                   skuArray.push(data);
                   console.log(skuArray);
 
-            } else if ( data.match(/(.*[A-Z]){3}/) && data == data.toUpperCase()){
-                  productNames.push(data);
+            } else if ( data.match(/(.*[A-Z]){3}/) ){
+                  productNames.push({productName: data, quantity: 1, dateBought:new Date()});
                   console.log(productNames);
 
-              } else if(data.match(/[0-9]{0,1}\s/)){
+              } else if (data.match(/[0-9]{0,1}\s/)){
                   priceArray.push(data);
                   console.log(priceArray);
               }
               i++;
           }); //End of forEach function
+
+
 
     }; //End of processData function
 }

@@ -4,7 +4,7 @@
     <h4>Add new item into inventory</h4>
 </div>
 
-<form name="product.addItemForm" ng-controller="ProductController as product"class="well form-horizontal col-xs-12 col-md-6 col-md-offset-3 custom-form" ng-submit="product.newItemAdd(product.category,product.skuNum,product.productName,product.quantity,product.dateBought,product.expirationDate)">
+<form name="product.addItemForm" ng-controller="ProductController as product" class="well form-horizontal col-xs-12 col-md-6 col-md-offset-3 custom-form" >
 <div class="form-group row">
 
 
@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="col-xs-offset-4 col-xs-10">
-        <button type="submit" class="btn btn-primary col-md-offset-2 ">Add</button>
+        <button type="button" class="btn btn-warning col-md-offset-2 " ng-click="product.newItemAdd(product.category,product.skuNum,product.productName,product.quantity,product.dateBought,product.expirationDate)">Add</button>
     </div>
 
 </form>
@@ -74,7 +74,7 @@
         <th></th>
     </thead>
 
-    <tr  class="text-center" ng-repeat="item in product.itemsArray | orderBy: item.expirationStatus ">
+        <tr  class="text-center" ng-repeat="item in product.itemsArray track by item.id"> 
         <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateCategory[item.id]" >{{item.category}}</td>
         <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateSku[item.id]" >{{item.sku_number}}</td>
         <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }">{{item.product_name}}</td>

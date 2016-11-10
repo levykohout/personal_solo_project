@@ -3,7 +3,7 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
         templateUrl:'views/home.html'  //file
     }).when('/login', {
         templateUrl:'views/login.html',
-        controller: 'LoginController as login'
+        controller: 'LoginController as auth'
     }).when('/register', {
         templateUrl:'views/register.html',
         controller: 'RegisterController as register'
