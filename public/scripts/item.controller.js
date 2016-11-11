@@ -25,6 +25,10 @@ function ProductController($route, ProductService) {
   };
   add.getItems();
 
+  add.refreshPage = function() {
+      $route.reload(); //shortcut solution for not displaying added item in DOM
+  };
+
   add.newItemAdd = function(category, sku, name, quantity, buyDate, expirationDate) {
     console.log('Adding new item');
     var data = {
@@ -39,7 +43,6 @@ function ProductController($route, ProductService) {
     ProductService.newItemAdd(data).then(function(response){
         console.log(response);
     add.getItems();
-    $route.reload(); //shortcut solution for not displaying added item in DOM
 
     //  clear form
      add.category = '';

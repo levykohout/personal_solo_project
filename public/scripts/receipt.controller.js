@@ -8,7 +8,6 @@ function ReceiptController(Upload){
     var receipt = this;
         var API_KEY = '25f539a74f88957';
         receipt.data = {};
-        receipt.data =[];
 
     receipt.uploadFile = function() {
         Upload.upload({
@@ -32,6 +31,7 @@ function ReceiptController(Upload){
         var skuArray = [];
         var priceArray = [];
         var productNames =[];
+        var quantityArray=[];
          receipt.dataArray = receipt.data.split('\n');
          console.log(receipt.dataArray);
          //loop through each data in the array and save into new array per information type
@@ -48,9 +48,27 @@ function ReceiptController(Upload){
                   productNames.push({productName: data, quantity: 1, dateBought:new Date()});
                   console.log(productNames);
 
-              } else if (data.match(/[0-9]{0,1}\s/)){
+              } else if (data.match(/^\$[0-9]\.[0-9]{2}/)){
                   priceArray.push(data);
                   console.log(priceArray);
+              } else {
+                  console.log(data);
+                //   var j=0;
+                //   var priceAndQuantity = data.split(' ');
+                //   console.log(priceAndQuantity);
+                //   angular.forEach('priceAndQuantity', function(value , j){
+                //       var insideData =priceAndQuantity[i];
+                //       console.log(insideData);
+                //       if(insideData.match(/\$[0-9]\.[0-9]{2}/)){
+                //           priceArray.push(insideData);
+                //           console.log(priceArray);
+                //       } else if (/[0-9]/){
+                //           quantityArray.push(insideData);
+                //           console.log(quantityArray);
+                //       }
+                  //
+                //       j++;
+                //   }); //End of inside forEach
               }
               i++;
           }); //End of forEach function

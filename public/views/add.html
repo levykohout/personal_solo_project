@@ -5,7 +5,7 @@
 </div>
 
 <form name="product.addItemForm" ng-controller="ProductController as product" class="well form-horizontal col-xs-12 col-md-6 col-md-offset-3 custom-form" >
-<div class="form-group row">
+<div class="form-group row form-header-custom">
 
 
 <h4 class="text-center">Product Information</h4>
@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="col-xs-offset-4 col-xs-10">
-        <button type="button" class="btn btn-warning col-md-offset-2 " ng-click="product.newItemAdd(product.category,product.skuNum,product.productName,product.quantity,product.dateBought,product.expirationDate)">Add</button>
+        <button type="button" href="#myModalAdd" data-toggle="modal" class="btn btn-warning col-md-offset-2 " ng-click="product.newItemAdd(product.category,product.skuNum,product.productName,product.quantity,product.dateBought,product.expirationDate)">Add</button>
     </div>
 
 </form>
@@ -74,7 +74,7 @@
         <th></th>
     </thead>
 
-        <tr  class="text-center" ng-repeat="item in product.itemsArray track by item.id"> 
+        <tr  class="text-center" ng-repeat="item in product.itemsArray track by item.id">
         <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateCategory[item.id]" >{{item.category}}</td>
         <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateSku[item.id]" >{{item.sku_number}}</td>
         <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }">{{item.product_name}}</td>
@@ -101,7 +101,7 @@
             </div>
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-default" data-dismiss="modal" >Ok</button>
+                <button ng-click="product.refreshPage()" type="button" class="btn btn-default" data-dismiss="modal" >Ok</button>
             </div>
         </div>
     </div>
