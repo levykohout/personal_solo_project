@@ -116,6 +116,7 @@ function ProductController($route, ProductService) {
               if(beforeExpiration.getTime() == newToday._d.getTime()){
                   console.log('Item is expiring in 3 days, notification email sent out!');
                   add.sendMail();
+                //   add.sendText();
                   add.itemsArray[i].expirationStatus = 'expiring';
                   console.log(add.itemsArray[i]);
                   i++;
@@ -145,15 +146,12 @@ function ProductController($route, ProductService) {
 
 //
 // //twilio text notification
-// add.sendText = function(){
-//     $http.post('/private/textReminder'
-//       //  data: objectToSend
-//   ).then(function(results){
-//        console.log(results);
-//      }); // end http call
-//    };
-//
-// }; //End of sendText function
+add.sendText = function(){
+    ProductService.sendText().then(function(results){
+       console.log(results);
+     });
+
+}; //End of sendText function
 
 
 }

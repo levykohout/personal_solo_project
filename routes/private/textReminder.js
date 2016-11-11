@@ -1,21 +1,30 @@
 const router = require('express').Router();
+const twilio = require('twilio');
+var credentials = require('../../auth/credentials');
 
-var accountSid = 'AC4cbc62ee88d6fcb17b86cca24cb31215';
-var authToken = '9c71df4b5f85bb05b6781fa0bd81b860';
-
+var clientTwilio = new twilio.RestClient(credentials.twilio.accountSid, credentials.twilio.authToken);
 //require the Twilio module and create a REST client
-var client = require('twilio')(accountSid, authToken);
+
 
 router.post('/', function(req, res){
 
-client.messages.create({
+clientTwilio.messages.create({
     to: "+16122033602",
-    from: "+17633163788",
+    from: credentials.twilio.number,
     body: "You have a pantry item expiring. Check your inventory list. ",
-}, function(err, message) {
-    console.log(message.sid);
-}
-);
+},  function(err, responseData) { //this function is executed when a response is received from Twilio
 
-}
+          if (!err) { // "err" is an error received during the request, if any
+
+              console.log(responseData.body); // outputs slogan of the day
+
+          } else {
+            console.log('error sending message', err);
+          }
+
+      });//end of send message
+
+});
+
+
 module.exports = router;

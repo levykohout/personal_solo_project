@@ -37,5 +37,14 @@ product.sendMail = function(){
          });
 }; //End of sendMail function
 
+product.sendText=function(){
+
+    return  $http.post('/private/textReminder'
+        //  data: objectToSend
+    ).then(function(response){
+        return response;
+         });
+}; //End of sendText function
+
 
 }//End of service function
