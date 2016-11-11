@@ -1,6 +1,7 @@
 angular.module('myApp').config(function($routeProvider,$locationProvider){
     $routeProvider.when('/home', {  //browser
-        templateUrl:'views/home.html'  //file
+        templateUrl:'views/home.html',  //file
+        controller:'NavController as nav'
     }).when('/login', {
         templateUrl:'views/login.html',
         controller: 'LoginController as auth'

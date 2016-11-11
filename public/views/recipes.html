@@ -1,6 +1,6 @@
 <h1 class="text-center">Here are the suggested recipes for the day!</h1>
 <div class="container text-center">
-    <div class=" fullwidth col-md-4 pull-left " ng-repeat="image in recipe.recipeArray">
+    <div class=" fullwidth col-md-4 pull-left margin-top-05" ng-repeat="image in recipe.recipeArray">
         <img ng-click="ingredientShow = !ingredientShow" ng-src="{{image.recipe.image}}" />
         <div >
             <h4 class="label-holder recipe-holder">{{image.recipe.label}}</h4>
@@ -9,10 +9,10 @@
             <p>
                 {{ingredient.text}}
             </p>
-        
+
         </div>
-        <button type="button" href="#myModalAdd" data-toggle="modal">Add to Calendar</button>
-        <button href="#myModalFavorites" data-toggle="modal" ng-click="recipe.addToFavorites(image.recipe.label, image.recipe.image, image.recipe.url)">Add to Favorites</button>
+        <button type="button" href="#myModalAdd" data-toggle="modal"><span class="glyphicon glyphicon-calendar"></span> Add to Calendar</button>
+        <button href="#myModalFavorites" data-toggle="modal" ng-click="recipe.addToFavorites(image.recipe.label, image.recipe.image, image.recipe.url)"><span class="glyphicon glyphicon-heart-empty"></span> Add to Favorites</button>
     </div>
 </div>
 
