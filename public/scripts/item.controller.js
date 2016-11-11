@@ -32,7 +32,7 @@ function ProductController($route, ProductService) {
   add.getItems();
 
   add.refreshPage = function() {
-    //   $route.reload(); //shortcut solution for not displaying added item in DOM
+      $route.reload(); //shortcut solution for not displaying added item in DOM
   };
 
   add.newItemAdd = function(category, sku, name, quantity, buyDate, expirationDate) {
@@ -67,7 +67,16 @@ function ProductController($route, ProductService) {
 
 
 
+add.editingData = {};
+var i=0;
+angular.forEach(add.itemsArray, function(){
+    add.editingData[add.itemsArray[i].id] = false;
+    i++;
+})
+
+
   add.updateItem=function(category, sku, name, quantity, buyDate, expirationDate,id){
+      add.editingData[id] = false;
       console.log('Updating an item with an id of', id);
 
       var data = {
@@ -96,7 +105,22 @@ function ProductController($route, ProductService) {
    };
 
 
+add.itemToEdit = [];
 
+add.editItem = function(id){
+    add.editingData[id] = true;
+    console.log('item to be edited is id:', id);
+
+    console.log(add.editingData);
+
+    ProductService.editItem(id).then(function(response){
+     add.itemToEdit = response.data;
+
+     console.log(add.itemToEdit);
+     }, function(error) {
+      console.log('error deleting item', error);
+     });
+};
 
 
   add.checkExpirationDate=function(){
@@ -121,7 +145,7 @@ function ProductController($route, ProductService) {
 
               if(beforeExpiration.getTime() == newToday._d.getTime()){
                   console.log('Item is expiring in 3 days, notification email sent out!');
-                  add.sendMail();
+                //   add.sendMail();
                 //   add.sendText();
                   add.itemsArray[i].expirationStatus = 'expiring';
                   console.log(add.itemsArray[i]);

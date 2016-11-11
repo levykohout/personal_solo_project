@@ -58,6 +58,7 @@
 
 </form>
 
+
 <table class="table table-striped margin-top-25 ">
 <caption>
     <h3>Product Inventory List</h3>
@@ -75,14 +76,42 @@
     </thead>
 
         <tr  class="text-center" ng-repeat="item in product.itemsArray track by item.id">
-        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateCategory[item.id]" >{{item.category}}</td>
-        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateSku[item.id]" >{{item.sku_number}}</td>
-        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }">{{item.product_name}}</td>
-        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }"><input type="number" class="form-control" ng-model="item.updateQuantity[item.id]" placeholder="{{item.quantity}}" /></td>
-        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateBuyDate[item.id]">{{item.date_bought| date:'MM/dd/yyyy'}}</td>
-        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ng-model="item.updateExpDate[item.id]">{{item.expiration_date| date:'MM/dd/yyyy'}}</td>
-        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ><button type="button" ng-click="product.updateItem(item.category,item.sku_number,item.product_name,item.updateQuantity[item.id],item.date_bought,item.expiration_date,item.id)"><span class="glyphicon glyphicon-edit"></span> Update</button></td>
-        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ><button type="button" ng-click="product.deleteItem(item.id)"><span class="glyphicon glyphicon-trash"></span>Remove</button></td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" >
+            <div ng-hide="product.editingData[item.id]">{{item.category}}</div>
+            <div ng-show="product.editingData[item.id]">
+                <select ng-model="product.updateCategory">
+                <option value="" disabled selected hidden>{{item.category}}</option>
+                <option value="Canned Goods">Canned Goods</option>
+                <option value="Fresh Produce">Fresh Produce</option>
+                <option value="Category3">category 3</option>
+                <option value="Category4">category 4</option>
+            </select>
+        </div>
+        </td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" >
+            <div ng-hide="product.editingData[item.id]">{{item.sku_number}}</div>
+            <div ng-show="product.editingData[item.id]"><input type="number" ng-model="product.updateSkuNum" placeholder="{{item.sku_number}}"/></div>
+        </td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }">
+            <div ng-hide="product.editingData[item.id]">{{item.product_name}}</div>
+            <div ng-show="product.editingData[item.id]"><input type="text" ng-model="product.updateSkuNum" placeholder="{{item.product_name}}" /></div>
+        </td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }">
+            <div ng-hide="product.editingData[item.id]">{{item.quantity}}</div>
+            <div ng-show="product.editingData[item.id]"><input type="text" ng-model="product.updateQuantity" placeholder="{{item.quantity}}" />
+        </td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }">
+            <div ng-hide="product.editingData[item.id]">{{item.date_bought| date:'MM/dd/yyyy'}}</div>
+            <div ng-show="product.editingData[item.id]"><input ng-model="product.updateBuyDate" placeholder="{{item.date_bought| date:'MM/dd/yyyy'}}" class="textbox-n" type="text" onfocus="(this.type='date')" >
+        </td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }">
+            <div ng-hide="product.editingData[item.id]">{{item.expiration_date| date:'MM/dd/yyyy'}}</div>
+            <div ng-show="product.editingData[item.id]"><input ng-model="product.updateExpDate" placeholder="{{item.expiration_date| date:'MM/dd/yyyy'}}" class="textbox-n" type="text" onfocus="(this.type='date')" >
+        </td>
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ><button ng-hide="product.editingData[item.id]" type="button" ng-click="product.editItem(item.id)"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>
+        <td ><button ng-show="product.editingData[item.id]"  type="button" ng-click="product.updateItem(product.updateCategory,product.updateSkuNum,product.updateProductName,product.updateQuantity,product.updateBuyDate,product.updateExpDate,item.id)"><span class="glyphicon glyphicon-edit"></span> Update</button></td>
+
+        <td ng-class="{expired: item.expirationStatus=='expired', expiring: item.expirationStatus=='expiring' }" ><button type="button" ng-click="product.deleteItem(item.id)"><span class="glyphicon glyphicon-trash"></span>Delete</button></td>
 
     </tr>
 

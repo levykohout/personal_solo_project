@@ -11,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-bootstrap-calendar": "^0.26.0",
     "angular-route": "^1.5.8",
+    "angular-ui-bootstrap": "^2.2.0",
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
@@ -20,7 +22,7 @@
     "google-auth-library": "^0.9.9",
     "google-calendar": "^1.3.2",
     "googleapis": "^14.1.0",
-    "moment": "^2.15.2",
+    "moment": "^2.16.0",
     "ng-file-upload": "^12.2.12",
     "nodemailer": "^2.6.4",
     "passport": "^0.3.2",

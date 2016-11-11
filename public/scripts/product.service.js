@@ -28,6 +28,12 @@ product.deleteItem = function(id){
          });
 }; //End of deleteItem function
 
+product.editItem = function(id){
+    return $http.get('/private/items/'+id).then(function(response){
+        return response;
+         });;
+}; //End of editItem
+
 product.sendMail = function(){
 
     return  $http.post('/private/mailReminder'

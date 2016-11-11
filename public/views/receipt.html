@@ -16,6 +16,20 @@
             <h5>Image Preview:</h5>
             <img ngf-thumbnail="receipt.file || '/thumb.jpg'">
         </div>
+        <div class="row text-center">
+
+
+            <div class="col-md-2">
+                <p ng-repeat="sku in receipt.skuArray">
+                    {{sku}}
+                </p>
+            </div>
+            <div class="col-md-4">
+            <p ng-repeat="product in receipt.productNames">
+                {{product.productName}}
+            </p>
+        </div>
+        </div>
     </div>
     <div class="col-md-2 text-center">
         <h3>OR</h3>

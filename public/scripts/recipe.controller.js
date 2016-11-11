@@ -95,6 +95,8 @@ function RecipeController($http , $scope, ProductService ) {
       });
   };//End of addToFavorites function
 
+  recipe.data ={};
+
   recipe.addToCalendar = function(startTime, endTime, eventName){
       console.log('inside add to calendar', startTime, endTime, eventName);
 
@@ -103,6 +105,7 @@ function RecipeController($http , $scope, ProductService ) {
           endTime: endTime,
           eventName:eventName
       };
+      recipe.data = data;
 
       ProductService.addToCalendar (data).then(function(response){
           console.log(response);

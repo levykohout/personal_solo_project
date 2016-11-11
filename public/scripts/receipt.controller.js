@@ -28,10 +28,10 @@ function ReceiptController(Upload){
 
     receipt.processData = function(){
         var i=0;
-        var skuArray = [];
-        var priceArray = [];
-        var productNames =[];
-        var quantityArray=[];
+        receipt.skuArray = [];
+        receipt.priceArray = [];
+        receipt.productNames =[];
+        receipt.quantityArray=[];
          receipt.dataArray = receipt.data.split('\n');
          console.log(receipt.dataArray);
          //loop through each data in the array and save into new array per information type
@@ -41,16 +41,16 @@ function ReceiptController(Upload){
               if(data.match(/[0-9]{8}/)){
             //   if (!isNaN(parseInt(data) * 1) && data.length >=9){
                       console.log('This is an SKU Number');
-                  skuArray.push(data);
-                  console.log(skuArray);
+                  receipt.skuArray.push(data);
+                  console.log(receipt.skuArray);
 
             } else if ( data.match(/(.*[A-Z]){3}/) ){
-                  productNames.push({productName: data, quantity: 1, dateBought:new Date()});
-                  console.log(productNames);
+                  receipt.productNames.push({productName: data, quantity: 1, dateBought:new Date()});
+                  console.log(receipt.productNames);
 
               } else if (data.match(/^\$[0-9]\.[0-9]{2}/)){
-                  priceArray.push(data);
-                  console.log(priceArray);
+                  receipt.priceArray.push(data);
+                  console.log(receipt.priceArray);
               } else {
                   console.log(data);
                 //   var j=0;
