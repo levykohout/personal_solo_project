@@ -76,7 +76,7 @@ angular.forEach(add.itemsArray, function(){
 
 
   add.updateItem=function(category, sku, name, quantity, buyDate, expirationDate,id){
-      add.editingData[id] = false;
+
       console.log('Updating an item with an id of', id);
 
       var data = {
@@ -88,6 +88,7 @@ angular.forEach(add.itemsArray, function(){
           expirationDate:expirationDate
  };
  console.log(data);
+ add.editingData[id] = false;
       ProductService.updateItem(id ,data).then(function(response){
         add.getItems();
        }, function(error) {
