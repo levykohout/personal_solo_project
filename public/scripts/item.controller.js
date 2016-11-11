@@ -14,7 +14,13 @@ function ProductController($route, ProductService) {
       console.log('Getting items');
       ProductService.getItems().then(function(response){
           add.itemsArray.length=0;
-          add.itemsArray = response.data;
+           var i=0;
+          angular.forEach(response.data,function(){
+
+               add.itemsArray.push(response.data[i]);
+               i++;
+          });
+
 
           console.log(add.itemsArray);
           add.checkExpirationDate();
@@ -26,7 +32,7 @@ function ProductController($route, ProductService) {
   add.getItems();
 
   add.refreshPage = function() {
-      $route.reload(); //shortcut solution for not displaying added item in DOM
+    //   $route.reload(); //shortcut solution for not displaying added item in DOM
   };
 
   add.newItemAdd = function(category, sku, name, quantity, buyDate, expirationDate) {

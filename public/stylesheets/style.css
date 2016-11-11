@@ -12,6 +12,10 @@
     color: orange !important;
 }
 
+span.glyphicon-camera{
+ font-size: 3em;
+}
+
 img {
     width:100%;
     height:250px;

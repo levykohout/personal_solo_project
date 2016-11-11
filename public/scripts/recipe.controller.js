@@ -1,7 +1,7 @@
 angular.module('myApp')
 .controller('RecipeController', RecipeController);
 
-function RecipeController($http , $scope) {
+function RecipeController($http , $scope, ProductService ) {
   console.log('RecipeController loaded');
 
 
@@ -11,7 +11,7 @@ function RecipeController($http , $scope) {
 
   recipe.getItems = function(){
       console.log('Getting items');
-      $http.get('/private/items').then(function(response){
+     ProductService.getItems().then(function(response){
           console.log(response);
           recipe.itemsArray = response.data;
           console.log(recipe.itemsArray);
@@ -66,18 +66,11 @@ function RecipeController($http , $scope) {
   recipe.getRecipes = function(){
       console.log('Getting recipes!');
 
-      var Url = 'https://api.edamam.com/search?q=';
-      var your_app_key = '&app_key=6d84ea800f46d8ee5c73a0ec0e7bb354';
-      var your_app_ID = '&app_id=84c4df48';
-
-      var limit = '&to=21';
       var q = recipe.keywords;
 
       console.log(q);
 
-      var request = Url + q + limit + your_app_ID + your_app_key + '&callback=JSON_CALLBACK';
-
-      $http.jsonp(request).then(function(response){
+     ProductService.getRecipes(q).then(function(response){
           console.log(response);
           recipe.recipeArray = response.data.hits;
           console.log(recipe.recipeArray);
@@ -97,7 +90,7 @@ function RecipeController($http , $scope) {
           recipeUrl : recipeUrl
       };
       console.log(data);
-      $http.post('/private/favorites', data ).then(function(response){
+      ProductService.addToFavorites(data).then(function(response){
           console.log(response);
       });
   };//End of addToFavorites function
@@ -105,15 +98,13 @@ function RecipeController($http , $scope) {
   recipe.addToCalendar = function(startTime, endTime, eventName){
       console.log('inside add to calendar', startTime, endTime, eventName);
 
-
-
       var data = {
           startTime:startTime,
           endTime: endTime,
           eventName:eventName
       };
 
-      $http.post('/private/calendar' , data).then(function(response){
+      ProductService.addToCalendar (data).then(function(response){
           console.log(response);
       });
 

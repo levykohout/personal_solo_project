@@ -30,7 +30,8 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
         templateUrl:'views/camera.html',
         controller: 'cameraController as camera'
     }).otherwise({
-    templateUrl: 'views/home.html'
+    templateUrl: 'views/home.html',
+    controller:'NavController as nav'
   });
     //let us use normal looking links.Remember to use base tag in html to use this.
     $locationProvider.html5Mode(true);

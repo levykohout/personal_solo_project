@@ -46,5 +46,34 @@ product.sendText=function(){
          });
 }; //End of sendText function
 
+product.getRecipes = function(keywords){
+    var Url = 'https://api.edamam.com/search?q=';
+    var your_app_key = '&app_key=6d84ea800f46d8ee5c73a0ec0e7bb354';
+    var your_app_ID = '&app_id=84c4df48';
+    var limit = '&to=21';
+    var q = keywords;
+     var request = Url + q + limit + your_app_ID + your_app_key + '&callback=JSON_CALLBACK';
+
+     return $http.jsonp(request).then(function(response){
+         return response;
+          });
+
+}; //End of getRecipes function
+
+product.addToFavorites = function(data){
+return $http.post('/private/favorites', data ).then(function(response){
+    return response;
+     });
+
+}; //End of addToFavorites function
+
+ product.addToCalendar = function(data){
+    return  $http.post('/private/calendar' , data).then(function(response){
+          return response;
+           });
+ }; //End of addToCalendar function
+
+
+
 
 }//End of service function
