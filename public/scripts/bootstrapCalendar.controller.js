@@ -1,9 +1,10 @@
 angular.module('myApp')
 .controller('BootstrapCalendarCtrl', BootstrapCalendarCtrl);
 
-function BootstrapCalendarCtrl(moment, alert, calendarConfig) {
+function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
     var vm = this;
-
+            vm.events = ProductService.calendarEvents;
+            console.log('This is vm events', vm.events);
         //These variables MUST be set as a minimum for the calendar to work
         vm.calendarView = 'month';
         vm.viewDate = new Date();
@@ -61,7 +62,7 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig) {
     };
 
     vm.eventClicked = function(event) {
-    //   alert.show('Clicked', event);
+      alert.show('Clicked', event);
     };
 
     vm.eventEdited = function(event) {
@@ -101,5 +102,31 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig) {
       }
 
     };
+
+    vm.getCalendarEvents = function(){
+        ProductService.getCalendarEvents().then(function(response){
+            console.log('inside calendar events',response.data);
+        vm.eventsArray=response.data;
+            var i=0;
+        angular.forEach('vm.eventsArray',function(){
+        var data = vm.eventsArray[i];
+        console.log(data);
+            vm.events.push({
+              title: data.event_name,
+              startsAt: new Date(data.start_time),
+            //   startsAt: moment().startOf('day').toDate(),
+            endsAt: new Date(data.end_time),
+            //   endsAt: moment().endOf('day').toDate(),
+              color: calendarConfig.colorTypes.important,
+              draggable: true,
+              resizable: true
+            });
+            i++;
+        });//End of for each
+        console.log('New vm.events', vm.events);
+        });
+
+    };
+    vm.getCalendarEvents();
 
 }//End of BootstrapCalendarCtrl

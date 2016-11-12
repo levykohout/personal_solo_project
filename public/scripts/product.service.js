@@ -73,13 +73,22 @@ return $http.post('/private/favorites', data ).then(function(response){
 
 }; //End of addToFavorites function
 
+product.calendarEvents=[];
+
  product.addToCalendar = function(data){
     return  $http.post('/private/calendar' , data).then(function(response){
+        console.log(response);
+        product.calendarEvents = response.data;
           return response;
            });
  }; //End of addToCalendar function
 
-
+product.getCalendarEvents=function(){
+    return  $http.get('/private/calendar').then(function(response){
+        console.log('inside service response',response);
+        return response;
+    });
+}
 
 
 }//End of service function

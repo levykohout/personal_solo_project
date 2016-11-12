@@ -32,7 +32,7 @@ function ProductController($route, ProductService) {
   add.getItems();
 
   add.refreshPage = function() {
-      $route.reload(); //shortcut solution for not displaying added item in DOM
+    //   $route.reload(); //shortcut solution for not displaying added item in DOM
   };
 
   add.newItemAdd = function(category, sku, name, quantity, buyDate, expirationDate) {
