@@ -21,6 +21,7 @@
     <script src="vendors/moment-with-locales.min.js" charset="utf-8"></script>
     <script src="vendors/moment.min.js"></script>
     <script src="vendors/ui-bootstrap.js" charset="utf-8"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.0/ui-bootstrap-tpls.min.js"></script>
      <script src="vendors/angular-bootstrap-calendar-tpls.min.js"></script>
    <script src="//cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.4/interact.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
@@ -79,33 +80,14 @@
                 <li class="nav-item"><a class="nav-link" href="/calendar"> <span class="glyphicon glyphicon-calendar"></span> Meal Calendar</a></li>
                 <li class="nav-item"><a class="nav-link" href="/recipes"><span class="glyphicon glyphicon-cutlery"></span> Suggested Recipes</a></li>
                 <li class="nav-item"><a class="nav-link" href="/favorites"><span class="glyphicon glyphicon-heart-empty"></span> Favorite Recipes</a></li>
-                </ul>
-                <ul class="nav navbar-nav pull-right">
-                    <li class="nav-item pull-right" ><a href="/" ng-click="nav.logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                    <li class="nav-item pull-right" ng-show="nav.displayLogout"><a><span class="glyphicon glyphicon-user"></span> {{nav.username}}! </a></li>
+                    <li class="nav-item" ><a href="/" ng-click="nav.logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li class="nav-item" ng-show="nav.displayLogout"><a><span class="glyphicon glyphicon-user"></span> {{nav.username}}! </a></li>
 
                 </ul>
         </div>
     </div>
     </nav>
 
-
-
-
-
-
-
-
-
-
-                <section id="message" class="nav.message.type" ng-show="nav.message.text">
-                  {{nav.message.text}}
-                </section>
-                <!--Create Search form-->
-                <!-- <form class="form-inline pull-right text-center">
-                    <input class="form-control" type="text" placeholder="Search">
-                    <button class="btn" type="submit">Search</button>
-                </form> -->
 
     </header>
     <main>

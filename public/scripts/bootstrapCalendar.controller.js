@@ -76,6 +76,14 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
 
     };
 
+    vm.cellModifier = function(cell) {
+      console.log(cell);
+      if (cell.label % 2 === 1 && cell.inMonth) {
+        cell.cssClass = 'odd-cell';
+      }
+      cell.label = cell.label;
+    };
+
     vm.getCalendarEvents = function(){
         ProductService.getCalendarEvents().then(function(response){
             console.log('inside calendar events',response.data);
@@ -96,6 +104,7 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
             i++;
         });//End of for each
         console.log('New vm.events', vm.events);
+        console.log(event.title);
         });
 
     };

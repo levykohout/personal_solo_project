@@ -1,11 +1,11 @@
-<div class="events-list" ng-show="day.events.length > 0">
+<div ng-controller="BootstrapCalendarCtrl as vm" class="events-list" ng-show="day.events.length > 0">
   <a
     ng-repeat="event in day.events | orderBy:'startsAt' track by event.calendarEventId"
     href="javascript:;"
     ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent: event})"
 
-    ng-class="event.cssClass"
+ ng-class="event.cssClass"
     id="calBox"
-    drop-data="{event: event.title, }">Event {{event.title}}
+    drop-data="{event: event.title}">Event {{event.title}}
   </a>
 </div>

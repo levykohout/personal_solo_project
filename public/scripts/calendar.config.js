@@ -4,7 +4,7 @@ angular.module('myApp')
     console.log(calendarConfig); //view all available config
 
     calendarConfig.templates.calendarMonthCellEvents =  'views/calendarCell.html';
-     calendarConfig.templates.calendarSlideBox =  'views/calendarSlideBox.html';
+    calendarConfig.templates.calendarSlideBox =  'views/calendarSlideBox.html';
 
     // calendarConfig.templates.calendarMonthView = 'path/to/custom/template.html'; //change the month view template globally to a custom template
 
