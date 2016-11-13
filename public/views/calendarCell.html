@@ -1,4 +1,4 @@
-<div ng-controller="RecipeController as recipe" class="events-list" ng-show="day.events.length > 0">
+<div class="events-list" ng-show="day.events.length > 0">
   <a
     ng-repeat="event in day.events | orderBy:'startsAt' track by event.calendarEventId"
     href="javascript:;"
@@ -6,6 +6,6 @@
 
     ng-class="event.cssClass"
     id="calBox"
-    drop-data="{event: event.title, slogan: event.slogan}">{{recipe.data}}
+    drop-data="{event: event.title, }">Event {{event.title}}
   </a>
 </div>

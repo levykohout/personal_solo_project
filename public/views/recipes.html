@@ -1,7 +1,7 @@
 <h1 class="text-center">Here are the suggested recipes for the day!</h1>
 <div class="container text-center">
     <div class=" fullwidth col-md-4 pull-left margin-top-05" ng-repeat="image in recipe.recipeArray">
-        <img ng-click="ingredientShow = !ingredientShow" ng-src="{{image.recipe.image}}" />
+        <a><img ng-click="ingredientShow = !ingredientShow" ng-src="{{image.recipe.image}}" /></a>
         <div >
             <h4 class="label-holder recipe-holder">{{image.recipe.label}}</h4>
         </div>
@@ -10,6 +10,9 @@
                 {{ingredient.text}}
             </p>
 
+        </div>
+        <div>
+            <a href="{{image.recipe.url}}">Cooking Directions</a>
         </div>
         <button type="button" href="#myModalAdd" data-toggle="modal"><span class="glyphicon glyphicon-calendar"></span> Add to Calendar</button>
         <button href="#myModalFavorites" data-toggle="modal" ng-click="recipe.addToFavorites(image.recipe.label, image.recipe.image, image.recipe.url)"><span class="glyphicon glyphicon-heart-empty"></span> Add to Favorites</button>
@@ -41,7 +44,7 @@
                     <div class="form-group">
                         <label for="endTime" class="control-label col-xs-4"><span class=" glyphicon glyphicon-calendar"></span> End Date and Time:</label>
                         <div class="col-xs-8">
-                            <input type="datetime-local" class="form-control glyphicon glyphicon-calendar" ng-model="recipe.endTime">
+                            <input type="datetime-local" class="form-control" ng-model="recipe.endTime">
                         </div>
                     </div>
                     <div class="form-group">

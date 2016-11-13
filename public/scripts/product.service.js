@@ -76,6 +76,7 @@ return $http.post('/private/favorites', data ).then(function(response){
 product.calendarEvents=[];
 
  product.addToCalendar = function(data){
+     console.log('inside service',data);
     return  $http.post('/private/calendar' , data).then(function(response){
         console.log(response);
         product.calendarEvents = response.data;

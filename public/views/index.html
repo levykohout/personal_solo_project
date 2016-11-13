@@ -10,7 +10,7 @@
     <script src="vendors/angular.min.js" charset="utf-8"></script>
     <script src="vendors/angular-route.min.js" charset="utf-8"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
-    <script src="vendors/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+    <script src="vendors/ng-file-upload-shim.min.js"></script>
     <script src="vendors/ng-file-upload.min.js"></script>
     <script src="vendors/webcam.min.js"></script>
 
@@ -21,7 +21,6 @@
     <script src="vendors/moment-with-locales.min.js" charset="utf-8"></script>
     <script src="vendors/moment.min.js"></script>
     <script src="vendors/ui-bootstrap.js" charset="utf-8"></script>
-    <script src="vendors/ui-bootstrap-tpls.min.js"></script>
      <script src="vendors/angular-bootstrap-calendar-tpls.min.js"></script>
    <script src="//cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.4/interact.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
@@ -44,7 +43,7 @@
     <script src="scripts/bootstrapCalendar.controller.js"></script>
         <script src="scripts/alert.config.js"></script>
 
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> 
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
    <link href="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/css/colorpicker.min.css" rel="stylesheet">
    <link href="vendors/angular-bootstrap-calendar.min.css" rel="stylesheet">
 
@@ -65,7 +64,7 @@
 
 
                 <!-- Responsive Nav Bar -->
-        <nav class="navbar navbar-inverse" role = "navigation">
+        <nav class="navbar navbar-inverse custom-nav" role = "navigation">
             <div class = "navbar-header">
       <button type = "button" class = "navbar-toggle btn btn-warning"
          data-toggle = "collapse" data-target = "#example-navbar-collapse">
@@ -80,9 +79,12 @@
                 <li class="nav-item"><a class="nav-link" href="/calendar"> <span class="glyphicon glyphicon-calendar"></span> Meal Calendar</a></li>
                 <li class="nav-item"><a class="nav-link" href="/recipes"><span class="glyphicon glyphicon-cutlery"></span> Suggested Recipes</a></li>
                 <li class="nav-item"><a class="nav-link" href="/favorites"><span class="glyphicon glyphicon-heart-empty"></span> Favorite Recipes</a></li>
-                <li class="nav-item" ><a href="/" ng-click="nav.logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                <li class="nav-item" ng-show="nav.displayLogout"><a><span class="glyphicon glyphicon-user"></span> {{nav.username}}! </a></li>
-            </ul>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li class="nav-item pull-right" ><a href="/" ng-click="nav.logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    <li class="nav-item pull-right" ng-show="nav.displayLogout"><a><span class="glyphicon glyphicon-user"></span> {{nav.username}}! </a></li>
+
+                </ul>
         </div>
     </div>
     </nav>

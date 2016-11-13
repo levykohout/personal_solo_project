@@ -52,10 +52,12 @@ router.post('/' , addCalendarEvent);
 
 function addCalendarEvent(req, res) {
 
-    var start_time = req.body.startTime;
-    var end_time = req.body.endTime;
+    var start_time = new Date(req.body.startTime);
+    var end_time = new Date(req.body.endTime);
     var user_id = req.user.googleid;
-    var event_name = req.body.eventName;
+    var event_name =req.body.eventName;
+    console.log(start_time);
+    console.log(end_time);
 
 
     pool.connect(function(err, client, done) {

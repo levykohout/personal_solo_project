@@ -3,66 +3,39 @@ angular.module('myApp')
 
 function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
     var vm = this;
-            vm.events = ProductService.calendarEvents;
-            console.log('This is vm events', vm.events);
+
         //These variables MUST be set as a minimum for the calendar to work
         vm.calendarView = 'month';
         vm.viewDate = new Date();
-        // var actions = [{
-        //   label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
-        //   onClick: function(args) {
-        //     alert.show('Edited', args.calendarEvent);
-        //   }
-        // }, {
-        //   label: '<i class=\'glyphicon glyphicon-remove\'></i>',
-        //   onClick: function(args) {
-        //     alert.show('Deleted', args.calendarEvent);
-        //   }
-        // }];
-        vm.events = [
-    //       {
-    //         title: 'An event',
-    //         color: calendarConfig.colorTypes.warning,
-    //         startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-    //         endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-    //         draggable: true,
-    //         resizable: true,
-    //         // actions: actions
-    //       }, {
-    //         title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
-    //         color: calendarConfig.colorTypes.info,
-    //         startsAt: moment().subtract(1, 'day').toDate(),
-    //         endsAt: moment().add(5, 'days').toDate(),
-    //         draggable: true,
-    //         resizable: true,
-    //         // actions: actions
-    //       }, {
-    //           title: 'This is a really long event title that occurs on every year',
-    //     color: calendarConfig.colorTypes.important,
-    //     startsAt: moment().startOf('day').add(7, 'hours').toDate(),
-    //     endsAt: moment().startOf('day').add(19, 'hours').toDate(),
-    //     recursOn: 'year',
-    //     draggable: true,
-    //     resizable: true,
-    //     // actions: actions
-    //   }
-    ];
+        var actions = [{
+          label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+          onClick: function(args) {
+            alert.show('Edited', args.calendarEvent);
+          }
+        }, {
+          label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+          onClick: function(args) {
+            alert.show('Deleted', args.calendarEvent);
+          }
+        }];
+        vm.events = [];
 
-    vm.cellIsOpen = true;
+    vm.cellIsOpen = false;
 
-    vm.addEvent = function() {
+    vm.addEvent = function(startTime, endTime, Event) {
       vm.events.push({
-        title: 'New event',
-        startsAt: moment().startOf('day').toDate(),
-        endsAt: moment().endOf('day').toDate(),
+        title: Event,
+        startsAt: new Date(startTime),
+        endsAt: new Date(endTime),
         color: calendarConfig.colorTypes.important,
-        draggable: true,
-        resizable: true
+        draggable: false,
+        resizable: false
       });
     };
 
     vm.eventClicked = function(event) {
-      alert.show('Clicked', event);
+    //   alert.show('Clicked', event);
+
     };
 
     vm.eventEdited = function(event) {
@@ -114,12 +87,11 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
             vm.events.push({
               title: data.event_name,
               startsAt: new Date(data.start_time),
-            //   startsAt: moment().startOf('day').toDate(),
             endsAt: new Date(data.end_time),
-            //   endsAt: moment().endOf('day').toDate(),
-              color: calendarConfig.colorTypes.important,
-              draggable: true,
-              resizable: true
+        color: calendarConfig.colorTypes.important,
+              draggable: false,
+              resizable: false,
+                incrementsBadgeTotal: false
             });
             i++;
         });//End of for each

@@ -36,15 +36,11 @@ function RecipeController($http , $scope, ProductService ) {
               var expirationDate = new Date(values.expiration_date);
 
               var beforeExpiration = moment(expirationDate).clone().subtract(3, 'days').format();
-               console.log('original expiration date:', expirationDate);
-                console.log('3 days prior to expiration date:', beforeExpiration);
+
 
             var today = new Date;
             beforeExpiration = new Date(beforeExpiration);
             var newToday = moment(today).startOf('day');
-
-            console.log('This is the new today format', newToday._d);
-            console.log('This is the before expiration date are they equal', beforeExpiration);
 
               if(beforeExpiration.getTime() == newToday._d.getTime()){
                   console.log('Item is expiring in 3 days, suggested recipes here!');
@@ -106,6 +102,7 @@ function RecipeController($http , $scope, ProductService ) {
           eventName:eventName
       };
       recipe.data = data;
+      console.log('addToCalendar times',startTime ,endTime);
 
       ProductService.addToCalendar (data).then(function(response){
           console.log(response);

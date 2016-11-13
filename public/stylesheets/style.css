@@ -8,12 +8,16 @@
     color: orange;
 }
 
-.nav {
+.custom-nav {
     color: orange !important;
 }
 
 span.glyphicon-camera{
- font-size: 3em;
+ font-size: 2em;
+}
+
+span.glyphicon-asterisk{
+ font-size: 0.5em;
 }
 
 img {
