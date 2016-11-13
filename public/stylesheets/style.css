@@ -1,15 +1,22 @@
 .custom-form {
-    background-color: gray;
-    padding:40px;
+    background-color: white;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    padding-top: 0;
+    padding-left: 0 !important;
+    padding-right:0 !important;
 }
 
 .form-header-custom {
     width:100%;
     color: orange;
-}
-
-.custom-nav {
-    color: orange !important;
+    background-color: grey;
+    margin-bottom:40px;
+    height:150%;
+    padding: 20px 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
 }
 
 span.glyphicon-camera{
@@ -50,8 +57,9 @@ footer {
     color: red;
 }
 
-.custom-header {
-    background-color: lightblue !important;
+.custom-table-header {
+    background-color: grey !important;
+    color:white;
 }
 
 .full button span {
@@ -108,4 +116,73 @@ footer {
 
 option:first {
     color: #999;
+}
+
+/* form starting stylings ------------------------------- */
+.group        {
+  position:relative;
+  margin-bottom:15px;
+}
+.custom-input , select        {
+  font-size:14px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+.custom-input:focus , select:focus    { outline:none; }
+
+/* LABEL ======================================= */
+.custom-label        {
+  color:grey;
+  font-size:14px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:3px;
+  top:5px;
+  transition:0.2s ease all;
+}
+
+/* active state */
+.custom-input:focus ~ .custom-label  , .custom-input:valid ~ .custom-label   ,select:focus ~ .custom-label  , select:valid ~ .custom-label      {
+  top:-20px;
+  font-size:14px;
+   color:#757575;
+  /*color:#5264AE;*/
+}
+
+/* BOTTOM BARS ================================= */
+.bar  { position:relative; display:block; width:50%; }
+.bar:before, .bar:after   {
+  content:'';
+  height:2px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:orange;
+  transition:0.2s ease all;
+}
+.bar:before {
+  left:100%;
+}
+.bar:after {
+  right:100;
+}
+
+/* active state */
+.custom-input:focus ~ .bar:before, .custom-input:focus ~ .bar:after, select:focus ~ .bar:before, select:focus ~ .bar:after  {
+  width:100%;
+}
+
+
+/* ANIMATIONS ================ */
+
+/* active state */
+.custom-input:focus ~ .custom-label  , input:valid ~ .custom-label  , select:focus ~ .custom-label  , select:valid ~ .custom-label    {
+  top:-20px;
+  font-size:11px;
+  color:grey;
+  /*color:#5264AE;*/
 }

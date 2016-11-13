@@ -1,64 +1,111 @@
 
-<div class="col-xs-12 col-md-6">
+<div class="container">
 
-    <caption><h3>Add new item into inventory</h3></caption>
-</div>
+    <h3 class="text-center">Add new item into inventory</h3>
+
 
 <form name="product.addItemForm" ng-controller="ProductController as product" class="margin-top-25 form-horizontal col-xs-12 col-md-6 col-md-offset-3 custom-form" >
-<div class="form-group row form-header-custom">
+<h3 class="text-center form-header-custom">Product Information</h3>
 
 
-<h4 class="text-center col-xs-offset-1">Product Information</h4>
-</div>
+    <div class="form-group row text-center">
+        <div class="group col-xs-8 col-xs-offset-2">
+            <select  ng-model="product.category" required>
+            <option value="Canned Goods">Canned Goods</option>
+            <option value="Fresh Produce">Fresh Produce</option>
+            <option value="Category3">category 3</option>
+            <option value="Category4">category 4</option>
+        </select>
+            <span class="bar"></span>
+            <label class="custom-label">Product Category</label>
+          </div>
 
-
-    <div class="form-group row">
-        <label for="category" class="control-label col-xs-3">Product Category</label>
+        <!-- <label for="category" class="control-label col-xs-3">Product Category</label>
         <div class="col-md-8">
             <select class="form-control"  ng-model="product.category">
             <option value="Canned Goods">Canned Goods</option>
             <option value="Fresh Produce">Fresh Produce</option>
             <option value="Category3">category 3</option>
             <option value="Category4">category 4</option>
-        </select>
-        </div>
+        </select> -->
+        <!-- </div> -->
     </div>
     <div class="form-group row">
 
-        <label for="sku-num" class="control-label col-xs-3">SKU Number: </label>
-        <div class="col-md-8">
+        <div class="group col-xs-8 col-xs-offset-2 ">
+            <input class="custom-input" type="number" ng-model="product.skuNum" required>
+            <span class="bar"></span>
+            <label class="custom-label">SKU Number: </label>
+          </div>
+
+        <!-- <label for="sku-num" class="control-label col-xs-3">SKU Number: </label> -->
+        <!-- <div class="col-md-8">
             <input class="form-control" type="number" name="sku-num" value="" ng-model="product.skuNum">
-        </div>
+        </div> -->
     </div>
     <div class="form-group row">
-        <label for="product-name" class="control-label  col-xs-3">Product Name: </label>
-        <div class="col-md-8">
+
+        <div class="group col-xs-8 col-xs-offset-2 ">
+            <input class="custom-input" type="text" ng-model="product.productName" required>
+            <span class="bar"></span>
+            <label class="custom-label">Product Name: </label>
+          </div>
+
+
+        <!-- <label for="product-name" class="control-label  col-xs-3">Product Name: </label> -->
+        <!-- <div class="col-md-8">
             <input class="form-control" type="text" name="product-name" value="" ng-model="product.productName">
-        </div>
+        </div> -->
     </div>
     <div class="form-group row">
-        <label for="quantity" class="control-label  col-xs-3">Quantity: </label>
-        <div class="col-md-8">
+
+        <div class="group col-xs-8 col-xs-offset-2 ">
+            <input class="custom-input" type="number" ng-model="product.quantity" required>
+            <span class="bar"></span>
+            <label class="custom-label">Quantity:  </label>
+          </div>
+
+
+        <!-- <label for="quantity" class="control-label  col-xs-3">Quantity: </label> -->
+        <!-- <div class="col-md-8">
             <input class="form-control" type="number" name="quantity" value="" ng-model="product.quantity">
-        </div>
+        </div> -->
     </div>
     <div class="form-group row">
-        <label for="date-bought" class="control-label  col-xs-3">Date Bought: </label>
+
+        <div class="group col-xs-8 col-xs-offset-2 ">
+            <input ng-model="product.dateBought" class="custom-input" name="date" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')">
+            <!-- <input class="custom-input" type="date" ng-model="product.dateBought" required> -->
+            <span class="bar"></span>
+            <label class="custom-label">Date Bought:  </label>
+          </div>
+
+        <!-- <label for="date-bought" class="control-label  col-xs-3">Date Bought: </label>
         <div class="col-xs-8">
             <input class="form-control" type="date" name="date-bought" value="" ng-model="product.dateBought">
-        </div>
+        </div> -->
     </div>
     <div class="form-group row">
-        <label for="expiration-date" class="control-label  col-xs-3">Expiration Date: </label>
+
+        <div class="group col-xs-8 col-xs-offset-2 ">
+            <input ng-model="product.expirationDate" class="custom-input" name="date" type="text" onfocus="(this.type='date')" onfocusout="(this.type='text')">
+            <!-- <input type="date" ng-model="product.expirationDate" required> -->
+            <span class="bar"></span>
+            <label class="custom-label">Expiration Date:   </label>
+          </div>
+        <!-- <label for="expiration-date" class="control-label  col-xs-3">Expiration Date: </label>
         <div class="col-xs-8">
             <input class="form-control" type=date name="expiration-date" value="" ng-model="product.expirationDate">
-        </div>
+        </div> -->
     </div>
-    <div class="col-xs-offset-4 col-xs-10">
-        <button type="button" href="#myModalAdd" data-toggle="modal" class="btn btn-warning col-md-offset-2 " ng-click="product.newItemAdd(product.category,product.skuNum,product.productName,product.quantity,product.dateBought,product.expirationDate)">Add</button>
+    <div class="col-xs-offset-5 col-xs-10">
+        <button type="button" href="#myModalAdd" data-toggle="modal" class="btn btn-warning text-center " ng-click="product.newItemAdd(product.category,product.skuNum,product.productName,product.quantity,product.dateBought,product.expirationDate)">Add</button>
     </div>
 
 </form>
+</div>
+
+<div class="container">
 
 
 <table class="table table-striped margin-top-25 ">
@@ -69,7 +116,7 @@
 
 
 
-    <thead class="custom-header ">
+    <thead class="custom-table-header ">
         <th class="text-center">Category</th>
         <th class="text-center">SKU</th>
         <th class="text-center">Product Name</th>
@@ -114,14 +161,15 @@
             <div ng-hide="product.editingData[item.id]">{{item.expiration_date| date:'MM/dd/yyyy'}}</div>
             <div ng-show="product.editingData[item.id]"><input ng-model="item.expiration_date | date:'MM/dd/yyyy'" placeholder="{{item.expiration_date| date:'MM/dd/yyyy'}}" value="{{item.expiration_date| date:'MM/dd/yyyy'}}"class="textbox-n" type="text" onfocus="(this.type='date')" >
         </td>
-        <td ><button ng-hide="product.editingData[item.id]" type="button" ng-click="product.editItem(item.id)"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>
-        <td ><button ng-show="product.editingData[item.id]"  type="button" ng-click="product.updateItem(item.category, item.sku_number, item.product_name, item.quantity, item.date_bought, item.expiration_date,item.id)"><span class="glyphicon glyphicon-edit"></span> Update</button></td>
+        <td ><button ng-hide="product.editingData[item.id]" type="button" class="btn btn-warning" ng-click="product.editItem(item.id)"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>
+        <td ><button ng-show="product.editingData[item.id]"  type="button" class="btn btn-warning" ng-click="product.updateItem(item.category, item.sku_number, item.product_name, item.quantity, item.date_bought, item.expiration_date,item.id)"><span class="glyphicon glyphicon-edit"></span> Update</button></td>
 
-        <td><button type="button" ng-click="product.deleteItem(item.id)"><span class="glyphicon glyphicon-trash"></span>Delete</button></td>
+        <td><button type="button" class="btn btn-warning" ng-click="product.deleteItem(item.id)"><span class="glyphicon glyphicon-trash "></span> Remove</button></td>
 
     </tr>
 
-</table>
+</table
+</div>
 
 <div id="myModalAdd" class="modal fade">
     <div class="modal-dialog">
