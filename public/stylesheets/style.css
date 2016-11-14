@@ -186,3 +186,11 @@ option:first {
   color:grey;
   /*color:#5264AE;*/
 }
+
+/*bootstrap calendar customization*/
+
+.custom-event {
+    display:block;
+    position: -20px;
+    color: black;
+}

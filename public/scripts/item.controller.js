@@ -32,7 +32,7 @@ function ProductController($route, ProductService) {
   add.getItems();
 
   add.refreshPage = function() {
-    //   $route.reload(); //shortcut solution for not displaying added item in DOM
+      $route.reload(); //shortcut solution for not displaying added item in DOM
   };
 
   add.newItemAdd = function(category, sku, name, quantity, buyDate, expirationDate) {
@@ -146,8 +146,8 @@ add.editItem = function(id){
 
               if(beforeExpiration.getTime() == newToday._d.getTime()){
                   console.log('Item is expiring in 3 days, notification email sent out!');
-                //   add.sendMail();
-                //   add.sendText();
+                  add.sendMail();
+                  add.sendText();
                   add.itemsArray[i].expirationStatus = 'expiring';
                   console.log(add.itemsArray[i]);
                   i++;
