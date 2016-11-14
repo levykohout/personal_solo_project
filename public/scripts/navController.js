@@ -1,4 +1,6 @@
 angular.module('myApp').controller('NavController', function (AuthFactory, $window) {
+
+    console.log('NavController loading!')
   var nav = this;
   var authFactory = AuthFactory;
   nav.displayLogout = false; // should we display the logout option on the DOM?
@@ -19,6 +21,14 @@ angular.module('myApp').controller('NavController', function (AuthFactory, $wind
       authFactory.setLoggedIn(false);
     }
   },
+// nav.logIn = function(){
+//     console.log('logging in')
+//   authFactory.logIn().then(function(response){
+//       console.log(response);
+//       $route.reload();
+//   });
+//
+//   };
 
   function () {
     nav.message.text = 'Unable to properly authenticate user';

@@ -15,6 +15,10 @@ angular.module('myApp').factory('AuthFactory', function ($http) {
       return $http.get('/auth');
     },
 
+    logIn: function () {
+      return $http.get('/auth/google');
+    },
+
     setLoggedIn: function (value) {
       Status.loggedIn = value;
     },

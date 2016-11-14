@@ -4,7 +4,7 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
         controller:'NavController as nav'
     }).when('/login', {
         templateUrl:'views/login.html',
-        controller: 'LoginController as auth'
+        controller: 'NavController as nav'
     }).when('/register', {
         templateUrl:'views/register.html',
         controller: 'RegisterController as register'

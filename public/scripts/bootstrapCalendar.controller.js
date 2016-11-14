@@ -22,15 +22,27 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
 
     vm.cellIsOpen = false;
 
-    vm.addEvent = function(startTime, endTime, Event) {
-      vm.events.push({
-        title: Event,
-        startsAt: new Date(startTime),
-        endsAt: new Date(endTime),
-        color: calendarConfig.colorTypes.important,
-        draggable: false,
-        resizable: false
-      });
+    vm.addEvent = function(startTime, endTime, eventName) {
+        var data = {
+            startTime:startTime,
+            endTime: endTime,
+            eventName:eventName
+        };
+        ProductService.addToCalendar(data).then(function(response){
+            vm.getCalendarEvents();
+
+        });
+
+
+        // direct adding to calendar
+    //   vm.events.push({
+    //     title: Event,
+    //     startsAt: new Date(startTime),
+    //     endsAt: new Date(endTime),
+    //     color: calendarConfig.colorTypes.important,
+    //     draggable: false,
+    //     resizable: false
+    //   });
     };
 
     vm.eventClicked = function(event) {
@@ -76,13 +88,13 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
 
     };
 
-    vm.cellModifier = function(cell) {
-      console.log(cell);
-      if (cell.label % 2 === 1 && cell.inMonth) {
-        cell.cssClass = 'odd-cell';
-      }
-      cell.label = cell.label;
-    };
+    // vm.cellModifier = function(cell) {
+    //   console.log(cell);
+    //   if (cell.label % 2 === 1 && cell.inMonth) {
+    //     cell.cssClass = 'odd-cell';
+    //   }
+    //   cell.label = cell.label;
+    // };
 
     vm.getCalendarEvents = function(){
         ProductService.getCalendarEvents().then(function(response){

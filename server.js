@@ -43,9 +43,10 @@ app.use('/private',isLoggedIn, private);
 
 // everything beyond this point must be authenticat
 
-// app.use('/', function (req, res) {
+// app.use('/*', function (req, res) {
 //   res.sendFile(path.join(__dirname, './public/views/index.html'));
 // });
+
 app.get('/*', function (req, res) {
  if (req.isAuthenticated()) {
     res.sendFile(path.join(__dirname, 'public/views/index.html'));
