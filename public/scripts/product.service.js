@@ -34,10 +34,10 @@ product.editItem = function(id){
          });;
 }; //End of editItem
 
-product.sendMail = function(){
+product.sendMail = function(productName){
 
-    return  $http.post('/private/mailReminder'
-        //  data: objectToSend
+    return  $http.post('/private/mailReminder',{
+         data: productName}
     ).then(function(response){
         return response;
          });

@@ -16,8 +16,7 @@ function ProductController($route, ProductService) {
           add.itemsArray.length=0;
            var i=0;
           angular.forEach(response.data,function(){
-
-               add.itemsArray.push(response.data[i]);
+              add.itemsArray.push(response.data[i]);
                i++;
           });
 
@@ -57,8 +56,7 @@ function ProductController($route, ProductService) {
      add.quantity = '';
      add.dateBought = '';
      add.expirationDate = '';
-    //  add.addItemForm.$setPristine();//clears form
-    //  add.addItemForm.$setUntouched();
+
 }, function(error) {
       console.log('error adding items', error);
      });
@@ -77,7 +75,7 @@ angular.forEach(add.itemsArray, function(){
 
   add.updateItem=function(category, sku, name, quantity, buyDate, expirationDate,id){
 
-      console.log('Updating an item with an id of', id);
+      console.log('inside update item');
 
       var data = {
           category: category,
@@ -87,7 +85,6 @@ angular.forEach(add.itemsArray, function(){
           buyDate:buyDate,
           expirationDate:expirationDate
  };
- console.log(data);
  add.editingData[id] = false;
       ProductService.updateItem(id ,data).then(function(response){
         add.getItems();
@@ -97,7 +94,7 @@ angular.forEach(add.itemsArray, function(){
     };
 
  add.deleteItem = function(id){
-     console.log(id);
+     console.log('inside delete item');
      ProductService.deleteItem(id).then(function(response){
        add.getItems();
       }, function(error) {
@@ -109,15 +106,11 @@ angular.forEach(add.itemsArray, function(){
 add.itemToEdit = [];
 
 add.editItem = function(id){
+    console.log('inside edit item function');
     add.editingData[id] = true;
-    console.log('item to be edited is id:', id);
-
-    console.log(add.editingData);
-
     ProductService.editItem(id).then(function(response){
      add.itemToEdit = response.data;
 
-     console.log(add.itemToEdit);
      }, function(error) {
       console.log('error deleting item', error);
      });
@@ -128,37 +121,28 @@ add.editItem = function(id){
 
       console.log('inside checkExpirationDate');
 
-      console.log(add.itemsArray);
         add.expirationStatus = false;
               var i=0;
       angular.forEach(add.itemsArray,function(values){
 
               var expirationDate = new Date(values.expiration_date);
-
-
               var beforeExpiration = moment(expirationDate).clone().subtract(3, 'days').format();
 
-                var today = new Date;
+              var today = new Date;
                 beforeExpiration = new Date(beforeExpiration);
                 var newToday = moment(today).startOf('day');
 
-                console.log('Is the item expiring today?', beforeExpiration.getTime() == newToday._d.getTime());
-
               if(beforeExpiration.getTime() == newToday._d.getTime()){
                   console.log('Item is expiring in 3 days, notification email sent out!');
-                  add.sendMail();
+                  add.sendMail(values.product_name);
                   add.sendText();
                   add.itemsArray[i].expirationStatus = 'expiring';
-                  console.log(add.itemsArray[i]);
                   i++;
-                //   add.expirationStatus=true;
               } else if(beforeExpiration.getTime() <= newToday._d.getTime()) {
                  add.itemsArray[i].expirationStatus = 'expired';
-                  console.log('Item is past expiration expired');
                   i++;
               } else{
                    add.itemsArray[i].expirationStatus = 'not expired';
-                   console.log('Item is not expiring yet');
                    i++;
               }
 
@@ -168,9 +152,9 @@ add.editItem = function(id){
   };
 
 
-  add.sendMail = function(){
+  add.sendMail = function(productName){
 
-      ProductService.sendMail().then(function(results){
+      ProductService.sendMail(productName).then(function(results){
      console.log(results);
    });
  }; // end sendMail
@@ -185,4 +169,4 @@ add.sendText = function(){
 }; //End of sendText function
 
 
-}
+} //End of Controller

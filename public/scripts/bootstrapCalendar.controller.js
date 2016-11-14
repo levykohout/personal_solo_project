@@ -101,9 +101,11 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
             console.log('inside calendar events', response.data);
             vm.eventsArray = response.data;
             var i = 0;
+                vm.events.length=0;
             angular.forEach('vm.eventsArray', function() {
                 var data = vm.eventsArray[i];
                 console.log(data);
+
                 vm.events.push({
                     title: data.event_name,
                     startsAt: new Date(data.start_time),
