@@ -1,12 +1,12 @@
 <h1 class="text-center">Favorite Recipes Goes Here</h1>
 <div class="container text-center">
-<div class="col-md-3 pull-left margin-top-15" ng-repeat="recipe in favorite.favoriteArray">
-    <img ng-src="{{recipe.image_url}}" />
-    <div>
-        <h4>{{recipe.recipe_name}}</h4>
+    <div class="col-md-3 pull-left margin-top-15" ng-repeat="recipe in favorite.favoriteArray">
+        <img ng-src="{{recipe.image_url}}" />
+        <div>
+            <h4>{{recipe.recipe_name}}</h4>
+        </div>
+        <div>
+            <a href="{{recipe.recipe_url}}" target="blank">Cooking Directions</a>
+        </div>
     </div>
-    <div>
-        <a href="{{recipe.recipe_url}}" target="blank">Cooking Directions</a>
-    </div>
-</div>
 </div>

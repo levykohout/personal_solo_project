@@ -5,9 +5,6 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
     }).when('/login', {
         templateUrl:'views/login.html',
         controller: 'NavController as nav'
-    }).when('/register', {
-        templateUrl:'views/register.html',
-        controller: 'RegisterController as register'
     }).when('/add', {
         templateUrl:'views/add.html',
         controller:'ProductController as product'
@@ -36,7 +33,7 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
     templateUrl: 'views/home.html',
     controller:'NavController as nav'
   });
-    //let us use normal looking links.Remember to use base tag in html to use this.
+    //to use normal looking links.Remember to use base tag in html to use this.
     $locationProvider.html5Mode(true);
 
 });

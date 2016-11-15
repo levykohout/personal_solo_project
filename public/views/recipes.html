@@ -2,14 +2,13 @@
 <div class="container text-center">
     <div class=" fullwidth col-md-4 pull-left margin-top-05" ng-repeat="image in recipe.recipeArray">
         <a><img ng-click="ingredientShow = !ingredientShow" ng-src="{{image.recipe.image}}" /></a>
-        <div >
+        <div>
             <h4 class="label-holder recipe-holder">{{image.recipe.label}}</h4>
         </div>
         <div ng-if="ingredientShow" ng-repeat="ingredient in image.recipe.ingredients">
             <p>
                 {{ingredient.text}}
             </p>
-
         </div>
         <div>
             <a href="{{image.recipe.url}}">Cooking Directions</a>
@@ -33,8 +32,6 @@
             </div>
             <div class="modal-footer">
                 <form class="form-horizontal">
-
-
                     <div class="form-group">
                         <label for="startTime" class="control-label col-xs-4"><span class=" glyphicon glyphicon-calendar"></span> Start Date and Time:</label>
                         <div class="col-xs-8">
@@ -49,7 +46,6 @@
                     </div>
                     <div class="form-group">
                         <label for="eventName" class="control-label col-xs-4"><span class="glyphicon glyphicon-comment"></span> Name of Event:</label>
-
                         <div class="col-xs-8">
                             <input type="text" class="form-control glyphicon glyphicon-comment" ng-model="recipe.event" placeholder="Event Name&hellip;">
                         </div>
@@ -58,9 +54,7 @@
                         <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="recipe.addToCalendar(recipe.startTime, recipe.endTime, recipe.event)">Add</button>
                     </div>
                 </form>
-
             </div>
-
         </div>
     </div>
 </div>
@@ -78,11 +72,8 @@
                 <p class="text-warning"><small></small></p>
             </div>
             <div class="modal-footer">
-
                 <button type="button" class="btn btn-warning" data-dismiss="modal"> OK! </button>
-
             </div>
-
         </div>
     </div>
 </div>

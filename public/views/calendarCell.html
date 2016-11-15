@@ -3,8 +3,7 @@
     ng-repeat="event in day.events | orderBy:'startsAt' track by event.calendarEventId"
     href="javascript:;"
     ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent: event})"
-
- ng-class="event.cssClass"
+    ng-class="event.cssClass"
     id="calBox"
     drop-data="{event: event.title}"><small class="custom-event">{{event.title}}</small>
   </a>

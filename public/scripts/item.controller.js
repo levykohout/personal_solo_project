@@ -135,7 +135,7 @@ add.editItem = function(id){
               if(beforeExpiration.getTime() == newToday._d.getTime()){
                   console.log('Item is expiring in 3 days, notification email sent out!');
                   add.sendMail(values.product_name);
-                  add.sendText();
+                //   add.sendText();
                   add.itemsArray[i].expirationStatus = 'expiring';
                   i++;
               } else if(beforeExpiration.getTime() <= newToday._d.getTime()) {

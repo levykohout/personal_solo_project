@@ -4,32 +4,24 @@
 <head>
     <meta charset="utf-8">
     <title>Pantry Inventory Tracker and Meal Planner</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="vendors/bootstrap.min.css" media="screen" title="no title"> -->
-    <link rel="stylesheet" href="stylesheets/style.css" media="screen" title="no title">
     <script src="vendors/angular.min.js" charset="utf-8"></script>
     <script src="vendors/angular-route.min.js" charset="utf-8"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
     <script src="vendors/ng-file-upload-shim.min.js"></script>
     <script src="vendors/ng-file-upload.min.js"></script>
     <script src="vendors/webcam.min.js"></script>
-
-
-    <!-- for bootstrap scripts -->
-    <script src="vendors/jquery.min.js" ></script>
-    <script src="vendors/bootstrap.min.js" ></script>
+    <script src="vendors/jquery.min.js"></script>
+    <script src="vendors/bootstrap.min.js"></script>
     <script src="vendors/moment-with-locales.min.js" charset="utf-8"></script>
     <script src="vendors/moment.min.js"></script>
     <script src="vendors/ui-bootstrap.js" charset="utf-8"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.0/ui-bootstrap-tpls.min.js"></script>
-     <script src="vendors/angular-bootstrap-calendar-tpls.min.js"></script>
-   <script src="//cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.4/interact.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.0.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="vendors/angular-bootstrap-calendar-tpls.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/interact.js/1.2.4/interact.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
-   <script src="//cdn.rawgit.com/jkbrzt/rrule/v2.1.0/lib/rrule.js"></script>
-   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/js/bootstrap-colorpicker-module.min.js"></script>
-
-
-    <script src="scripts/app.module.js" charset="utf-8"></script>
+    <script src="//cdn.rawgit.com/jkbrzt/rrule/v2.1.0/lib/rrule.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/js/bootstrap-colorpicker-module.min.js"></script>
+    <script src = "scripts/app.module.js"charset = "utf-8" ></script>
     <script src="scripts/authFactory.js" charset="utf-8"></script>
     <script src="scripts/product.service.js" charset="utf-8"></script>
     <script src="scripts/login.controller.js" charset="utf-8"></script>
@@ -42,76 +34,61 @@
     <script src="scripts/camera.controller.js" charset="utf-8"></script>
     <script src="scripts/app.config.js" charset="utf-8"></script>
     <script src="scripts/bootstrapCalendar.controller.js"></script>
-        <script src="scripts/alert.config.js"></script>
-        <script src="scripts/calendar.config.js"></script>
-
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-   <link href="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/css/colorpicker.min.css" rel="stylesheet">
-   <link href="vendors/angular-bootstrap-calendar.min.css" rel="stylesheet">
-
-
-     <script src="https://use.fontawesome.com/33ea795759.js"></script>
+    <script src="scripts/alert.config.js"></script>
+    <script src="scripts/calendar.config.js"></script>
+    <script src="https://use.fontawesome.com/33ea795759.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/angular-bootstrap-colorpicker/3.0.25/css/colorpicker.min.css" rel="stylesheet">
+    <link href="vendors/angular-bootstrap-calendar.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheets/style.css" media="screen" title="no title">
 
     <base href="/" />
 </head>
 
 <body class="well">
     <h1 class="text-center">Pantry Inventory Tracker and Meal Planner</h1>
-
-        <header ng-controller="NavController as nav">
-
-                <!-- Show a helpful message when needed -->
-
-
-
-
-                <!-- Responsive Nav Bar -->
-        <nav class="navbar navbar-inverse custom-nav" role = "navigation">
-            <div class = "navbar-header">
-      <button type = "button" class = "navbar-toggle btn btn-warning"
-         data-toggle = "collapse" data-target = "#example-navbar-collapse">
-          <span class="glyphicon glyphicon-menu-hamburger"></span> MENU
-      </button>
-        <div class="container-fluid collapse navbar-collapse " id = "example-navbar-collapse">
-            <ul class="nav navbar-nav">
-                <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenu1"> -->
-                <li class="nav-item active"><a href="/home"><span class="glyphicon glyphicon-home"></span> HOME</a></li>
-                <li class="nav-item"><a class="nav-link" href="/receipt"><span class="glyphicon glyphicon-list-alt"></span> Submit Receipt</a></li>
-                <li class="nav-item"><a class="nav-link" href="/add"><span class="glyphicon glyphicon-th-list"></span> Inventory</a></li>
-                <li class="nav-item"><a class="nav-link" href="/bootstrapCalendar"> <span class="glyphicon glyphicon-calendar"></span> Meal Calendar</a></li>
-                <li class="nav-item"><a class="nav-link" href="/recipes"><span class="glyphicon glyphicon-cutlery"></span> Suggested Recipes</a></li>
-                <li class="nav-item"><a class="nav-link" href="/favorites"><span class="glyphicon glyphicon-heart-empty"></span> Favorite Recipes</a></li>
-                <!-- <li class="nav-item" ><a class="nav-link" href="/auth/google"><span class="glyphicon glyphicon-log-in"></span>Log In</a></li> -->
-                    <li class="nav-item" ><a href="/" ng-click="nav.logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                    <li class="nav-item" ng-show="nav.displayLogout"><a><span class="glyphicon glyphicon-user"></span> {{nav.username}}! </a></li>
-
-                </ul>
-        </div>
-    </div>
-    </nav>
-
-
+    <header ng-controller="NavController as nav">
+        <nav class="navbar navbar-inverse custom-nav" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle btn btn-warning" data-toggle="collapse" data-target="#example-navbar-collapse">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span> MENU
+                </button>
+                <div class="container-fluid collapse navbar-collapse " id="example-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item active"><a href="/home"><span class="glyphicon glyphicon-home"></span> HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/receipt"><span class="glyphicon glyphicon-list-alt"></span> Submit Receipt</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/add"><span class="glyphicon glyphicon-th-list"></span> Inventory</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/bootstrapCalendar"> <span class="glyphicon glyphicon-calendar"></span> Meal Calendar</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/recipes"><span class="glyphicon glyphicon-cutlery"></span> Suggested Recipes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/favorites"><span class="glyphicon glyphicon-heart-empty"></span> Favorite Recipes</a></li>
+                        <!-- <li class="nav-item" ><a class="nav-link" href="/auth/google"><span class="glyphicon glyphicon-log-in"></span>Log In</a></li> -->
+                        <li class="nav-item"><a href="/" ng-click="nav.logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                        <li class="nav-item" ng-show="nav.displayLogout"><a><span class="glyphicon glyphicon-user"></span> {{nav.username}}! </a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
     </header>
     <main>
-
-            <ng-view></ng-view>
-
+        <ng-view>
+        </ng-view>
     </main>
     <footer>
         <!-- bottom nav -->
-    <div class="navbar navbar-inverse navbar-fixed-bottom">
-        <div class="container-fluid">
-            <p class="navbar-text pull-left">© 2016 Designed by Levy Kohout with Bootstrap and Fontawesome</p>
+        <div class="navbar navbar-inverse navbar-fixed-bottom">
+            <div class="container-fluid">
+                <p class="navbar-text pull-left">© 2016 Designed by Levy Kohout with Bootstrap and Fontawesome</p>
 
-            <a href="https://github.com/levykohout" class="navbar-btn btn-primary btn pull-right">
-            <i class="fa fa-github" aria-hidden="true"></i></a>
+                <a href="https://github.com/levykohout" class="navbar-btn btn-primary btn pull-right">
+                    <i class="fa fa-github" aria-hidden="true"></i></a>
 
-            <a href="https://www.linkedin.com/in/levy-kohout" class="navbar-btn btn-primary btn pull-right">
-                <i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                <a href="https://www.linkedin.com/in/levy-kohout" class="navbar-btn btn-primary btn pull-right">
+                    <i class="fa fa-linkedin" aria-hidden="true"></i></a>
+            </div>
         </div>
-    </div>
     </footer>
-
 
 </body>
 

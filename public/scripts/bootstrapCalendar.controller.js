@@ -33,16 +33,6 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
 
         });
 
-
-        // direct adding to calendar
-        //   vm.events.push({
-        //     title: Event,
-        //     startsAt: new Date(startTime),
-        //     endsAt: new Date(endTime),
-        //     color: calendarConfig.colorTypes.important,
-        //     draggable: false,
-        //     resizable: false
-        //   });
     };
 
     vm.eventClicked = function(event) {
@@ -101,7 +91,7 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
             console.log('inside calendar events', response.data);
             vm.eventsArray = response.data;
             var i = 0;
-                vm.events.length=0;
+            vm.events.length = 0;
             angular.forEach('vm.eventsArray', function() {
                 var data = vm.eventsArray[i];
                 console.log(data);
