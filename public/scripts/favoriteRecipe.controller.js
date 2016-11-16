@@ -1,21 +1,21 @@
 angular.module('myApp')
-.controller('FavoriteController', FavoriteController);
+    .controller('FavoriteController', FavoriteController);
 
 function FavoriteController($http) {
-  console.log('FavoriteController loaded');
+    console.log('FavoriteController loaded');
 
-  var favorite = this;
-  favorite.favoriteArray = [];
+    var favorite = this;
+    favorite.favoriteArray = [];
 
-  favorite.getFavorites = function(){
+    favorite.getFavorites = function() {
 
-      $http.get('/private/favorites').then(function(response){
-          console.log(response);
-          favorite.favoriteArray = response.data;
+        $http.get('/private/favorites').then(function(response) {
+            console.log(response);
+            favorite.favoriteArray = response.data;
 
-      });
-  };
+        });
+    };
 
-  favorite.getFavorites(); //run to display favorites
+    favorite.getFavorites(); //run to display favorites
 
 } //End of Controller function

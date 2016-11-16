@@ -24,8 +24,9 @@ option to mark item as consumed and item will be deleted from the database.
 
 ## Technologies Used
 
-- Google Calendar API (Meal Planner Calendar)
-- Node Mailer & Google Mail API (Email Notification)
+- Bootstrap-Angular Calendar
+- Node Mailer & Google Mail Service (Email Notification)
+- Node Scheduler (Schedule Email)
 - Edamam's API (Recipe Search)
 - OCR API (Receipt image to text)
 - SQL Postgresql

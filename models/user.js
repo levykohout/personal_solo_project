@@ -6,7 +6,6 @@ const pool = require('../db/connection');
 
 // find by username
 function findById(googleID, googleEmail, googleName, accessToken, refreshToken) {
-    console.log('found googleID',googleID);
   return new Promise(function(resolve, reject){
     pool.connect(function(err, client, done){
       if (err) {

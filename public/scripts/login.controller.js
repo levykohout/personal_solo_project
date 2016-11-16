@@ -1,9 +1,9 @@
 angular.module('myApp')
-.controller('LoginController', LoginController);
+    .controller('LoginController', LoginController);
 
 function LoginController(AuthFactory) {
     var login = this;
-      var authFactory = AuthFactory;
-      login.loggedIn = authFactory.isLoggedIn();
+    var authFactory = AuthFactory;
+    login.loggedIn = authFactory.isLoggedIn();
 
 }

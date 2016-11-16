@@ -1,4 +1,10 @@
 var router = require('express').Router();
+var sendMail = require('./mailReminder');
+var schedule = require('node-schedule');
+var rule = new schedule.RecurrenceRule();
+
+
+
 var pg = require('pg');
 var config = {
     database: 'rho'
@@ -8,13 +14,15 @@ var config = {
 var pool = new pg.Pool(config);
 
 router.post('/', function(req, res) {
-    console.log(req.body);
+    console.log('adding items!');
     var category = req.body.category;
     var sku = req.body.sku;
     var name = req.body.name;
     var quantity = req.body.quantity;
     var buyDate = req.body.buyDate;
     var expirationDate = req.body.expirationDate;
+
+
 
 
     pool.connect(function(err, client, done) {
@@ -32,13 +40,19 @@ router.post('/', function(req, res) {
                 res.sendStatus(500);
                 return;
             }
-
-            console.log('Got rows from the DB:', result.rows);
-            res.send(result.rows);
+        res.send(result.rows);
 
         });
     });
-});
+
+    //schedule email reminders
+    rule.hour = 21;
+    schedule.scheduleJob(rule, function(){
+         console.log('email scheduled!')
+         sendMail.post('/');
+         });// end of job scheduleJob
+
+});//end of router.post
 
 //
 router.get('/', function(req, res) {
@@ -60,7 +74,6 @@ router.get('/', function(req, res) {
                 return;
             }
 
-            console.log('Got rows from the DB:', result.rows);
             res.send(result.rows);
 
         });
@@ -106,8 +119,6 @@ router.put('/:id', function(req, res) {
 router.delete('/:id', function(req, res) {
 
     var id = req.params.id;
-
-    console.log(id);
 
     pool.connect(function(err, client, done) {
         try {
@@ -158,7 +169,6 @@ router.get('/:id', function(req, res) {
                 return;
             }
 
-            console.log('Got rows from the DB:', result.rows);
             res.send(result.rows);
 
         });

@@ -6,7 +6,6 @@ const User = require('../models/user');
 
 exports.setup = function () {
 
-
   passport.use(new GoogleStrategy({
     authorizationURL: 'https://accounts.google.com/o/oauth2/auth',
     tokenURL: 'https://accounts.google.com/o/oauth2/token',
@@ -16,10 +15,7 @@ exports.setup = function () {
   },
 
   function (accessToken, refreshToken, profile, cb) {
-    console.log('accessToken', accessToken);
-    console.log('refreshToken', refreshToken);
-    console.log('profile email',profile.email);
-    console.log('profile is',profile.displayName);
+
     findOrCreate(profile.id, profile.email, profile.displayName, accessToken, refreshToken, function (err, user) {
       return cb(err, user);
     });
@@ -30,7 +26,7 @@ exports.setup = function () {
 
 // used to serialize the user for the session
 passport.serializeUser(function (user, done) {
-  console.log('serialize:', user);
+
   done(null, user.googleid);
 
 });
