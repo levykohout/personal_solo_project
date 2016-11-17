@@ -58,6 +58,7 @@ function ProductService($http) {
         var your_app_ID = '&app_id=84c4df48';
         var limit = '&to=21';
         var q = keywords;
+        console.log(q);
         var request = Url + q + limit + your_app_ID + your_app_key + '&callback=JSON_CALLBACK';
 
         return $http.jsonp(request).then(function(response) {

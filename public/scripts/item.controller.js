@@ -94,7 +94,7 @@ function ProductController($route, ProductService) {
     };
 
     add.deleteItem = function(id) {
-        console.log('inside delete item');
+        console.log('inside delete item',id);
         ProductService.deleteItem(id).then(function(response) {
             add.getItems();
         }, function(error) {
@@ -134,7 +134,7 @@ function ProductController($route, ProductService) {
 
             if (beforeExpiration.getTime() == newToday._d.getTime()) {
                 console.log('Item is expiring in 3 days, notification email sent out!');
-                add.sendMail(values.product_name);
+                // add.sendMail(values.product_name);
                 //   add.sendText();
                 add.itemsArray[i].expirationStatus = 'expiring';
                 i++;

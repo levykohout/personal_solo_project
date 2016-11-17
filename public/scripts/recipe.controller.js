@@ -44,7 +44,7 @@ function RecipeController($http, $scope, ProductService) {
 
             if (beforeExpiration.getTime() == newToday._d.getTime()) {
                 console.log('Item is expiring in 3 days, suggested recipes here!');
-                recipe.keywords = values.product_name;
+                recipe.keywords += values.product_name+ ' ';
                 console.log('recipe keywords', recipe.keywords);
                 recipe.getRecipes();
 
