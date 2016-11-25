@@ -1,5 +1,5 @@
 angular.module('myApp')
-    .controller('cameraController', function($scope) {
+    .controller('cameraController', function($scope, Upload) {
         var camera = this;
         var _video = null,
             patData = null;
@@ -18,7 +18,7 @@ angular.module('myApp')
 
         camera.webcamError = false;
         camera.onError = function(err) {
-            camera.$apply(
+            $scope.$apply(
                 function() {
                     camera.webcamError = err;
                 }
@@ -28,7 +28,7 @@ angular.module('myApp')
         camera.onSuccess = function() {
             // The video element contains the captured camera data
             _video = camera.channel.video;
-            camera.$apply(function() {
+            $scope.$apply(function() {
                 camera.patOpts.w = _video.width;
                 camera.patOpts.h = _video.height;
                 //$scope.showDemos = true;
@@ -80,5 +80,32 @@ angular.module('myApp')
          */
         var sendSnapshotToServer = function sendSnapshotToServer(imgBase64) {
             camera.snapshotData = imgBase64;
-        };
+            console.log(imgBase64);
+
+        var API_KEY = '25f539a74f88957';
+        camera.data = {};
+
+        // camera.uploadFile = function() {
+            Upload.upload({
+                url: 'https://api.ocr.space/parse/image',
+                data: {
+                    base64Image: camera.snapshotData,
+                    'apikey': API_KEY
+                }
+            }).then(function(resp) {
+                console.log(resp);
+                camera.data = resp.data.ParsedResults[0].ParsedText;
+                console.log(camera.data);
+                console.log('Successful camera image uploaded. Response: ', resp.data);
+                // receipt.processData();
+
+            }, function(resp) {
+                console.log('Error status: ' + resp.status);
+            }, function(evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
+        // }; //End of uploadFile function
+
+    }; //end of sendSnapshotToServer
     });
