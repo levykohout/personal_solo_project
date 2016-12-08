@@ -4,14 +4,16 @@ var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 var nodemailer = require('nodemailer');
 var moment = require('moment');
+var credentials = require('../../auth/credentials');
+var xoauth2 = require('xoauth2');
+
 const url = require('url')
 
 const params = url.parse(process.env.DATABASE_URL);
 const auth = params.auth.split(':');
 
 // pull in credentials module
-var credentials = require('../../auth/credentials');
-var xoauth2 = require('xoauth2');
+
 
 if (process.env.APP_STATE == 'dev'){
     var config = {
