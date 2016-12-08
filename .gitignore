@@ -2,3 +2,5 @@
 *.log
 bower_components
 /vendors/*
+.env
+.DS_Store

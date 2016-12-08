@@ -1,5 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2');
+const credentials = require('./credentials');
 
 //const config = require('module');
 const User = require('../models/user');
@@ -9,8 +10,8 @@ exports.setup = function () {
   passport.use(new GoogleStrategy({
     authorizationURL: 'https://accounts.google.com/o/oauth2/auth',
     tokenURL: 'https://accounts.google.com/o/oauth2/token',
-    clientID: '907193122888-0cjobnsgokbtstp1bpfdcrluutu2geri.apps.googleusercontent.com',
-    clientSecret: 'KNdAuOCAkfEO--VblecevBbX',
+    clientID: credentials.mail.clientId,
+    clientSecret: credentials.mail.clientSecret,
     callbackURL: 'http://localhost:3000/auth/google/callback',
   },
 

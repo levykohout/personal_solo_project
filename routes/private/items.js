@@ -4,17 +4,34 @@ var schedule = require('node-schedule');
 var rule = new schedule.RecurrenceRule();
 var nodemailer = require('nodemailer');
 var moment = require('moment');
+const url = require('url')
+
+const params = url.parse(process.env.DATABASE_URL);
+const auth = params.auth.split(':');
 
 // pull in credentials module
 var credentials = require('../../auth/credentials');
 var xoauth2 = require('xoauth2');
 
+if (process.env.APP_STATE == 'dev'){
+    var config = {
+        database: 'rho'
+    };
+
+} else {
+
+ var config = {
+      user: auth[0],
+      password: auth[1],
+      host: params.hostname,
+      port: params.port,
+      database: params.pathname.split('/')[1],
+      ssl: true
+    }
+
+}
+
 var pg = require('pg');
-var config = {
-    database: 'rho'
-};
-
-
 var pool = new pg.Pool(config);
 
 router.post('/', function(req, res) {
@@ -228,8 +245,8 @@ function sendExpirationMail(product) {
         scope: 'https://mail.google.com',
         clientId: credentials.mail.clientId,
         clientSecret: credentials.mail.clientSecret,
-        refreshToken: '1/oXj2MFpRgI15HvMuz76wOKcij57CVxrSt9GzuNrNLjGUH-fx6vl88CpL2P51kY0s',
-        accessToken: 'ya29.Ci-gAy4VK3SXV4mpq3RLj6-6NhKFWCIR3PTmFdWAHMNByd7WSWZXG89AAKu78bKMvA'
+        refreshToken: credentials.mail.refreshToken,
+        accessToken: credentials.mail.accessToken
     }
 
     // create nodemailer transporter for sending email
