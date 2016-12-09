@@ -78,22 +78,14 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
 
     };
 
-    // vm.cellModifier = function(cell) {
-    //   console.log(cell);
-    //   if (cell.label % 2 === 1 && cell.inMonth) {
-    //     cell.cssClass = 'odd-cell';
-    //   }
-    //   cell.label = cell.label;
-    // };
-
     vm.getCalendarEvents = function() {
         ProductService.getCalendarEvents().then(function(response) {
             console.log('inside calendar events', response.data);
             vm.eventsArray = response.data;
-            var i = 0;
+            // var i = 0;
             vm.events.length = 0;
-            angular.forEach('vm.eventsArray', function() {
-                var data = vm.eventsArray[i];
+            vm.eventsArray.forEach(function(data) {
+                // var data = vm.eventsArray[i];
                 console.log(data);
 
                 vm.events.push({
@@ -105,10 +97,10 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
                     resizable: false,
                     incrementsBadgeTotal: false
                 });
-                i++;
+                // i++;
             }); //End of for each
             console.log('New vm.events', vm.events);
-            console.log(event.title);
+
         });
 
     };

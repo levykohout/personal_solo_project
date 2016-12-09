@@ -7,6 +7,7 @@ router.post('/', function(req, res) {
     var recipeName = req.body.recipeName;
     var imageUrl = req.body.imageUrl;
     var recipeUrl = req.body.recipeUrl;
+    var user_id = req.user.id;
 
     pool.connect(function(err, client, done) {
         if (err) {
@@ -16,7 +17,7 @@ router.post('/', function(req, res) {
             return;
         }
 
-        client.query('INSERT INTO favorite_recipe (recipe_name, image_url, recipe_url ) VALUES ($1, $2, $3) returning *;', [recipeName, imageUrl, recipeUrl], function(err, result) {
+        client.query('INSERT INTO favorite_recipe (recipe_name, image_url, recipe_url, user_id) VALUES ($1, $2, $3, $4) returning *;', [recipeName, imageUrl, recipeUrl, user_id], function(err, result) {
             done();
             if (err) {
                 console.log('Error connecting to the DB', err);
@@ -33,6 +34,8 @@ router.post('/', function(req, res) {
 
 router.get('/', function(req, res) {
 
+    var user_id = req.user.id;
+
     pool.connect(function(err, client, done) {
         if (err) {
             console.log('Error connecting to the DB', err);
@@ -41,7 +44,7 @@ router.get('/', function(req, res) {
             return;
         }
 
-        client.query('SELECT * FROM favorite_recipe', function(err, result) {
+        client.query('SELECT * FROM favorite_recipe WHERE user_id=$1',[user_id], function(err, result) {
             done();
             if (err) {
                 console.log('Error querying the DB', err);

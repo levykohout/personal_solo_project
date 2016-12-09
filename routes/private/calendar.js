@@ -6,12 +6,7 @@ var pool = require('../../db/connection');
 router.get('/', getCalendarEvents);
 
 function getCalendarEvents(req, res) {
-    // var accessToken=req.user.accesstoken;
-    // var user=req.user.email;
-    // var google_calendar = new gcal.GoogleCalendar(accessToken);
-    //
-    //          res.send(user);
-
+    var user_id = req.user.id;
 
                  pool.connect(function(err, client, done) {
                      if (err) {
@@ -21,7 +16,7 @@ function getCalendarEvents(req, res) {
                          return;
                      }
 
-                     client.query('SELECT * FROM events', function(err, result) {
+                     client.query('SELECT * FROM events WHERE user_id=$1',[user_id], function(err, result) {
                          done();
                          if (err) {
                              console.log('Error querying the DB', err);
@@ -44,10 +39,9 @@ function addCalendarEvent(req, res) {
 
     var start_time = new Date(req.body.startTime);
     var end_time = new Date(req.body.endTime);
-    var user_id = req.user.googleid;
+    var user_id = req.user.id;
     var event_name =req.body.eventName;
-    console.log(start_time);
-    console.log(end_time);
+
 
 
     pool.connect(function(err, client, done) {

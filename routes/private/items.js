@@ -11,13 +11,15 @@ var pool = require('../../db/connection');
 
 
 router.post('/', function(req, res) {
-    console.log('adding items!');
+
+    console.log('adding items for user!', req.user.id);
     var category = req.body.category;
     var sku = req.body.sku;
     var name = req.body.name;
     var quantity = req.body.quantity;
     var buyDate = req.body.buyDate;
     var expirationDate = req.body.expirationDate;
+    var user_id = req.user.id;
 
     pool.connect(function(err, client, done) {
         if (err) {
@@ -27,7 +29,7 @@ router.post('/', function(req, res) {
             return;
         }
 
-        client.query('INSERT INTO inventory (category,sku_number,product_name,quantity,date_bought, expiration_date) VALUES ($1, $2, $3, $4, $5, $6) returning *;', [category, sku, name, quantity, buyDate, expirationDate], function(err, result) {
+        client.query('INSERT INTO inventory (category,sku_number,product_name,quantity,date_bought, expiration_date, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7) returning *;', [category, sku, name, quantity, buyDate, expirationDate, user_id], function(err, result) {
             done();
             if (err) {
                 console.log('Error connecting to the DB', err);
@@ -46,6 +48,9 @@ router.get('/', getItems);
 
 function getItems(req, res) {
 
+    var user_id = req.user.id;
+    console.log('getting items for user', user_id);
+
     pool.connect(function(err, client, done) {
         if (err) {
             console.log('Error connecting to the DB', err);
@@ -54,7 +59,7 @@ function getItems(req, res) {
             return;
         }
 
-        client.query('SELECT * FROM inventory', function(err, result) {
+        client.query('SELECT * FROM inventory WHERE user_id=$1',[user_id], function(err, result) {
             done();
             if (err) {
                 console.log('Error querying the DB', err);
