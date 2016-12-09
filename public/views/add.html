@@ -100,11 +100,11 @@
             </td>
             <td>
                 <div ng-hide="product.editingData[item.id]">{{item.date_bought| date:'MM/dd/yyyy'}}</div>
-                <div ng-show="product.editingData[item.id]"><input ng-model="item.date_bought" placeholder="{{item.date_bought| date:'MM/dd/yyyy'}}" value="{{item.date_bought| date:'MM/dd/yyyy'}}" class="textbox-n" type="text" onfocus="(this.type='date')">
+                <div ng-show="product.editingData[item.id]"><input ng-model="item.date_bought" placeholder="{{item.date_bought| date:'MM/dd/yyyy'}}" class="textbox-n" type="text" onfocus="(this.type='date')">
             </td>
             <td>
                 <div ng-hide="product.editingData[item.id]">{{item.expiration_date| date:'MM/dd/yyyy'}}</div>
-                <div ng-show="product.editingData[item.id]"><input ng-model="item.expiration_date" placeholder="{{item.expiration_date| date:'MM/dd/yyyy'}}" value="{{item.expiration_date| date:'MM/dd/yyyy'}}" class="textbox-n" type="text" onfocus="(this.type='date')">
+                <div ng-show="product.editingData[item.id]"><input ng-model="item.expiration_date" placeholder="{{item.expiration_date| date:'MM/dd/yyyy'}}" class="textbox-n" type="text" onfocus="(this.type='date')">
             </td>
             <td>
                 <button ng-hide="product.editingData[item.id]" type="button" class="btn btn-warning" ng-click="product.editItem(item.id)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
