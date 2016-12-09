@@ -8,6 +8,7 @@ function ReceiptController(Upload, ProductService) {
     var receipt = this;
     var API_KEY = '25f539a74f88957';
     receipt.data = {};
+    receipt.progressPercentage=0;
 
     receipt.uploadFile = function() {
         Upload.upload({
@@ -25,8 +26,8 @@ function ReceiptController(Upload, ProductService) {
         }, function(resp) {
             console.log('Error status: ' + resp.status);
         }, function(evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            receipt.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + receipt.progressPercentage + '% ' + evt.config.data.file.name);
         });
     }; //End of uploadFile function
 
@@ -87,22 +88,20 @@ function ReceiptController(Upload, ProductService) {
         receipt.dataToUpload = [];
         var i = 0;
         //   add SKU Number in productNames
-        angular.forEach('receipt.skuArray', function(productNames, skuArray) {
-            console.log('productNames', receipt.productNames);
-            console.log('skuArray', receipt.skuArray);
-            receipt.productNames[i].sku = receipt.skuArray[i];
-            receipt.dataToUpload.push(receipt.productNames[i]);
-            console.log(receipt.productNames[i]);
-
+        receipt.productNames.forEach(function(productNames) {
+            productNames.sku = receipt.skuArray[i];
+            receipt.dataToUpload.push(productNames);
+            console.log(productNames);
             //upload to the database
             var data = {
                 category: 'category3',
-                sku: receipt.productNames[i].sku,
-                name: receipt.productNames[i].productName,
-                quantity: receipt.productNames[i].quantity,
-                buyDate: receipt.productNames[i].dateBought,
-                expirationDate: moment(receipt.productNames[i].dateBought, "DD-MM-YYYY").add(5, 'days')
+                sku: productNames.sku,
+                name: productNames.productName,
+                quantity: productNames.quantity,
+                buyDate: productNames.dateBought,
+                expirationDate: moment(productNames.dateBought, "DD-MM-YYYY").add(5, 'days')
             };
+
             ProductService.newItemAdd(data).then(function(response) {
                 console.log('response from server after add', response);
             });
