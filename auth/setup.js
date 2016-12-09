@@ -13,6 +13,7 @@ exports.setup = function () {
     clientID: credentials.mail.clientId,
     clientSecret: credentials.mail.clientSecret,
     callbackURL:'https://pacific-earth-50110.herokuapp.com/auth/google/callback',
+    // callbackURL:'http://localhost:3000/auth/google/callback',
   },
 
   function (accessToken, refreshToken, profile, cb) {
