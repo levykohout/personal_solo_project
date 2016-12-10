@@ -5,6 +5,7 @@ const credentials = require('./credentials');
 //const config = require('module');
 const User = require('../models/user');
 
+
 exports.setup = function () {
 
   passport.use(new GoogleStrategy({
@@ -12,8 +13,7 @@ exports.setup = function () {
     tokenURL: 'https://accounts.google.com/o/oauth2/token',
     clientID: credentials.mail.clientId,
     clientSecret: credentials.mail.clientSecret,
-    callbackURL:'https://pacific-earth-50110.herokuapp.com/auth/google/callback',
-    // callbackURL:'http://localhost:3000/auth/google/callback',
+    callbackURL: credentials.mail.callback
   },
 
   function (accessToken, refreshToken, profile, cb) {

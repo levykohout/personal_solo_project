@@ -4,7 +4,8 @@ module.exports = {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     user: process.env.GOOGLE_MAIL,
     refreshToken:process.env.GOOGLE_REFRESH_TOKEN,
-    accessToken:process.env.GOOGLE_ACCESS_TOKEN
+    accessToken:process.env.GOOGLE_ACCESS_TOKEN,
+    callback:process.env.CALLBACK
 
   },
   api: {

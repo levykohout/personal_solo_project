@@ -4,7 +4,7 @@ angular.module('myApp').config(function($routeProvider,$locationProvider){
         controller:'NavController as nav'
     }).when('/login', {
         templateUrl:'views/login.html',
-        controller: 'NavController as nav'
+        controller: 'LoginController as nav'
     }).when('/add', {
         templateUrl:'views/add.html',
         controller:'ProductController as product'
