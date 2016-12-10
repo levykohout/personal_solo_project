@@ -189,7 +189,7 @@ function getAllItems() {
             return;
         }
         //get product List
-        client.query('SELECT * FROM inventory', function(err, result) {
+        client.query('SELECT * FROM inventory, users WHERE user_id=users.id', function(err, result) {
             done();
             if (err) {
                 console.log('Error querying the DB', err);
@@ -197,6 +197,7 @@ function getAllItems() {
                 return;
             }
             items = result.rows;
+            console.log('email notification data', items);
                 //check expirationDate
             for (var i = 0; i < items.length; i++) {
                 var expirationDate = new Date(items[i].expiration_date);
