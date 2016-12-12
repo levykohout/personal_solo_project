@@ -132,7 +132,7 @@ function ProductController($route, ProductService) {
             beforeExpiration = new Date(beforeExpiration);
             var newToday = moment(today).startOf('day');
 
-            if (beforeExpiration.getTime() == newToday._d.getTime()) {
+            if (beforeExpiration.getTime() == today.getTime()) {
                 //   add.sendText();
                 add.itemsArray[i].expirationStatus = 'expiring';
                 i++;
