@@ -36,13 +36,16 @@ function ProductController($route, ProductService) {
 
     add.newItemAdd = function(category, sku, name, quantity, buyDate, expirationDate) {
         console.log('Adding new item');
+        buyDate= new Date(buyDate);
+        expirationDate = new Date(expirationDate);
+
         var data = {
             category: category,
             sku: sku,
             name: name,
             quantity: quantity,
-            buyDate: buyDate,
-            expirationDate: expirationDate
+            buyDate: buyDate.toUTCString(),
+            expirationDate: expirationDate.toUTCString()
         };
         console.log(data);
         ProductService.newItemAdd(data).then(function(response) {
@@ -125,18 +128,22 @@ function ProductController($route, ProductService) {
         var i = 0;
         angular.forEach(add.itemsArray, function(values) {
 
-            var expirationDate = new Date(values.expiration_date);
+            var expirationDate = values.expiration_date.toLocaleString();
+              console.log('expiration date on controller',expirationDate);
             var beforeExpiration = moment(expirationDate).clone().subtract(3, 'days').format();
-
+            console.log(beforeExpiration);
             var today = new Date;
-            beforeExpiration = new Date(beforeExpiration);
-            var newToday = moment(today).startOf('day');
+            // console.log('today is', today);
+            // beforeExpiration = new Date(beforeExpiration);
+            // console.log(beforeExpiration);
+            var newToday = moment(today).startOf('day').format();
+            console.log(newToday);
 
-            if (beforeExpiration.getTime() == today.getTime()) {
+            if (beforeExpiration == newToday) {
                 //   add.sendText();
                 add.itemsArray[i].expirationStatus = 'expiring';
                 i++;
-            } else if (beforeExpiration.getTime() <= newToday._d.getTime()) {
+            } else if (beforeExpiration<= newToday) {
                 add.itemsArray[i].expirationStatus = 'expired';
                 i++;
             } else {

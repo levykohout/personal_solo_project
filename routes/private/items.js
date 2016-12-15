@@ -21,6 +21,8 @@ router.post('/', function(req, res) {
     var expirationDate = req.body.expirationDate;
     var user_id = req.user.id;
 
+    console.log('expiration date going in database', expirationDate);
+
     pool.connect(function(err, client, done) {
         if (err) {
             console.log('Error connecting to the DB', err);
@@ -60,11 +62,11 @@ function getItems(req, res) {
         }
 
         client.query('SELECT * FROM inventory WHERE user_id=$1',[user_id], function(err, result) {
-            done();
+
             if (err) {
                 console.log('Error querying the DB', err);
                 res.sendStatus(500);
-
+                  done();
                 return;
             }
             res.send(result.rows);
