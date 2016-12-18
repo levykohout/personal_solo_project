@@ -7,8 +7,8 @@ router.get('/google',
     'https://www.googleapis.com/auth/plus.profile.emails.read',
     'https://www.googleapis.com/auth/calendar',
     'https://mail.google.com'],
-    }
-  ));
+  }
+));
 
 router.get('/google/callback',
   passport.authenticate('google', {

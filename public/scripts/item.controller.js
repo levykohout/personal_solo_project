@@ -14,10 +14,10 @@ function ProductController($route, ProductService) {
         console.log('Getting items');
         ProductService.getItems().then(function(response) {
             add.itemsArray.length = 0;
-            var i = 0;
-            angular.forEach(response.data, function() {
-                add.itemsArray.push(response.data[i]);
-                i++;
+
+            angular.forEach(response.data, function(item) {
+                add.itemsArray.push(item);
+
             });
 
 
@@ -127,28 +127,25 @@ function ProductController($route, ProductService) {
         add.expirationStatus = false;
         var i = 0;
         angular.forEach(add.itemsArray, function(values) {
-
-            var expirationDate = values.expiration_date.toLocaleString();
-              console.log('expiration date on controller',expirationDate);
+          values.expiration_date = moment(values.expiration_date).format('MM/DD/YYYY');
+        values.date_bought = moment(values.date_bought).format('MM/DD/YYYY');
+            var expirationDate = values.expiration_date;
             var beforeExpiration = moment(expirationDate).clone().subtract(3, 'days').format();
             console.log(beforeExpiration);
             var today = new Date;
-            // console.log('today is', today);
-            // beforeExpiration = new Date(beforeExpiration);
-            // console.log(beforeExpiration);
             var newToday = moment(today).startOf('day').format();
             console.log(newToday);
 
             if (beforeExpiration == newToday) {
                 //   add.sendText();
-                add.itemsArray[i].expirationStatus = 'expiring';
-                i++;
+                values.expirationStatus = 'expiring';
+
             } else if (beforeExpiration<= newToday) {
-                add.itemsArray[i].expirationStatus = 'expired';
-                i++;
+                values.expirationStatus = 'expired';
+
             } else {
-                add.itemsArray[i].expirationStatus = 'not expired';
-                i++;
+                values.expirationStatus = 'not expired';
+
             }
         });
     };

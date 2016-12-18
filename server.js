@@ -34,15 +34,19 @@ app.use(passport.session());
 app.use('/auth', googleAuth);
 app.use('/private',isLoggedIn, private);
 
-app.get('/*', function (req, res) {
- if (req.isAuthenticated()) {
-    res.sendFile(path.join(__dirname, 'public/views/index.html'));
-} else {
 
-    res.redirect('/auth/google');
-  }
+app.get('/*', function (req, res) {
+ // if (req.isAuthenticated()) {
+    res.sendFile(path.join(__dirname, 'public/views/index.html'));
+// } else {
+//
+//     res.redirect('/auth/google');
+//   }
 
 });
+
+
+
 
 var port = process.env.PORT || 3000;
 var server = app.listen(port, function() {
