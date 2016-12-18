@@ -15,7 +15,7 @@
             <th></th>
         </thead>
 
-        <tr class="text-center" ng-repeat="item in product.itemsArray track by item.id">
+        <tr class="text-center" ng-repeat="item in product.itemsArray ">
             <td>
                 <div ng-hide="product.editingData[item.id]">{{item.category}}</div>
                 <div ng-show="product.editingData[item.id]">
