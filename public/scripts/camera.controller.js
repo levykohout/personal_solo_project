@@ -155,7 +155,7 @@ angular.module('myApp')
     function start() {
       if (window.stream) {
         videoElement.src = null;
-        window.stream.stop();
+        // window.stream.stop();
       }
       var audioSource = audioSelect.value;
       var videoSource = videoSelect.value;
