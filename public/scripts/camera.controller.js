@@ -204,11 +204,12 @@ angular.module('myApp')
     }
 
     function start() {
-      if (window.stream) {
-        videoElement.src = null;
-        MediaStreamTrack.stop();
-        // window.stream.stop();
-      }
+      // if (window.stream) {
+      //   videoElement.src = null;
+      //   // MediaStreamTrack.stop();
+      //   // window.stream.stop();
+      // }
+      console.log('start function started!');
       var audioSource = audioSelect.value;
       var videoSource = videoSelect.value;
       var constraints = {
