@@ -189,6 +189,7 @@ angular.module('myApp')
         typeof MediaStreamTrack.getSources === 'undefined') {
       alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
     } else {
+      // MediaDevices.enumerateDevices(gotSources);
       MediaStreamTrack.getSources(gotSources);
     }
 
@@ -205,6 +206,7 @@ angular.module('myApp')
     function start() {
       if (window.stream) {
         videoElement.src = null;
+        MediaStreamTrack.stop();
         // window.stream.stop();
       }
       var audioSource = audioSelect.value;
