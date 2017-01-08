@@ -1,5 +1,5 @@
 angular.module('myApp')
-    .controller('cameraController', function($scope, Upload) {
+    .controller('cameraController', function($scope, $interval, Upload) {
         var camera = this;
     //     var _video = null,
     //         patData = null;
@@ -199,7 +199,17 @@ angular.module('myApp')
 
       window.stream = stream; // make stream available to console
       videoElement.src = window.URL.createObjectURL(stream);
-      videoElement.play();
+      // Check ready state
+   function checkReadyState(){
+     if (videoElement.readyState == 4)
+     {
+       $interval.cancel(interval);
+       videoElement.play();
+       $scope.$emit('videoStreaming');
+     }
+   }
+   var interval = $interval(checkReadyState, 1000);
+      // videoElement.play();
     }
     //
     function errorCallback(error) {
