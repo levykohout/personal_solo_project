@@ -166,17 +166,19 @@ angular.module('myApp')
 
 
 
-
+                          var videoSources = [];
     function gotSources(sourceInfos) {
       for (var i = 0; i !== sourceInfos.length; ++i) {
         var sourceInfo = sourceInfos[i];
         var option = document.createElement('option');
         option.value = sourceInfo.id;
         if (sourceInfo.kind === 'audio') {
+            console.log(option);
           option.text = sourceInfo.label || 'microphone ' +
             (audioSelect.length + 1);
           audioSelect.appendChild(option);
         } else if (sourceInfo.kind === 'video') {
+        console.log(option);
           option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
           videoSelect.appendChild(option);
         } else {
@@ -189,11 +191,12 @@ angular.module('myApp')
         typeof MediaStreamTrack.getSources === 'undefined') {
       alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
     } else {
-      // MediaDevices.enumerateDevices(gotSources);
+
       MediaStreamTrack.getSources(gotSources);
     }
 
     function successCallback(stream) {
+
       window.stream = stream; // make stream available to console
       videoElement.src = window.URL.createObjectURL(stream);
       videoElement.play();
@@ -203,15 +206,15 @@ angular.module('myApp')
       console.log('navigator.getUserMedia error: ', error);
     }
 
-    function start() {
-      // if (window.stream) {
-      //   videoElement.src = null;
-      //   // MediaStreamTrack.stop();
-      //   // window.stream.stop();
-      // }
+    function start(cameraIndex) {
+      if (window.stream) {
+        videoElement.src = null;
+        // window.stream.stop();
+      }
       console.log('start function started!');
       var audioSource = audioSelect.value;
       var videoSource = videoSelect.value;
+      console.log(videoSource);
       var constraints = {
         audio: {
           optional: [{
@@ -233,19 +236,6 @@ angular.module('myApp')
     start();
 
 
-
-    // var _gaq = _gaq || [];
-    // _gaq.push(['_setAccount', 'UA-33848682-1']);
-    // _gaq.push(['_trackPageview']);
-    //
-    // (function() {
-    //   var ga = document.createElement('script');
-    //   ga.type = 'text/javascript';
-    //   ga.async = true;
-    //   ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    //   var s = document.getElementsByTagName('script')[0];
-    //   s.parentNode.insertBefore(ga, s);
-    // })();
 
 
 
