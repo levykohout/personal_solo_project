@@ -110,14 +110,43 @@ angular.module('myApp')
     // }; //end of sendSnapshotToServer
 
 
-    var videoElement = document.querySelector('video');
-    var audioSelect = document.querySelector('select#audioSource');
-    var videoSelect = document.querySelector('select#videoSource');
+    // var videoElement = document.querySelector('video');
+    // var audioSelect = document.querySelector('select#audioSource');
+    // var videoSelect = document.querySelector('select#videoSource');
 
-    navigator.getUserMedia  = navigator.getUserMedia ||
-                              navigator.webkitGetUserMedia ||
-                              navigator.mozGetUserMedia ||
-                              navigator.msGetUserMedia;
+    // Older browsers might not implement mediaDevices at all, so we set an empty object first
+if (navigator.mediaDevices === undefined) {
+  navigator.mediaDevices = {};
+}
+
+// Some browsers partially implement mediaDevices. We can't just assign an object
+// with getUserMedia as it would overwrite existing properties.
+// Here, we will just add the getUserMedia property if it's missing.
+if (navigator.mediaDevices.getUserMedia === undefined) {
+  navigator.mediaDevices.getUserMedia = function(constraints) {
+
+    // First get ahold of the legacy getUserMedia, if present
+    var getUserMedia = (navigator.getUserMedia ||
+      navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia);
+
+    // Some browsers just don't implement it - return a rejected promise with an error
+    // to keep a consistent interface
+    if (!getUserMedia) {
+      return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+    }
+
+    // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+    return new Promise(function(resolve, reject) {
+      getUserMedia.call(navigator, constraints, resolve, reject);
+    });
+  }
+}
+    // 
+    // navigator.getUserMedia  = navigator.getUserMedia ||
+    //                           navigator.webkitGetUserMedia ||
+    //                           navigator.mozGetUserMedia ||
+    //                           navigator.msGetUserMedia;
 
                           //     if (navigator.getUserMedia) {
                           //   navigator.getUserMedia({audio: true, video: true}, function(stream) {
@@ -165,89 +194,146 @@ angular.module('myApp')
 
 
 
+   //
+  //                         var videoSources = [];
+  //   function gotSources(sourceInfos) {
+  //     for (var i = 0; i !== sourceInfos.length; ++i) {
+  //       var sourceInfo = sourceInfos[i];
+  //       var option = document.createElement('option');
+  //       option.value = sourceInfo.id;
+  //       if (sourceInfo.kind === 'audio') {
+  //           console.log(option);
+  //         option.text = sourceInfo.label || 'microphone ' +
+  //           (audioSelect.length + 1);
+  //         audioSelect.appendChild(option);
+  //       } else if (sourceInfo.kind === 'video') {
+  //       console.log(option);
+  //         option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
+  //         videoSelect.appendChild(option);
+  //       } else {
+  //         console.log('Some other kind of source: ', sourceInfo);
+  //       }
+  //     }
+  //   }
+   //
+  //   if (typeof MediaStreamTrack === 'undefined' ||
+  //       typeof MediaStreamTrack.getSources === 'undefined') {
+  //     alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
+  //   } else {
+   //
+  //     MediaStreamTrack.getSources(gotSources);
+  //   }
+   //
+  //   function successCallback(stream) {
+   //
+  //     window.stream = stream; // make stream available to console
+  //     videoElement.src = window.URL.createObjectURL(stream);
+  //     // Check ready state
+  //  function checkReadyState(){
+  //    if (videoElement.readyState == 4)
+  //    {
+  //      $interval.cancel(interval);
+  //      videoElement.play();
+  //      $scope.$emit('videoStreaming');
+  //    }
+  //  }
+  //  var interval = $interval(checkReadyState, 1000);
+  //     // videoElement.play();
+  //   }
+  //   //
+  //   function errorCallback(error) {
+  //     console.log('navigator.getUserMedia error: ', error);
+  //   }
+   //
+  //   function start(cameraIndex) {
+  //     if (window.stream) {
+  //       videoElement.src = null;
+  //       // window.stream.stop();
+  //     }
+  //     console.log('start function started!');
+  //     var audioSource = audioSelect.value;
+  //     var videoSource = videoSelect.value;
+  //     console.log(videoSource);
+  //     var constraints = {
+  //       audio: false,
+  //       video: {
+  //         optional: [{
+  //           sourceId: videoSource
+  //         }]
+  //       }
+  //     };
+  //     navigator.getUserMedia(constraints, successCallback, errorCallback);
+  //   }
+   //
+  //   audioSelect.onchange = start;
+  //   videoSelect.onchange = start;
+   //
+  //   start();
+   //
+   camera.startCamera=function(selectedCamera){
+      // var myConstraints = { video: { facingMode: (front? "user" : "environment") } };
 
-                          var videoSources = [];
-    function gotSources(sourceInfos) {
-      for (var i = 0; i !== sourceInfos.length; ++i) {
-        var sourceInfo = sourceInfos[i];
-        var option = document.createElement('option');
-        option.value = sourceInfo.id;
-        if (sourceInfo.kind === 'audio') {
-            console.log(option);
-          option.text = sourceInfo.label || 'microphone ' +
-            (audioSelect.length + 1);
-          audioSelect.appendChild(option);
-        } else if (sourceInfo.kind === 'video') {
-        console.log(option);
-          option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
-          videoSelect.appendChild(option);
-        } else {
-          console.log('Some other kind of source: ', sourceInfo);
-        }
-      }
-    }
+   var myConstraints = {
+     audio: false,
+     video: {
+      //  facingMode: { exact: "environment" },
+       width: 1280,
+       height: 720,
+      sourceId: selectedCamera.deviceIndex
 
-    if (typeof MediaStreamTrack === 'undefined' ||
-        typeof MediaStreamTrack.getSources === 'undefined') {
-      alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
-    } else {
-
-      MediaStreamTrack.getSources(gotSources);
-    }
-
-    function successCallback(stream) {
-
-      window.stream = stream; // make stream available to console
-      videoElement.src = window.URL.createObjectURL(stream);
-      // Check ready state
-   function checkReadyState(){
-     if (videoElement.readyState == 4)
-     {
-       $interval.cancel(interval);
-       videoElement.play();
-       $scope.$emit('videoStreaming');
      }
+     }
+
+   navigator.mediaDevices.getUserMedia(myConstraints).then(function(mediaStream) {
+     /* use the stream */
+     var video = document.querySelector('video');
+     video.srcObject = mediaStream;
+     video.onloadedmetadata = function(e) {
+       video.play();
+     };
+   }).catch(function(err) {
+     /* handle the error */
+     console.log(err.name + ": " + err.message);
+   });
+   };
+
+   camera.videoSources=[];
+      // List cameras and microphones.
+   camera.getVideoSources = function(){
+      camera.videoSources.length=0;
+      navigator.mediaDevices.enumerateDevices()
+      .then(function(devices) {
+
+        devices.forEach(function(device) {
+          if(device.kind =='videoinput'){
+            camera.videoSources.push(device);
+          console.log(device.kind + ": " + device.label +
+                      " id = " + device.deviceId);
+                    }
+
+        });
+        // document.getElementById('videoSource').onclick = function() {
+        //   front = !front;
+           camera.startCamera(camera.videoSources[0]);
+        // };
+      })
+      .catch(function(err) {
+        console.log(err.name + ": " + err.message);
+      });
+
    }
-   var interval = $interval(checkReadyState, 1000);
-      // videoElement.play();
-    }
-    //
-    function errorCallback(error) {
-      console.log('navigator.getUserMedia error: ', error);
-    }
 
-    function start(cameraIndex) {
-      if (window.stream) {
-        videoElement.src = null;
-        // window.stream.stop();
-      }
-      console.log('start function started!');
-      var audioSource = audioSelect.value;
-      var videoSource = videoSelect.value;
-      console.log(videoSource);
-      var constraints = {
-        audio: {
-          optional: [{
-            sourceId: audioSource
-          }]
-        },
-        video: {
-          optional: [{
-            sourceId: videoSource
-          }]
-        }
-      };
-      navigator.getUserMedia(constraints, successCallback, errorCallback);
-    }
+  //  camera.getVideoSources();
 
-    audioSelect.onchange = start;
-    videoSelect.onchange = start;
+   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+     console.log("enumerateDevices() not supported.");
+     return;
+   } else {
+     camera.getVideoSources();
 
-    start();
+   }
 
-
-
-
+   var front = false;
 
 
 

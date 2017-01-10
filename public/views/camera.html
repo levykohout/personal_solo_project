@@ -16,14 +16,15 @@
 
         </div> -->
 
-        <div class="select">
-    <label for="audioSource">Audio source: </label><select ng-model="camera.selectedAudio" id="audioSource"></select>
-  </div>
-        <div class="select">
-   <label for="videoSource">Video source: </label><select ng-model="camera.selectedVideo" id="videoSource"></select>
- </div>
 
+        <div class="select">
+   <label for="videoSource">Video source: </label>
+   <select ng-model="camera.selectedVideo" id="videoSource" ng-options="source.label for source in camera.videoSources" ng-change="camera.startCamera(camera.selectedVideo)"></select>
+   <!-- <option ng-repeat="source in camera.videoSources">{{source.label}}</option> -->
+ </div>
+<div class="row col-md-4 text-center">
  <video muted autoplay></video>
+ </div>
 
     </div>
     <div class="col-md-4 text-center">
