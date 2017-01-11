@@ -23,7 +23,13 @@
                 <label class="btn" for="file"><span class="glyphicon glyphicon-open"></span>Choose a file</label>
             </span>
             <button class="btn btn-warning btn-lg" type="submit">Upload</button>
+            
         </form>
+        <div class="row text-center">
+            <h5>Image Preview:</h5>
+            <img ngf-thumbnail="receipt.file || '/thumb.jpg'">
+            <uib-progressbar class="progress-striped" max="100" value="receipt.progressPercentage" type="danger"><i>{{receipt.progressPercentage}}</i></uib-progressbar>
+        </div>
 <!-- <input type="file" accept="image/*" capture="camera"> -->
 
         <div class="select">
