@@ -112,7 +112,7 @@ angular.module('myApp')
 
     // var videoElement = document.querySelector('video');
     // var audioSelect = document.querySelector('select#audioSource');
-    // var videoSelect = document.querySelector('select#videoSource');
+    var videoSelect = document.querySelector('select#videoSource');
 
     // Older browsers might not implement mediaDevices at all, so we set an empty object first
 if (navigator.mediaDevices === undefined) {
@@ -142,7 +142,7 @@ if (navigator.mediaDevices.getUserMedia === undefined) {
     });
   }
 }
-    // 
+    //
     // navigator.getUserMedia  = navigator.getUserMedia ||
     //                           navigator.webkitGetUserMedia ||
     //                           navigator.mozGetUserMedia ||
@@ -266,23 +266,24 @@ if (navigator.mediaDevices.getUserMedia === undefined) {
   //   }
    //
   //   audioSelect.onchange = start;
-  //   videoSelect.onchange = start;
+
    //
   //   start();
    //
-   camera.startCamera=function(selectedCamera){
-      // var myConstraints = { video: { facingMode: (front? "user" : "environment") } };
+   camera.startCamera=function(){
+     var front=false;
+      var myConstraints = { audio: false, video: { facingMode: (front? "user" : "environment") } };
 
-   var myConstraints = {
-     audio: false,
-     video: {
-      //  facingMode: { exact: "environment" },
-       width: 1280,
-       height: 720,
-      sourceId: selectedCamera.deviceIndex
-
-     }
-     }
+  //  var myConstraints = {
+  //    audio: false,
+  //    video: {
+  //      facingMode: { exact: "environment" },
+  //      width: 1280,
+  //      height: 720,
+  //     // sourceId: selectedCamera.deviceIndex
+   //
+  //    }
+  //    }
 
    navigator.mediaDevices.getUserMedia(myConstraints).then(function(mediaStream) {
      /* use the stream */
@@ -298,9 +299,10 @@ if (navigator.mediaDevices.getUserMedia === undefined) {
    };
 
    camera.videoSources=[];
+  //  camera.selectedVideo=camera.videoSources[0];
       // List cameras and microphones.
    camera.getVideoSources = function(){
-      camera.videoSources.length=0;
+      // camera.videoSources.length=0;
       navigator.mediaDevices.enumerateDevices()
       .then(function(devices) {
 
@@ -314,7 +316,9 @@ if (navigator.mediaDevices.getUserMedia === undefined) {
         });
         // document.getElementById('videoSource').onclick = function() {
         //   front = !front;
-           camera.startCamera(camera.videoSources[0]);
+           camera.startCamera();
+          //  videoSelect.onchange = camera.startCamera;
+
         // };
       })
       .catch(function(err) {
@@ -324,16 +328,17 @@ if (navigator.mediaDevices.getUserMedia === undefined) {
    }
 
   //  camera.getVideoSources();
+   //
+  //  if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+  //    console.log("enumerateDevices() not supported.");
+  //    return;
+  //  } else {
+  //    camera.getVideoSources();
+   //
+  //  }
 
-   if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-     console.log("enumerateDevices() not supported.");
-     return;
-   } else {
-     camera.getVideoSources();
 
-   }
-
-   var front = false;
+camera.getVideoSources();
 
 
 
