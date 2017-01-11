@@ -1,5 +1,6 @@
 angular.module('myApp')
-    .controller('cameraController', function($scope, $interval, Upload) {
+    .controller('cameraController', function($scope, $interval, Upload,
+            ProductService) {
         var camera = this;
     //     var _video = null,
     //         patData = null;
@@ -84,7 +85,7 @@ angular.module('myApp')
         //
         var API_KEY = '25f539a74f88957';
         camera.data = {};
-
+camera.progressPercentage=0;
 
         camera.uploadFile = function() {
             Upload.upload({
@@ -99,12 +100,12 @@ angular.module('myApp')
                 camera.data = resp.data.ParsedResults[0].ParsedText;
                 console.log(camera.data);
                 console.log('Successful camera image uploaded. Response: ', resp.data);
-                // receipt.processData();
+                camera.processData();
 
             }, function(resp) {
                 console.log('Error status: ' + resp.status);
             }, function(evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                camera.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                 // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
             });
         }; //End of uploadFile function
@@ -354,7 +355,84 @@ angular.module('myApp')
 
 camera.getVideoSources();
 
+camera.processData = function() {
+    camera.skuArray = [];
+    camera.priceArray = [];
+    camera.productNames = [];
+    camera.quantityArray = [];
 
+    var i = 0;
+
+    camera.dataArray = camera.data.split('\n');
+    console.log(camera.dataArray);
+    //loop through each data in the array and save into new array per information type
+    angular.forEach(camera.dataArray, function(value, i) {
+        var data = camera.dataArray[i];
+
+        if (data.match(/[0-9]{8}/)) {
+            camera.skuArray.push(data);
+
+        } else if (data.match(/(.*[A-Z]){3}/)) {
+            camera.productNames.push({
+                productName: data,
+                quantity: 1,
+                dateBought: new Date(),
+                sku: ''
+            });
+
+        } else if (data.match(/^\$[0-9]\.[0-9]{2}/)) {
+            camera.priceArray.push(data);
+        } else {
+            console.log(data);
+            //   var j=0;
+            //   var priceAndQuantity = data.split(' ');
+            //   console.log(priceAndQuantity);
+            //   angular.forEach('priceAndQuantity', function(value , j){
+            //       var insideData =priceAndQuantity[i];
+            //       console.log(insideData);
+            //       if(insideData.match(/\$[0-9]\.[0-9]{2}/)){
+            //           priceArray.push(insideData);
+            //           console.log(priceArray);
+            //       } else if (/[0-9]/){
+            //           quantityArray.push(insideData);
+            //           console.log(quantityArray);
+            //       }
+            //
+            //       j++;
+            //   }); //End of inside forEach
+        }
+        i++;
+    }); //End of forEach function
+
+    camera.uploadData(camera.productNames, camera.skuArray);
+
+}; //End of processData function
+
+camera.uploadData = function() {
+    camera.dataToUpload = [];
+    var i = 0;
+    //   add SKU Number in productNames
+    camera.productNames.forEach(function(productNames) {
+        productNames.sku = camera.skuArray[i];
+        camera.dataToUpload.push(productNames);
+        console.log(productNames);
+        //upload to the database
+        var data = {
+            category: 'category3',
+            sku: productNames.sku,
+            name: productNames.productName,
+            quantity: productNames.quantity,
+            buyDate: productNames.dateBought,
+            expirationDate: moment(productNames.dateBought, "DD-MM-YYYY").add(5, 'days')
+        };
+
+        ProductService.newItemAdd(data).then(function(response) {
+            console.log('response from server after add', response);
+        });
+        i++;
+    });
+
+}; //End of uploadData
 
 
 
