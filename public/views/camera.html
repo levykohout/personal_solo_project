@@ -15,7 +15,16 @@
             <canvas id="snapshot" width="300" height="300"></canvas>
 
         </div> -->
-<input type="file" accept="image/*" capture="camera">
+        <form name="form" ng-submit="camera.uploadFile()">
+
+            <span class="btn btn-file">
+
+                <input type="file" ngf-select ng-model="camera.file"  name="file" id="file" class="inputfile" accept="image/*" capture="camera"/>
+                <label class="btn" for="file"><span class="glyphicon glyphicon-open"></span>Choose a file</label>
+            </span>
+            <button class="btn btn-warning btn-lg" type="submit">Upload</button>
+        </form>
+<!-- <input type="file" accept="image/*" capture="camera"> -->
 
         <div class="select">
    <label for="videoSource">Video source: </label>

@@ -78,34 +78,36 @@ angular.module('myApp')
     //      *
     //      * In this example, we simply store it in the scope for display.
     //      */
-    //     var sendSnapshotToServer = function sendSnapshotToServer(imgBase64) {
-    //         camera.snapshotData = imgBase64;
-    //         console.log(imgBase64);
-    //
-    //     var API_KEY = '25f539a74f88957';
-    //     camera.data = {};
-    //
-    //     // camera.uploadFile = function() {
-    //         Upload.upload({
-    //             url: 'https://api.ocr.space/parse/image',
-    //             data: {
-    //                 base64Image: camera.snapshotData,
-    //                 'apikey': API_KEY
-    //             }
-    //         }).then(function(resp) {
-    //             console.log(resp);
-    //             camera.data = resp.data.ParsedResults[0].ParsedText;
-    //             console.log(camera.data);
-    //             console.log('Successful camera image uploaded. Response: ', resp.data);
-    //             // receipt.processData();
-    //
-    //         }, function(resp) {
-    //             console.log('Error status: ' + resp.status);
-    //         }, function(evt) {
-    //             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-    //             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-    //         });
-    //     // }; //End of uploadFile function
+        // var sendSnapshotToServer = function sendSnapshotToServer(imgBase64) {
+        //     camera.snapshotData = imgBase64;
+        //     console.log(imgBase64);
+        //
+        var API_KEY = '25f539a74f88957';
+        camera.data = {};
+
+
+        camera.uploadFile = function() {
+            Upload.upload({
+                url: 'https://api.ocr.space/parse/image',
+                data: {
+                    // base64Image: camera.snapshotData ||
+                    base64Image: camera.file,
+                    'apikey': API_KEY
+                }
+            }).then(function(resp) {
+                console.log(resp);
+                camera.data = resp.data.ParsedResults[0].ParsedText;
+                console.log(camera.data);
+                console.log('Successful camera image uploaded. Response: ', resp.data);
+                // receipt.processData();
+
+            }, function(resp) {
+                console.log('Error status: ' + resp.status);
+            }, function(evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
+        }; //End of uploadFile function
     //
     // }; //end of sendSnapshotToServer
 
@@ -351,6 +353,8 @@ angular.module('myApp')
 
 
 camera.getVideoSources();
+
+
 
 
 
