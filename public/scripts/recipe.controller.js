@@ -46,12 +46,13 @@ function RecipeController($http, $scope, ProductService) {
                 console.log('Item is expiring in 3 days, suggested recipes here!');
                 recipe.keywords += values.product_name+ ' ';
                 console.log('recipe keywords', recipe.keywords);
-                recipe.getRecipes();
+
 
             } else {
                 console.log('Item is not expired');
             }
         });
+            recipe.getRecipes();
 
     }; //End of checkExpirationDate function
 

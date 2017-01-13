@@ -14,20 +14,20 @@ function ReceiptController(Upload, ProductService) {
         Upload.upload({
             url: 'https://api.ocr.space/parse/image',
             data: {
-                file: receipt.file,
+                base64Image: receipt.file,
                 'apikey': API_KEY
             }
         }).then(function(resp) {
             receipt.data = resp.data.ParsedResults[0].ParsedText;
             console.log(receipt.data);
-            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ', resp.data);
+            // console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ', resp.data);
             receipt.processData();
 
         }, function(resp) {
             console.log('Error status: ' + resp.status);
         }, function(evt) {
             receipt.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progress: ' + receipt.progressPercentage + '% ' + evt.config.data.file.name);
+            // console.log('progress: ' + receipt.progressPercentage + '% ' + evt.config.data.file.name);
         });
     }; //End of uploadFile function
 
