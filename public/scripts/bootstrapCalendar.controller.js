@@ -84,6 +84,7 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
             vm.eventsArray = response.data;
             // var i = 0;
             vm.events.length = 0;
+            if(vm.eventsArray){
             vm.eventsArray.forEach(function(data) {
                 // var data = vm.eventsArray[i];
                 console.log(data);
@@ -99,6 +100,7 @@ function BootstrapCalendarCtrl(moment, alert, calendarConfig, ProductService) {
                 });
                 // i++;
             }); //End of for each
+          }
             console.log('New vm.events', vm.events);
 
         });
